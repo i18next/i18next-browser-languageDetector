@@ -1,6 +1,6 @@
 {
   "name": "i18nextBrowserLanguageDetector",
-  "version": "0.0.1",
+  "version": "0.0.4",
   "main": "./bin/index.js",
   "dependencies": {},
   "ignore": [
