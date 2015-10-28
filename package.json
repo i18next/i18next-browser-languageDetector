@@ -1,6 +1,6 @@
 {
   "name": "i18next-browser-languagedetector",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "backend layer for i18next using browsers xhr",
   "main": "./bin/index.js",
   "keywords": [
