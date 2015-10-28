@@ -1,2 +1,330 @@
-!function(e){if("object"==typeof exports&&"undefined"!=typeof module)module.exports=e();else if("function"==typeof define&&define.amd)define([],e);else{var t;t="undefined"!=typeof window?window:"undefined"!=typeof global?global:"undefined"!=typeof self?self:this,t.i18nextBrowserLanguageDetector=e()}}(function(){return function e(t,o,n){function r(a,u){if(!o[a]){if(!t[a]){var s="function"==typeof require&&require;if(!u&&s)return s(a,!0);if(i)return i(a,!0);var c=new Error("Cannot find module '"+a+"'");throw c.code="MODULE_NOT_FOUND",c}var l=o[a]={exports:{}};t[a][0].call(l.exports,function(e){var o=t[a][1][e];return r(o?o:e)},l,l.exports,e,t,o,n)}return o[a].exports}for(var i="function"==typeof require&&require,a=0;a<n.length;a++)r(n[a]);return r}({1:[function(e,t,o){"use strict";function n(e){return e&&e.__esModule?e:{"default":e}}function r(e){if(e&&e.__esModule)return e;var t={};if(null!=e)for(var o in e)Object.prototype.hasOwnProperty.call(e,o)&&(t[o]=e[o]);return t["default"]=e,t}function i(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}function a(){return{order:["querystring","cookie","localStorage","navigator"],lookupQuerystring:"lng",lookupCookie:"i18next",lookupLocalStorage:"i18nextLng",caches:["localStorage"]}}Object.defineProperty(o,"__esModule",{value:!0});var u=function(){function e(e,t){for(var o=0;o<t.length;o++){var n=t[o];n.enumerable=n.enumerable||!1,n.configurable=!0,"value"in n&&(n.writable=!0),Object.defineProperty(e,n.key,n)}}return function(t,o,n){return o&&e(t.prototype,o),n&&e(t,n),t}}(),s=e("./utils"),c=r(s),l=e("./browserLookups/cookie"),f=n(l),d=e("./browserLookups/querystring"),g=n(d),p=e("./browserLookups/localStorage"),v=n(p),h=e("./browserLookups/navigator"),k=n(h),w=function(){function e(t){var o=arguments.length<=1||void 0===arguments[1]?{}:arguments[1];i(this,e),this.init(t,o),this.type="languageDetector",this.detectors={}}return u(e,[{key:"init",value:function(e){var t=arguments.length<=1||void 0===arguments[1]?{}:arguments[1];this.services=e,this.options=c.defaults(t,this.options||{},a()),this.addDetector(f["default"]),this.addDetector(g["default"]),this.addDetector(v["default"]),this.addDetector(k["default"])}},{key:"addDetector",value:function(e){this.detectors[e.name]=e}},{key:"detect",value:function(e){var t=this;e||(e=this.options.order);var o=[];e.forEach(function(e){if(this.detectors[e]){var t=this.detectors[e].lookup(this.options);t&&"string"==typeof t&&(t=[t]),t&&(o=o.concat(t))}});var n=void 0;return o.forEach(function(e){if(!n){var o=t.services.languageUtils.formatLanguageCode(e);t.services.languageUtils.isWhitelisted(o)&&(n=o)}}),n||this.options.fallbackLng[0]}},{key:"cacheUserLanguage",value:function(e,t){t||(t=this.options.detection.caches),t.forEach(function(t){this.detectors[t]&&this.detectors[t].cacheUserLanguage(e,this.options)})}}]),e}();o["default"]=w,t.exports=o["default"]},{"./browserLookups/cookie":2,"./browserLookups/localStorage":3,"./browserLookups/navigator":4,"./browserLookups/querystring":5,"./utils":6}],2:[function(e,t,o){"use strict";Object.defineProperty(o,"__esModule",{value:!0});var n={create:function(e,t,o,n){var r=void 0;if(o){var i=new Date;i.setTime(i.getTime()+60*o*1e3),r="; expires="+i.toGMTString()}else r="";n=n?"domain="+n+";":"",document.cookie=e+"="+t+r+";"+n+"path=/"},read:function(e){for(var t=e+"=",o=document.cookie.split(";"),n=0;n<o.length;n++){for(var r=o[n];" "===r.charAt(0);)r=r.substring(1,r.length);if(0===r.indexOf(t))return r.substring(t.length,r.length)}return null},remove:function(e){this.create(e,"",-1)}};o["default"]={name:"cookie",lookup:function(e){var t=void 0;if(e.lookupCookie&&"undefined"!=typeof document){var o=n.read(e.lookupCookie);o&&(t=o)}return t},cacheUserLanguage:function(e,t){t.lookupCookie&&"undefined"!=typeof document&&n.create(t.lookupCookie,e,t.cookieMinutes,t.cookieDomain)}},t.exports=o["default"]},{}],3:[function(e,t,o){"use strict";Object.defineProperty(o,"__esModule",{value:!0});var n={setItem:function(e,t){if(window.localStorage)try{window.localStorage.setItem(e,t)}catch(o){}},getItem:function(e,t){if(window.localStorage)try{return window.localStorage.getItem(e,t)}catch(o){return void 0}}};o["default"]={name:"localStorage",lookup:function(e){var t=void 0;if(e.lookupLocalStorage&&"undefined"!=typeof window&&window.localStorage){var o=n.getItem(e.lookupLocalStorage);o&&(t=o)}return t},cacheUserLanguage:function(e,t){t.lookupLocalStorage&&"undefined"!=typeof window&&window.localStorage&&n.setItem(t.lookupLocalStorage,e)}},t.exports=o["default"]},{}],4:[function(e,t,o){"use strict";Object.defineProperty(o,"__esModule",{value:!0}),o["default"]={name:"navigator",lookup:function(e){var t=[];if("undefined"!=typeof navigator){if(navigator.languages)for(var o=0;o<navigator.languages.length;o++)t.push(navigator.languages[o]);navigator.userLanguage&&t.push(navigator.userLanguage),navigator.language&&t.push(navigator.language)}return t.length>0?t:void 0}},t.exports=o["default"]},{}],5:[function(e,t,o){"use strict";Object.defineProperty(o,"__esModule",{value:!0}),o["default"]={name:"querystring",lookup:function(e){var t=void 0;if("undefined"!=typeof window)for(var o=window.location.search.substring(1),n=o.split("&"),r=0;r<n.length;r++){var i=n[r].indexOf("=");if(i>0){var a=n[r].substring(0,i);a===e.lookupQuerystring&&(t=n[r].substring(i+1))}}return t}},t.exports=o["default"]},{}],6:[function(e,t,o){"use strict";function n(e){return a.call(u.call(arguments,1),function(t){if(t)for(var o in t)void 0===e[o]&&(e[o]=t[o])}),e}function r(e){return a.call(u.call(arguments,1),function(t){if(t)for(var o in t)e[o]=t[o]}),e}Object.defineProperty(o,"__esModule",{value:!0}),o.defaults=n,o.extend=r;var i=[],a=i.forEach,u=i.slice},{}]},{},[1])(1)});
+(function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.i18nextBrowserLanguageDetector = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
+
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj['default'] = obj; return newObj; } }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+var _utils = require('./utils');
+
+var utils = _interopRequireWildcard(_utils);
+
+var _browserLookupsCookie = require('./browserLookups/cookie');
+
+var _browserLookupsCookie2 = _interopRequireDefault(_browserLookupsCookie);
+
+var _browserLookupsQuerystring = require('./browserLookups/querystring');
+
+var _browserLookupsQuerystring2 = _interopRequireDefault(_browserLookupsQuerystring);
+
+var _browserLookupsLocalStorage = require('./browserLookups/localStorage');
+
+var _browserLookupsLocalStorage2 = _interopRequireDefault(_browserLookupsLocalStorage);
+
+var _browserLookupsNavigator = require('./browserLookups/navigator');
+
+var _browserLookupsNavigator2 = _interopRequireDefault(_browserLookupsNavigator);
+
+function getDefaults() {
+  return {
+    order: ['querystring', 'cookie', 'localStorage', 'navigator'],
+    lookupQuerystring: 'lng',
+    lookupCookie: 'i18next',
+    lookupLocalStorage: 'i18nextLng',
+
+    // cache user language
+    caches: ['localStorage']
+    //cookieMinutes: 10,
+    //cookieDomain: 'myDomain'
+  };
+}
+
+var Browser = (function () {
+  function Browser(services) {
+    var options = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
+
+    _classCallCheck(this, Browser);
+
+    this.init(services, options);
+
+    this.type = 'languageDetector';
+    this.detectors = {};
+  }
+
+  _createClass(Browser, [{
+    key: 'init',
+    value: function init(services) {
+      var options = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
+
+      this.services = services;
+      this.options = utils.defaults(options, this.options || {}, getDefaults());
+
+      this.addDetector(_browserLookupsCookie2['default']);
+      this.addDetector(_browserLookupsQuerystring2['default']);
+      this.addDetector(_browserLookupsLocalStorage2['default']);
+      this.addDetector(_browserLookupsNavigator2['default']);
+    }
+  }, {
+    key: 'addDetector',
+    value: function addDetector(detector) {
+      this.detectors[detector.name] = detector;
+    }
+  }, {
+    key: 'detect',
+    value: function detect(detectionOrder) {
+      var _this = this;
+
+      if (!detectionOrder) detectionOrder = this.options.order;
+
+      var detected = [];
+      detectionOrder.forEach(function (detectorName) {
+        if (this.detectors[detectorName]) {
+          var lookup = this.detectors[detectorName].lookup(this.options);
+          if (lookup && typeof lookup === 'string') lookup = [lookup];
+          if (lookup) detected = detected.concat(lookup);
+        }
+      });
+
+      var found = undefined;
+      detected.forEach(function (lng) {
+        if (found) return;
+        var cleanedLng = _this.services.languageUtils.formatLanguageCode(lng);
+        if (_this.services.languageUtils.isWhitelisted(cleanedLng)) found = cleanedLng;
+      });
+
+      return found || this.options.fallbackLng[0];
+    }
+  }, {
+    key: 'cacheUserLanguage',
+    value: function cacheUserLanguage(lng, caches) {
+      if (!caches) caches = this.options.detection.caches;
+      caches.forEach(function (cacheName) {
+        if (this.detectors[cacheName]) {
+          this.detectors[cacheName].cacheUserLanguage(lng, this.options);
+        }
+      });
+    }
+  }]);
+
+  return Browser;
+})();
+
+exports['default'] = Browser;
+module.exports = exports['default'];
+
+},{"./browserLookups/cookie":2,"./browserLookups/localStorage":3,"./browserLookups/navigator":4,"./browserLookups/querystring":5,"./utils":6}],2:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
+var cookie = {
+  create: function create(name, value, minutes, domain) {
+    var expires = undefined;
+    if (minutes) {
+      var date = new Date();
+      date.setTime(date.getTime() + minutes * 60 * 1000);
+      expires = '; expires=' + date.toGMTString();
+    } else expires = '';
+    domain = domain ? 'domain=' + domain + ';' : '';
+    document.cookie = name + '=' + value + expires + ';' + domain + 'path=/';
+  },
+
+  read: function read(name) {
+    var nameEQ = name + '=';
+    var ca = document.cookie.split(';');
+    for (var i = 0; i < ca.length; i++) {
+      var c = ca[i];
+      while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+      if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+    }
+    return null;
+  },
+
+  remove: function remove(name) {
+    this.create(name, '', -1);
+  }
+};
+
+exports['default'] = {
+  name: 'cookie',
+
+  lookup: function lookup(options) {
+    var found = undefined;
+
+    if (options.lookupCookie && typeof document !== 'undefined') {
+      var c = cookie.read(options.lookupCookie);
+      if (c) found = c;
+    }
+
+    return found;
+  },
+
+  cacheUserLanguage: function cacheUserLanguage(lng, options) {
+    if (options.lookupCookie && typeof document !== 'undefined') {
+      cookie.create(options.lookupCookie, lng, options.cookieMinutes, options.cookieDomain);
+    }
+  }
+};
+module.exports = exports['default'];
+
+},{}],3:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
+var storage = {
+  setItem: function setItem(key, value) {
+    if (window.localStorage) {
+      try {
+        window.localStorage.setItem(key, value);
+      } catch (e) {
+        //f.log('failed to set value for key '' + key + '' to localStorage.');
+      }
+    }
+  },
+  getItem: function getItem(key, value) {
+    if (window.localStorage) {
+      try {
+        return window.localStorage.getItem(key, value);
+      } catch (e) {
+        //f.log('failed to get value for key '' + key + '' from localStorage.');
+        return undefined;
+      }
+    }
+  }
+};
+
+exports['default'] = {
+  name: 'localStorage',
+
+  lookup: function lookup(options) {
+    var found = undefined;
+
+    if (options.lookupLocalStorage && typeof window !== 'undefined' && window.localStorage) {
+      var lng = storage.getItem(options.lookupLocalStorage);
+      if (lng) found = lng;
+    }
+
+    return found;
+  },
+
+  cacheUserLanguage: function cacheUserLanguage(lng, options) {
+    if (options.lookupLocalStorage && typeof window !== 'undefined' && window.localStorage) {
+      storage.setItem(options.lookupLocalStorage, lng);
+    }
+  }
+};
+module.exports = exports['default'];
+
+},{}],4:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
+exports['default'] = {
+  name: 'navigator',
+
+  lookup: function lookup(options) {
+    var found = [];
+
+    if (typeof navigator !== 'undefined') {
+      if (navigator.languages) {
+        // chrome only; not an array, so can't use .push.apply instead of iterating
+        for (var i = 0; i < navigator.languages.length; i++) {
+          found.push(navigator.languages[i]);
+        }
+      }
+      if (navigator.userLanguage) {
+        found.push(navigator.userLanguage);
+      }
+      if (navigator.language) {
+        found.push(navigator.language);
+      }
+    }
+
+    return found.length > 0 ? found : undefined;
+  }
+};
+module.exports = exports['default'];
+
+},{}],5:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
+exports['default'] = {
+  name: 'querystring',
+
+  lookup: function lookup(options) {
+    var found = undefined;
+
+    if (typeof window !== 'undefined') {
+      var query = window.location.search.substring(1);
+      var params = query.split('&');
+      for (var i = 0; i < params.length; i++) {
+        var pos = params[i].indexOf('=');
+        if (pos > 0) {
+          var key = params[i].substring(0, pos);
+          if (key === options.lookupQuerystring) {
+            found = params[i].substring(pos + 1);
+          }
+        }
+      }
+    }
+
+    return found;
+  }
+};
+module.exports = exports['default'];
+
+},{}],6:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.defaults = defaults;
+exports.extend = extend;
+var arr = [];
+var each = arr.forEach;
+var slice = arr.slice;
+
+function defaults(obj) {
+  each.call(slice.call(arguments, 1), function (source) {
+    if (source) {
+      for (var prop in source) {
+        if (obj[prop] === undefined) obj[prop] = source[prop];
+      }
+    }
+  });
+  return obj;
+}
+
+function extend(obj) {
+  each.call(slice.call(arguments, 1), function (source) {
+    if (source) {
+      for (var prop in source) {
+        obj[prop] = source[prop];
+      }
+    }
+  });
+  return obj;
+}
+
+},{}]},{},[1])(1)
+});
+
+
 //# sourceMappingURL=index.js.map
