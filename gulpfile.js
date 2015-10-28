@@ -1,4 +1,8 @@
 var gulp = require('gulp'),
+    git = require('gulp-git'),
+    bump = require('gulp-bump'),
+    filter = require('gulp-filter'),
+    tag_version = require('gulp-tag-version'),
     argv = require('yargs').argv,
     gulpif = require('gulp-if'),
     uglify = require('gulp-uglify'),
@@ -71,16 +75,30 @@ gulp.task('tdd', function (done) {
   }, done).start();
 });
 
+function inc(version) {
+  if (!version) return;
+
+  // get all the files to bump version in
+  return gulp.src(['./package.json', './bower.json'])
+    // bump the version number in those files
+    .pipe(bump({version: version}))
+    // save it back to filesystem
+    .pipe(gulp.dest('./'))
+    // commit the changed version number
+    .pipe(git.commit('bumps package version'))
+
+    // read only one file to get the version number
+    .pipe(filter('package.json'))
+    // **tag it in the repository**
+    .pipe(tag_version());
+}
+
 function watch() {
   return compile(true);
 };
-
-gulp.task('npmPublish', shell.task([
-  'npm publish'
-]));
 
 gulp.task('build', function() { return compile(); });
 gulp.task('watch', function() { return watch(); });
 
 gulp.task('default', ['watch']);
-gulp.task('publish', ['build', 'npmPublish']);
+gulp.task('publish', ['build', function() { return inc(argv.v); }]);
