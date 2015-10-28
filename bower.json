@@ -6,6 +6,7 @@
   "ignore": [
     "test/",
     "lib/",
+    "src/",
     "coverage/",
     ".babelrc",
     ".gitignore",

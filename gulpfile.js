@@ -1,4 +1,5 @@
 var gulp = require('gulp'),
+    babel = require('gulp-babel'),
     prompt = require('gulp-prompt'),
     git = require('gulp-git'),
     bump = require('gulp-bump'),
@@ -13,7 +14,7 @@ var gulp = require('gulp'),
     buffer = require('vinyl-buffer'),
     browserify = require('browserify'),
     watchify = require('watchify'),
-    babel = require('babelify'),
+    babelify = require('babelify'),
     eslint = require('gulp-eslint'),
     Server = require('karma').Server;
 
@@ -24,7 +25,7 @@ var entry = 'index.js',
     output = 'index.js';
 
 function compile(watch) {
-  var bundler = browserify('./lib/' + entry, { debug: argv.debug, standalone: standaloneName }).transform(babel);
+  var bundler = browserify('./src/' + entry, { debug: argv.debug, standalone: standaloneName }).transform(babelify);
   if (watch) {
     bundle = watchify(bundler);
   }
@@ -78,6 +79,12 @@ gulp.task('tdd', function (done) {
   new Server({
     configFile: __dirname + '/karma.conf.js'
   }, done).start();
+});
+
+gulp.task('babel', function () {
+  return gulp.src('./src/**/*.js')
+    .pipe(babel())
+    .pipe(gulp.dest('./lib'));
 });
 
 function inc(version) {

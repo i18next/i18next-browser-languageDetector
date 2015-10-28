@@ -1,10 +1,5 @@
-'use strict';
-
-Object.defineProperty(exports, '__esModule', {
-  value: true
-});
-var storage = {
-  setItem: function setItem(key, value) {
+let storage = {
+  setItem: function(key, value) {
     if (window.localStorage) {
       try {
         window.localStorage.setItem(key, value);
@@ -13,7 +8,7 @@ var storage = {
       }
     }
   },
-  getItem: function getItem(key, value) {
+  getItem: function(key, value) {
     if (window.localStorage) {
       try {
         return window.localStorage.getItem(key, value);
@@ -25,11 +20,11 @@ var storage = {
   }
 };
 
-exports['default'] = {
+export default {
   name: 'localStorage',
 
-  lookup: function lookup(options) {
-    var found = undefined;
+  lookup(options) {
+    let found;
 
     if (options.lookupLocalStorage && typeof window !== 'undefined' && window.localStorage) {
       var lng = storage.getItem(options.lookupLocalStorage);
@@ -39,10 +34,9 @@ exports['default'] = {
     return found;
   },
 
-  cacheUserLanguage: function cacheUserLanguage(lng, options) {
+  cacheUserLanguage(lng, options) {
     if (options.lookupLocalStorage && typeof window !== 'undefined' && window.localStorage) {
       storage.setItem(options.lookupLocalStorage, lng);
     }
   }
 };
-module.exports = exports['default'];

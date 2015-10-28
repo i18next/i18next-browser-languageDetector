@@ -19,7 +19,7 @@ module.exports = function(karma) {
 
     preprocessors: {
       'test/**/*.spec.js': [ 'browserify' ],
-      'lib/**/*.js': [ 'browserify' ]
+      'src/**/*.js': [ 'browserify' ]
     },
 
     browsers: [ 'PhantomJS' ],
