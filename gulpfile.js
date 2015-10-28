@@ -78,6 +78,15 @@ gulp.task('tdd', function (done) {
 function inc(version) {
   if (!version) return;
 
+  function cb(obj) {
+    var stream = new require('stream').Transform({objectMode: true});
+    stream._transform = function(file, unused, callback) {
+      obj();
+      callback(null, file);
+    };
+    return stream;
+  }
+
   // get all the files to bump version in
   return gulp.src(['./package.json', './bower.json'])
     // bump the version number in those files
@@ -90,7 +99,14 @@ function inc(version) {
     // read only one file to get the version number
     .pipe(filter('package.json'))
     // **tag it in the repository**
-    .pipe(tag_version());
+    .pipe(tag_version({prefix: ''}))
+
+    // push tag
+    .pipe(cb(function() {
+      git.push('origin','master', {args: ' --tags'}, function (err) {
+        if (err) throw err;
+      });
+    }));
 }
 
 function watch() {
@@ -99,6 +115,7 @@ function watch() {
 
 gulp.task('build', function() { return compile(); });
 gulp.task('watch', function() { return watch(); });
+gulp.task('bump', function() { return inc(argv.v); });
 
 gulp.task('default', ['watch']);
-gulp.task('publish', ['build', function() { return inc(argv.v); }]);
+gulp.task('publish', ['build', 'bump']);
