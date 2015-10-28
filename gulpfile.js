@@ -125,8 +125,6 @@ function inc(version) {
     .pipe(type ? bump({type: type}) : bump({version: version}))
     // save it back to filesystem
     .pipe(gulp.dest('./'))
-    // commit the changed version number
-    .pipe(git.commit('bumps package version'))
 
     // read only one file to get the version number
     .pipe(filter('package.json'))
@@ -135,9 +133,10 @@ function inc(version) {
 
     // push tag
     .pipe(prompt.confirm({
-        message: 'Push tag ' + version + ' to github?',
+        message: 'Commit and Push tag ' + version + ' to github?',
         default: false
     }))
+    .pipe(git.commit('bumps package version'))
     .pipe(cb(function() {
       git.push('origin','master', {args: ' --tags'}, function (err) {
         if (err) throw err;
@@ -158,9 +157,10 @@ function watch() {
   return compile(true);
 };
 
-gulp.task('build', function() { return compile(); });
+gulp.task('concat', function() { return compile(); });
 gulp.task('watch', function() { return watch(); });
 gulp.task('bump', function() { return inc(argv.v); });
 
 gulp.task('default', ['watch']);
-gulp.task('publish', ['build', 'babel', 'bump']);
+gulp.task('build', ['concat', 'babel']);
+gulp.task('publish', ['bump']);
