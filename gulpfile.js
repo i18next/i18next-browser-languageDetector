@@ -163,4 +163,4 @@ gulp.task('watch', function() { return watch(); });
 gulp.task('bump', function() { return inc(argv.v); });
 
 gulp.task('default', ['watch']);
-gulp.task('publish', ['build', 'bump']);
+gulp.task('publish', ['build', 'babel', 'bump']);
