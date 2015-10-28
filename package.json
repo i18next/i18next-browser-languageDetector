@@ -1,6 +1,6 @@
 {
   "name": "i18next-browser-languagedetector",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "backend layer for i18next using browsers xhr",
   "main": "./bin/index.js",
   "keywords": [
@@ -23,6 +23,7 @@
     "gulp-babel": "5.2.1",
     "gulp-eslint": "1.0.0",
     "gulp-if": "2.0.0",
+    "gulp-shell": "0.5.0",
     "gulp-sourcemaps": "1.5.2",
     "gulp-uglify": "1.4.2",
     "istanbul": "gotwarlost/istanbul#source-map",
@@ -47,6 +48,11 @@
   },
   "scripts": {
     "test": "gulp test"
+  },
+  "browserify": {
+    "transform": [
+      "babelify"
+    ]
   },
   "author": "Jan Mühlemann <jan.muehlemann@gmail.com> (https://github.com/jamuhl)",
   "license": "MIT"

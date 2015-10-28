@@ -11,7 +11,7 @@ var gulp = require('gulp'),
     eslint = require('gulp-eslint'),
     Server = require('karma').Server;
 
-var entry = 'Browser.js',
+var entry = 'index.js',
     output = 'index.js';
 
 function compile(watch) {
@@ -75,7 +75,12 @@ function watch() {
   return compile(true);
 };
 
+gulp.task('npmPublish', shell.task([
+  'npm publish'
+]));
+
 gulp.task('build', function() { return compile(); });
 gulp.task('watch', function() { return watch(); });
 
 gulp.task('default', ['watch']);
+gulp.task('publish', ['build', 'npmPublish']);
