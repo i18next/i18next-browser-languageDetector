@@ -1,0 +1,20 @@
+{
+  "name": "i18nextBrowserLanguageDetector",
+  "version": "0.0.1",
+  "main": "./bin/index.js",
+  "dependencies": {},
+  "ignore": [
+    "test/",
+    "lib/",
+    "coverage/",
+    ".babelrc",
+    ".gitignore",
+    ".editorconfig",
+    ".eslintignore",
+    ".eslintrc",
+    ".npmignore",
+    "gulpfile.js",
+    "package.json",
+    "karma.conf.js"
+  ]
+}

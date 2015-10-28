@@ -1,2 +1,5 @@
 # i18next-browser-languageDetector
-language detector used in browser environment for i18next
+
+
+`gulp build` builds release version
+`gulp build --debug` will build unminified version
