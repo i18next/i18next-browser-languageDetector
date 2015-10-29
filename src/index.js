@@ -70,4 +70,6 @@ class Browser {
   }
 }
 
+Browser.type = 'languageDetector';
+
 export default Browser;
