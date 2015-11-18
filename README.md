@@ -86,6 +86,8 @@ via calling init:
 ## Adding own detection functionality
 
 ### interface
+
+```js
 export default {
   name: 'myDetectorsName',
 
@@ -101,6 +103,7 @@ export default {
     // store it
   }
 };
+```
 
 
 ### adding it
