@@ -1,4 +1,5 @@
 var gulp = require('gulp'),
+    rename = require('gulp-rename'),
     babel = require('gulp-babel'),
     prompt = require('gulp-prompt'),
     git = require('gulp-git'),
@@ -87,16 +88,23 @@ gulp.task('babel', function () {
     .pipe(gulp.dest('./lib'));
 });
 
+gulp.task('rename', function () {
+  return gulp
+    .src('./bin/index.js')
+    .pipe(rename('./' + standaloneName + '.min.js'))
+    .pipe(gulp.dest('./'));
+});
+
 function inc(version) {
   if (!version) return;
 
-  var type;
+  var type, tag;
 
   if (version.indexOf('.') < 0) {
     if (version === 'major' || version === 'minor' || version === 'patch') {
       type = version;
     } else {
-      var tag = version;
+      tag = version;
 
       var parts = pkg.version.split('-');
       if (parts.length > 1) {
@@ -151,7 +159,7 @@ function inc(version) {
         default: false
     }))
     .pipe(shell([
-      'npm publish'
+      'npm publish --tag ' + (tag ? tag : 'latest')
     ]));
 }
 
@@ -164,5 +172,5 @@ gulp.task('watch', function() { return watch(); });
 gulp.task('bump', function() { return inc(argv.v); });
 
 gulp.task('default', ['watch']);
-gulp.task('build', ['concat', 'babel']);
+gulp.task('build', ['concat', 'babel', 'rename']);
 gulp.task('publish', ['bump']);
