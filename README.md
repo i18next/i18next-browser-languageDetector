@@ -55,7 +55,7 @@ As with all modules you can either pass the constructor function (class) to the 
 
 Options can be passed in:
 
-**preferred** - by setting options.backend in i18next.init:
+**preferred** - by setting options.detection in i18next.init:
 
 ```js
 import i18next from 'i18next';
