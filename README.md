@@ -16,8 +16,10 @@ Source can be loaded via [npm](https://www.npmjs.com/package/i18next-browser-lan
 $ npm install i18next-browser-languagedetector
 
 # bower
-$ bower install i18next/i18next-browser-languagedetector
+$ bower install i18next-browser-languagedetector
 ```
+
+- If you don't use a module loader it will be added to `window.i18nextBrowserLanguageDetector`
 
 Wiring up:
 
