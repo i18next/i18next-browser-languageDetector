@@ -26,9 +26,10 @@ class Browser {
     this.init(services, options);
   }
 
-  init(services, options = {}) {
+  init(services, options = {}, i18nOptions = {}) {
     this.services = services;
     this.options = utils.defaults(options, this.options || {}, getDefaults());
+    this.i18nOptions = i18nOptions;
 
     this.addDetector(cookie);
     this.addDetector(querystring);
@@ -59,7 +60,7 @@ class Browser {
       if (this.services.languageUtils.isWhitelisted(cleanedLng)) found = cleanedLng;
     });
 
-    return found || this.options.fallbackLng && this.options.fallbackLng.length ? this.options.fallbackLng[0] : undefined;
+    return found || this.i18nOptions.fallbackLng[0];
   }
 
   cacheUserLanguage(lng, caches) {
