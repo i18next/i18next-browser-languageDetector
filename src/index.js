@@ -59,7 +59,7 @@ class Browser {
       if (this.services.languageUtils.isWhitelisted(cleanedLng)) found = cleanedLng;
     });
 
-    return found || this.options.fallbackLng ? this.options.fallbackLng[0] : undefined;
+    return found || this.options.fallbackLng && this.options.fallbackLng.length ? this.options.fallbackLng[0] : undefined;
   }
 
   cacheUserLanguage(lng, caches) {
