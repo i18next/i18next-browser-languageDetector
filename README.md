@@ -1,8 +1,5 @@
 # Introduction
 
-
-[![Travis](https://img.shields.io/travis/i18next/i18next-browser-languagedetector/master.svg?style=flat-square)](https://travis-ci.org/i18next/i18next-browser-languagedetector)
-[![Coveralls](https://img.shields.io/coveralls/i18next/i18next-browser-languagedetector/master.svg?style=flat-square)](https://coveralls.io/github/i18next/i18next-browser-languagedetector)
 [![npm version](https://img.shields.io/npm/v/i18next-browser-languagedetector.svg?style=flat-square)](https://www.npmjs.com/package/i18next-browser-languagedetector)
 [![Bower](https://img.shields.io/bower/v/i18next-browser-languagedetector.svg)]()
 [![David](https://img.shields.io/david/i18next/i18next-browser-languagedetector.svg?style=flat-square)](https://david-dm.org/i18next/i18next-browser-languagedetector)
