@@ -187,9 +187,24 @@
     }
   };
 
+  var htmlTag = {
+    name: 'htmlTag',
+
+    lookup: function lookup(options) {
+      var found = void 0;
+      var htmlTag = options.htmlTag || (typeof document !== 'undefined' ? document.documentElement : null);
+
+      if (htmlTag && typeof htmlTag.getAttribute === 'function') {
+        found = htmlTag.getAttribute('lang');
+      }
+
+      return found;
+    }
+  };
+
   function getDefaults() {
     return {
-      order: ['querystring', 'cookie', 'localStorage', 'navigator'],
+      order: ['querystring', 'cookie', 'localStorage', 'navigator', 'htmlTag'],
       lookupQuerystring: 'lng',
       lookupCookie: 'i18next',
       lookupLocalStorage: 'i18nextLng',
@@ -226,6 +241,7 @@
         this.addDetector(querystring);
         this.addDetector(localStorage);
         this.addDetector(navigator$1);
+        this.addDetector(htmlTag);
       }
     }, {
       key: 'addDetector',

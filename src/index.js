@@ -3,10 +3,11 @@ import cookie from './browserLookups/cookie';
 import querystring from './browserLookups/querystring';
 import localStorage from './browserLookups/localStorage';
 import navigator from './browserLookups/navigator';
+import htmlTag from './browserLookups/htmlTag';
 
 function getDefaults() {
   return {
-    order: ['querystring', 'cookie', 'localStorage', 'navigator'],
+    order: ['querystring', 'cookie', 'localStorage', 'navigator', 'htmlTag'],
     lookupQuerystring: 'lng',
     lookupCookie: 'i18next',
     lookupLocalStorage: 'i18nextLng',
@@ -35,6 +36,7 @@ class Browser {
     this.addDetector(querystring);
     this.addDetector(localStorage);
     this.addDetector(navigator);
+    this.addDetector(htmlTag);
   }
 
   addDetector(detector) {
