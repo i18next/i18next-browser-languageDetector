@@ -10,6 +10,7 @@ This is a i18next language detection plugin use to detect user language in the b
 - localStorage
 - navigator
 - querystring
+- htmlTag
 
 # Getting started
 
@@ -43,7 +44,7 @@ As with all modules you can either pass the constructor function (class) to the 
 ```js
 {
   // order and from where user language should be detected
-  order: ['querystring', 'cookie', 'localStorage', 'navigator'],
+  order: ['querystring', 'cookie', 'localStorage', 'navigator', 'htmlTag'],
 
   // keys or params to lookup language from
   lookupQuerystring: 'lng',
@@ -55,7 +56,10 @@ As with all modules you can either pass the constructor function (class) to the 
 
   // optional expire and domain for set cookie
   cookieMinutes: 10,
-  cookieDomain: 'myDomain'
+  cookieDomain: 'myDomain',
+
+  // optional htmlTag with lang attribute, the default is:
+  htmlTag: document.documentElement
 }
 ```
 
