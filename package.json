@@ -26,7 +26,7 @@
     "eslint": "2.8.0",
     "eslint-config-airbnb": "7.0.0",
     "mkdirp": "0.5.1",
-    "rimraf": "2.5.2",
+    "rimraf": "2.5.4",
     "rollup": "0.25.8",
     "rollup-plugin-babel": "2.4.0",
     "rollup-plugin-npm": "1.4.0",
