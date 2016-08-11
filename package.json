@@ -29,7 +29,7 @@
     "rimraf": "2.5.2",
     "rollup": "0.25.8",
     "rollup-plugin-babel": "2.4.0",
-    "rollup-plugin-npm": "1.4.0",
+    "rollup-plugin-node-resolve": "1.7.1",
     "rollup-plugin-uglify": "0.2.0",
     "yargs": "4.6.0"
   },

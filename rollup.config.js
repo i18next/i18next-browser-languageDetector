@@ -1,6 +1,6 @@
 import babel from 'rollup-plugin-babel';
 import uglify from 'rollup-plugin-uglify';
-import npm from 'rollup-plugin-npm';
+import nodeResolve from 'rollup-plugin-node-resolve';
 import { argv } from 'yargs';
 
 const format = argv.format || argv.f || 'iife';
@@ -23,9 +23,9 @@ export default {
   format,
   plugins: [
     babel(babelOptions),
-    npm({ jsnext: true })
+    nodeResolve({ jsnext: true })
   ].concat(compress ? uglify() : []),
   moduleName: 'i18nextBrowserLanguageDetector',
-  moduleId: 'i18nextBrowserLanguageDetector',
+  // moduleId: 'i18nextBrowserLanguageDetector',
   dest
 };
