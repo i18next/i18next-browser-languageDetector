@@ -1,24 +1,12 @@
-let storage = {
-  setItem: function(key, value) {
-    if (window.localStorage) {
-      try {
-        window.localStorage.setItem(key, value);
-      } catch (e) {
-        //f.log('failed to set value for key '' + key + '' to localStorage.');
-      }
-    }
-  },
-  getItem: function(key, value) {
-    if (window.localStorage) {
-      try {
-        return window.localStorage.getItem(key, value);
-      } catch (e) {
-        //f.log('failed to get value for key '' + key + '' from localStorage.');
-        return undefined;
-      }
-    }
-  }
-};
+let hasLocalStorageSupport;
+try {
+  hasLocalStorageSupport = window !== 'undefined' && window.localStorage !== null;
+  const testKey = 'i18next.translate.boo';
+  window.localStorage.setItem(testKey, 'foo');
+  window.localStorage.removeItem(testKey);
+} catch (e) {
+  hasLocalStorageSupport = false;
+}
 
 export default {
   name: 'localStorage',
@@ -26,8 +14,8 @@ export default {
   lookup(options) {
     let found;
 
-    if (options.lookupLocalStorage && typeof window !== 'undefined' && window.localStorage) {
-      var lng = storage.getItem(options.lookupLocalStorage);
+    if (options.lookupLocalStorage && hasLocalStorageSupport) {
+      const lng = window.localStorage.getItem(options.lookupLocalStorage);
       if (lng) found = lng;
     }
 
@@ -35,8 +23,8 @@ export default {
   },
 
   cacheUserLanguage(lng, options) {
-    if (options.lookupLocalStorage && typeof window !== 'undefined' && window.localStorage) {
-      storage.setItem(options.lookupLocalStorage, lng);
+    if (options.lookupLocalStorage && hasLocalStorageSupport) {
+      window.localStorage.setItem(options.lookupLocalStorage, lng);
     }
   }
 };
