@@ -13,7 +13,8 @@ function getDefaults() {
     lookupLocalStorage: 'i18nextLng',
 
     // cache user language
-    caches: ['localStorage']
+    caches: ['localStorage'],
+    excludeCacheFor: ['cimode']
     //cookieMinutes: 10,
     //cookieDomain: 'myDomain'
   };
@@ -68,6 +69,7 @@ class Browser {
   cacheUserLanguage(lng, caches) {
     if (!caches) caches = this.options.caches;
     if (!caches) return;
+    if (this.options.excludeCacheFor && this.options.excludeCacheFor.indexOf(lng) > -1) return;
     caches.forEach(cacheName => {
       if (this.detectors[cacheName]) this.detectors[cacheName].cacheUserLanguage(lng, this.options);
     });
