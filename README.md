@@ -9,7 +9,7 @@ This is a i18next language detection plugin use to detect user language in the b
 - cookie
 - localStorage
 - navigator
-- querystring
+- querystring (append `?lng=LANGUAGE` to URL)
 - htmlTag
 
 # Getting started
