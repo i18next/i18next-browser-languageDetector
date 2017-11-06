@@ -1,9 +1,9 @@
-import * as utils from './utils';
-import cookie from './browserLookups/cookie';
-import querystring from './browserLookups/querystring';
-import localStorage from './browserLookups/localStorage';
-import navigator from './browserLookups/navigator';
-import htmlTag from './browserLookups/htmlTag';
+import * as utils from './utils.js';
+import cookie from './browserLookups/cookie.js';
+import querystring from './browserLookups/querystring.js';
+import localStorage from './browserLookups/localStorage.js';
+import navigator from './browserLookups/navigator.js';
+import htmlTag from './browserLookups/htmlTag.js';
 
 function getDefaults() {
   return {
