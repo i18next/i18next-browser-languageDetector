@@ -237,7 +237,19 @@
           if (_this.services.languageUtils.isWhitelisted(cleanedLng)) found = cleanedLng;
         });
 
-        return found || this.i18nOptions.fallbackLng[0];
+        if (!found) {
+          var fallbacks = this.i18nOptions.fallbackLng;
+          if (typeof fallbacks === 'string') fallbacks = [fallbacks];
+          if (!fallbacks) fallbacks = [];
+
+          if (Object.prototype.toString.apply(fallbacks) === '[object Array]') {
+            found = fallbacks[0];
+          } else {
+            found = fallbacks[0] || fallbacks.default && fallbacks.default[0];
+          }
+        };
+
+        return found;
       }
     }, {
       key: 'cacheUserLanguage',
