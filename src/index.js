@@ -8,7 +8,7 @@ import url from './browserLookups/url.js';
 
 function getDefaults() {
   return {
-    order: ['url', 'querystring', 'cookie', 'localStorage', 'navigator', 'htmlTag'],
+    order: ['querystring', 'cookie', 'localStorage', 'navigator', 'htmlTag'],
     lookupQuerystring: 'lng',
     lookupCookie: 'i18next',
     lookupLocalStorage: 'i18nextLng',

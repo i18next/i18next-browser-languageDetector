@@ -165,11 +165,15 @@
   var url = {
     name: 'url',
 
-    lookup: function lookup() {
+    lookup: function lookup(options) {
       var found = void 0;
       if (typeof window !== 'undefined') {
-        var language = window.location.pathname.match(/\/([a-zA-Z-]*)/);
-        found = language[1];
+        var language = window.location.pathname.match(/\/([a-zA-Z-]*)/g);
+        if (typeof options.lookupFromUrlIndex === 'number') {
+          found = language[options.lookupFromUrlIndex].replace('/', '');
+        } else {
+          found = language[0].replace('/', '');
+        }
       }
       return found;
     }
@@ -181,7 +185,7 @@
 
   function getDefaults() {
     return {
-      order: ['url', 'querystring', 'cookie', 'localStorage', 'navigator', 'htmlTag'],
+      order: ['querystring', 'cookie', 'localStorage', 'navigator', 'htmlTag'],
       lookupQuerystring: 'lng',
       lookupCookie: 'i18next',
       lookupLocalStorage: 'i18nextLng',
