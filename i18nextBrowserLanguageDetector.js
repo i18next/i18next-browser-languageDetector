@@ -162,13 +162,26 @@
     }
   };
 
+  var url = {
+    name: 'url',
+
+    lookup: function lookup() {
+      var found = void 0;
+      if (typeof window !== 'undefined') {
+        var language = window.location.pathname.match(/\/([a-zA-Z-]*)/);
+        found = language[1];
+      }
+      return found;
+    }
+  };
+
   var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
   function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
   function getDefaults() {
     return {
-      order: ['querystring', 'cookie', 'localStorage', 'navigator', 'htmlTag'],
+      order: ['url', 'querystring', 'cookie', 'localStorage', 'navigator', 'htmlTag'],
       lookupQuerystring: 'lng',
       lookupCookie: 'i18next',
       lookupLocalStorage: 'i18nextLng',
@@ -208,6 +221,7 @@
         this.addDetector(localStorage);
         this.addDetector(navigator$1);
         this.addDetector(htmlTag);
+        this.addDetector(url);
       }
     }, {
       key: 'addDetector',
