@@ -162,8 +162,8 @@
     }
   };
 
-  var folder = {
-    name: 'folder',
+  var path = {
+    name: 'path',
 
     lookup: function lookup(options) {
       var found = void 0;
@@ -171,7 +171,7 @@
         var language = window.location.pathname.match(/\/([a-zA-Z-]*)/g);
         if (language instanceof Array) {
           if (typeof options.lookupFromUrlIndex === 'number') {
-            found = language[options.lookupFromFolderIndex].replace('/', '');
+            found = language[options.lookupFromPathIndex].replace('/', '');
           } else {
             found = language[0].replace('/', '');
           }
@@ -227,7 +227,7 @@
         this.addDetector(localStorage);
         this.addDetector(navigator$1);
         this.addDetector(htmlTag);
-        this.addDetector(folder);
+        this.addDetector(path);
       }
     }, {
       key: 'addDetector',

@@ -1,5 +1,5 @@
 export default {
-  name: 'folder',
+  name: 'path',
 
   lookup(options) {
     let found;
@@ -7,7 +7,7 @@ export default {
       const language = window.location.pathname.match(/\/([a-zA-Z-]*)/g);
       if (language instanceof Array) {
         if (typeof options.lookupFromUrlIndex === 'number') {
-          found = language[options.lookupFromFolderIndex].replace('/', '');
+          found = language[options.lookupFromPathIndex].replace('/', '');
         } else {
           found = language[0].replace('/', '');
         }
