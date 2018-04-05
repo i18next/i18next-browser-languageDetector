@@ -11,7 +11,7 @@ This is a i18next language detection plugin use to detect user language in the b
 - navigator
 - querystring (append `?lng=LANGUAGE` to URL)
 - htmlTag
-- folder
+- path
 - subdomain
 
 # Getting started
@@ -46,13 +46,13 @@ As with all modules you can either pass the constructor function (class) to the 
 ```js
 {
   // order and from where user language should be detected
-  order: ['querystring', 'cookie', 'localStorage', 'navigator', 'htmlTag', 'folder', 'subdomain'],
+  order: ['querystring', 'cookie', 'localStorage', 'navigator', 'htmlTag', 'path', 'subdomain'],
 
   // keys or params to lookup language from
   lookupQuerystring: 'lng',
   lookupCookie: 'i18next',
   lookupLocalStorage: 'i18nextLng',
-  lookupFromFolderIndex: 0,
+  lookupFromPathIndex: 0,
   lookupFromSubdomainIndex: 0,
 
   // cache user language on

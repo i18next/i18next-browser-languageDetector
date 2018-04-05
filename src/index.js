@@ -4,7 +4,7 @@ import querystring from './browserLookups/querystring.js';
 import localStorage from './browserLookups/localStorage.js';
 import navigator from './browserLookups/navigator.js';
 import htmlTag from './browserLookups/htmlTag.js';
-import folder from './browserLookups/folder.js';
+import path from './browserLookups/path.js';
 import subdomain from './browserLookups/subdomain.js';
 
 function getDefaults() {
@@ -40,7 +40,7 @@ class Browser {
     this.addDetector(localStorage);
     this.addDetector(navigator);
     this.addDetector(htmlTag);
-    this.addDetector(folder);
+    this.addDetector(path);
     this.addDetector(subdomain);
   }
 

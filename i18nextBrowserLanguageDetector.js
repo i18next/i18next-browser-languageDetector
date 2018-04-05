@@ -162,8 +162,8 @@
     }
   };
 
-  var folder = {
-    name: 'folder',
+  var path = {
+    name: 'path',
 
     lookup: function lookup(options) {
       var found = void 0;
@@ -171,7 +171,7 @@
         var language = window.location.pathname.match(/\/([a-zA-Z-]*)/g);
         if (language instanceof Array) {
           if (typeof options.lookupFromUrlIndex === 'number') {
-            found = language[options.lookupFromFolderIndex].replace('/', '');
+            found = language[options.lookupFromPathIndex].replace('/', '');
           } else {
             found = language[0].replace('/', '');
           }
@@ -184,7 +184,7 @@
   var subdomain = {
     name: 'subdomain',
 
-    lookup: function lookup() {
+    lookup: function lookup(options) {
       var found = void 0;
       if (typeof window !== 'undefined') {
         var language = window.location.pathname.match(/(?:http[s]*\:\/\/)*(.*?)\.(?=[^\/]*\..{2,5})/gi);
@@ -206,7 +206,7 @@
 
   function getDefaults() {
     return {
-      order: ['url', 'querystring', 'cookie', 'localStorage', 'navigator', 'htmlTag'],
+      order: ['querystring', 'cookie', 'localStorage', 'navigator', 'htmlTag'],
       lookupQuerystring: 'lng',
       lookupCookie: 'i18next',
       lookupLocalStorage: 'i18nextLng',
@@ -246,7 +246,7 @@
         this.addDetector(localStorage);
         this.addDetector(navigator$1);
         this.addDetector(htmlTag);
-        this.addDetector(folder);
+        this.addDetector(path);
         this.addDetector(subdomain);
       }
     }, {
