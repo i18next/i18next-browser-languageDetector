@@ -45,7 +45,7 @@ As with all modules you can either pass the constructor function (class) to the 
 ```js
 {
   // order and from where user language should be detected
-  order: ['querystring', 'cookie', 'localStorage', 'navigator', 'htmlTag', 'url'],
+  order: ['querystring', 'cookie', 'localStorage', 'navigator', 'htmlTag'],
 
   // keys or params to lookup language from
   lookupQuerystring: 'lng',
