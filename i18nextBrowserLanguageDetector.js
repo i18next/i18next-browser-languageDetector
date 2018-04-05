@@ -162,14 +162,20 @@
     }
   };
 
-  var url = {
-    name: 'url',
+  var folder = {
+    name: 'folder',
 
-    lookup: function lookup() {
+    lookup: function lookup(options) {
       var found = void 0;
       if (typeof window !== 'undefined') {
-        var language = window.location.pathname.match(/\/([a-zA-Z-]*)/);
-        found = language[1];
+        var language = window.location.pathname.match(/\/([a-zA-Z-]*)/g);
+        if (language instanceof Array) {
+          if (typeof options.lookupFromUrlIndex === 'number') {
+            found = language[options.lookupFromFolderIndex].replace('/', '');
+          } else {
+            found = language[0].replace('/', '');
+          }
+        }
       }
       return found;
     }
@@ -183,8 +189,8 @@
       if (typeof window !== 'undefined') {
         var language = window.location.pathname.match(/(?:http[s]*\:\/\/)*(.*?)\.(?=[^\/]*\..{2,5})/gi);
         if (language instanceof Array) {
-          if (typeof options.lookupFromUrlIndex === 'number') {
-            found = language[options.lookupFromUrlIndex].replace('http://', '').replace('https://', '').replace('.', '');
+          if (typeof options.lookupFromSubdomainIndex === 'number') {
+            found = language[options.lookupFromSubdomainIndex].replace('http://', '').replace('https://', '').replace('.', '');
           } else {
             found = language[0].replace('http://', '').replace('https://', '').replace('.', '');
           }
@@ -240,7 +246,7 @@
         this.addDetector(localStorage);
         this.addDetector(navigator$1);
         this.addDetector(htmlTag);
-        this.addDetector(url);
+        this.addDetector(folder);
         this.addDetector(subdomain);
       }
     }, {
