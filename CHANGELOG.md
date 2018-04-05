@@ -1,3 +1,6 @@
+### v2.2.0
+- add detector for path and subdomain [PR153](https://github.com/i18next/i18next-browser-languageDetector/pull/153) and [PR152](https://github.com/i18next/i18next-browser-languageDetector/pull/152)
+
 ### v2.1.1
 - support for fallback language in form of object [151](https://github.com/i18next/i18next-browser-languageDetector/issues/151)
 
