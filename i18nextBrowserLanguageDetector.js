@@ -181,6 +181,25 @@
     }
   };
 
+  var subdomain = {
+    name: 'subdomain',
+
+    lookup: function lookup(options) {
+      var found = void 0;
+      if (typeof window !== 'undefined') {
+        var language = window.location.pathname.match(/(?:http[s]*\:\/\/)*(.*?)\.(?=[^\/]*\..{2,5})/gi);
+        if (language instanceof Array) {
+          if (typeof options.lookupFromSubdomainIndex === 'number') {
+            found = language[options.lookupFromSubdomainIndex].replace('http://', '').replace('https://', '').replace('.', '');
+          } else {
+            found = language[0].replace('http://', '').replace('https://', '').replace('.', '');
+          }
+        }
+      }
+      return found;
+    }
+  };
+
   var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
   function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -228,6 +247,7 @@
         this.addDetector(navigator$1);
         this.addDetector(htmlTag);
         this.addDetector(path);
+        this.addDetector(subdomain);
       }
     }, {
       key: 'addDetector',
