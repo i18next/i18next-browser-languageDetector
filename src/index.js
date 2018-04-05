@@ -5,6 +5,7 @@ import localStorage from './browserLookups/localStorage.js';
 import navigator from './browserLookups/navigator.js';
 import htmlTag from './browserLookups/htmlTag.js';
 import url from './browserLookups/url.js';
+import subdomain from './browserLookups/subdomain.js';
 
 function getDefaults() {
   return {
@@ -40,6 +41,7 @@ class Browser {
     this.addDetector(navigator);
     this.addDetector(htmlTag);
     this.addDetector(url);
+    this.addDetector(subdomain);
   }
 
   addDetector(detector) {
