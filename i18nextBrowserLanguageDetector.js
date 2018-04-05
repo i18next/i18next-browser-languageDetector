@@ -162,15 +162,15 @@
     }
   };
 
-  var url = {
-    name: 'url',
+  var folder = {
+    name: 'folder',
 
     lookup: function lookup(options) {
       var found = void 0;
       if (typeof window !== 'undefined') {
         var language = window.location.pathname.match(/\/([a-zA-Z-]*)/g);
         if (typeof options.lookupFromUrlIndex === 'number') {
-          found = language[options.lookupFromUrlIndex].replace('/', '');
+          found = language[options.lookupFromFolderIndex].replace('/', '');
         } else {
           found = language[0].replace('/', '');
         }
@@ -225,7 +225,7 @@
         this.addDetector(localStorage);
         this.addDetector(navigator$1);
         this.addDetector(htmlTag);
-        this.addDetector(url);
+        this.addDetector(folder);
       }
     }, {
       key: 'addDetector',
