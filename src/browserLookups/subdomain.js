@@ -1,7 +1,7 @@
 export default {
   name: 'subdomain',
 
-  lookup() {
+  lookup(options) {
     let found;
     if (typeof window !== 'undefined') {
       const language = window.location.pathname.match(/(?:http[s]*\:\/\/)*(.*?)\.(?=[^\/]*\..{2,5})/gi);
