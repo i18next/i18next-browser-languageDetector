@@ -1,3 +1,7 @@
+### v2.2.1
+- fixes option validation in path lookup [158](https://github.com/i18next/i18next-browser-languageDetector/issues/158)
+- fixes lookup from href for subdomain [157](https://github.com/i18next/i18next-browser-languageDetector/issues/157)
+
 ### v2.2.0
 - add detector for path and subdomain [PR153](https://github.com/i18next/i18next-browser-languageDetector/pull/153) and [PR152](https://github.com/i18next/i18next-browser-languageDetector/pull/152)
 

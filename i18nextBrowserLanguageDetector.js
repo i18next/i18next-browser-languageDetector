@@ -170,7 +170,7 @@
       if (typeof window !== 'undefined') {
         var language = window.location.pathname.match(/\/([a-zA-Z-]*)/g);
         if (language instanceof Array) {
-          if (typeof options.lookupFromUrlIndex === 'number') {
+          if (typeof options.lookupFromPathIndex === 'number') {
             found = language[options.lookupFromPathIndex].replace('/', '');
           } else {
             found = language[0].replace('/', '');
@@ -239,6 +239,10 @@
 
         this.services = services;
         this.options = defaults(options, this.options || {}, getDefaults());
+
+        // backwards compatibility
+        if (this.options.lookupFromUrlIndex) this.options.lookupFromPathIndex = this.options.lookupFromUrlIndex;
+
         this.i18nOptions = i18nOptions;
 
         this.addDetector(cookie$1);

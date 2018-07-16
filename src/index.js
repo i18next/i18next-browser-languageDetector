@@ -33,6 +33,10 @@ class Browser {
   init(services, options = {}, i18nOptions = {}) {
     this.services = services;
     this.options = utils.defaults(options, this.options || {}, getDefaults());
+
+    // backwards compatibility
+    if (this.options.lookupFromUrlIndex) this.options.lookupFromPathIndex = this.options.lookupFromUrlIndex;
+
     this.i18nOptions = i18nOptions;
 
     this.addDetector(cookie);
