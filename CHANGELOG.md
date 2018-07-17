@@ -1,3 +1,6 @@
+### v2.2.2
+- Lang by path: skip if language not found [159](https://github.com/i18next/i18next-browser-languageDetector/pull/159)
+
 ### v2.2.1
 - fixes option validation in path lookup [158](https://github.com/i18next/i18next-browser-languageDetector/issues/158)
 - fixes lookup from href for subdomain [157](https://github.com/i18next/i18next-browser-languageDetector/issues/157)

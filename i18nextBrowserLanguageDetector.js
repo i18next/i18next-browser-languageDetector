@@ -162,6 +162,8 @@
     }
   };
 
+  var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
   var path = {
     name: 'path',
 
@@ -171,6 +173,9 @@
         var language = window.location.pathname.match(/\/([a-zA-Z-]*)/g);
         if (language instanceof Array) {
           if (typeof options.lookupFromPathIndex === 'number') {
+            if (_typeof(language[options.lookupFromPathIndex])) {
+              return undefined;
+            }
             found = language[options.lookupFromPathIndex].replace('/', '');
           } else {
             found = language[0].replace('/', '');
