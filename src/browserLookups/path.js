@@ -7,6 +7,9 @@ export default {
       const language = window.location.pathname.match(/\/([a-zA-Z-]*)/g);
       if (language instanceof Array) {
         if (typeof options.lookupFromPathIndex === 'number') {
+          if (typeof language[options.lookupFromPathIndex]) {
+            return undefined;
+          }
           found = language[options.lookupFromPathIndex].replace('/', '');
         } else {
           found = language[0].replace('/', '');
