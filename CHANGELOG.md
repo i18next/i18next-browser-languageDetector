@@ -1,3 +1,7 @@
+### v2.2.4
+
+- fix [157](https://github.com/i18next/i18next-browser-languageDetector/issues/157)
+
 ### v2.2.3
 
 - fix [159](https://github.com/i18next/i18next-browser-languageDetector/pull/159)
