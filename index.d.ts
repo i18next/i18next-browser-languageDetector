@@ -43,7 +43,7 @@ declare namespace i18nextBrowserLanguageDetector {
   }
 }
 
-declare class i18nextBrowserLanguageDetector {
+export default class i18nextBrowserLanguageDetector {
   constructor(services?: any, options?: i18nextBrowserLanguageDetector.DetectorOptions);
   /**
    * Adds detector.
@@ -64,5 +64,3 @@ declare class i18nextBrowserLanguageDetector {
   services: any;
   i18nOptions: any;
 }
-
-export = i18nextBrowserLanguageDetector;
