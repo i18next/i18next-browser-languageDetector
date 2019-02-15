@@ -1,4 +1,4 @@
-declare namespace i18nextBrowserLanguageDetector {
+declare namespace I18nextBrowserLanguageDetector {
   interface DetectorOptions {
     /**
      * order and from where user language should be detected
@@ -43,19 +43,19 @@ declare namespace i18nextBrowserLanguageDetector {
   }
 }
 
-export default class i18nextBrowserLanguageDetector {
-  constructor(services?: any, options?: i18nextBrowserLanguageDetector.DetectorOptions);
+export default class I18nextBrowserLanguageDetector {
+  constructor(services?: any, options?: I18nextBrowserLanguageDetector.DetectorOptions);
   /**
    * Adds detector.
    */
-  addDetector(detector: i18nextBrowserLanguageDetector.CustomDetector): i18nextBrowserLanguageDetector;
+  addDetector(detector: I18nextBrowserLanguageDetector.CustomDetector): I18nextBrowserLanguageDetector;
 
   /**
    * Initializes detector.
    */
-  init(services?: any, options?: i18nextBrowserLanguageDetector.DetectorOptions): void;
+  init(services?: any, options?: I18nextBrowserLanguageDetector.DetectorOptions): void;
 
-  detect(detectionOrder?: i18nextBrowserLanguageDetector.DetectorOptions): string | undefined;
+  detect(detectionOrder?: I18nextBrowserLanguageDetector.DetectorOptions): string | undefined;
 
   cacheUserLanguage(lng: string, caches?: string[]): void;
 
