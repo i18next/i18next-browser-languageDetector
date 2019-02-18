@@ -1,3 +1,7 @@
+### v3.0.1
+
+- typescript: fix types [165](https://github.com/i18next/i18next-browser-languageDetector/pull/165)
+
 ### v3.0.0
 
 - typescript: add types [164](https://github.com/i18next/i18next-browser-languageDetector/pull/164)
