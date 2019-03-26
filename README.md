@@ -125,7 +125,7 @@ export default {
 
 ```js
   import LanguageDetector from 'i18next-browser-languagedetector';
-  const languageDetector = new LngDetector();
+  const languageDetector = new LanguageDetector();
   languageDetector.addDetector(myDetector);
 
   i18next
