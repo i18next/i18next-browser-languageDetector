@@ -32,10 +32,10 @@ Wiring up:
 
 ```js
 import i18next from 'i18next';
-import LngDetector from 'i18next-browser-languagedetector';
+import LanguageDetector from 'i18next-browser-languagedetector';
 
 i18next
-  .use(LngDetector)
+  .use(LanguageDetector)
   .init(i18nextOptions);
 ```
 
@@ -74,10 +74,10 @@ Options can be passed in:
 
 ```js
 import i18next from 'i18next';
-import LngDetector from 'i18next-browser-languagedetector';
+import LanguageDetector from 'i18next-browser-languagedetector';
 
 i18next
-  .use(LngDetector)
+  .use(LanguageDetector)
   .init({
     detection: options
   });
@@ -86,15 +86,15 @@ i18next
 on construction:
 
 ```js
-  import LngDetector from 'i18next-browser-languagedetector';
-  const lngDetector = new LngDetector(null, options);
+  import LanguageDetector from 'i18next-browser-languagedetector';
+  const languageDetector = new LanguageDetector(null, options);
 ```
 
 via calling init:
 
 ```js
-  import LngDetector from 'i18next-browser-languagedetector';
-  const lngDetector = new LngDetector();
+  import LanguageDetector from 'i18next-browser-languagedetector';
+  const languageDetector = new LanguageDetector();
   lngDetector.init(options);
 ```
 
@@ -124,12 +124,12 @@ export default {
 ### adding it
 
 ```js
-  import LngDetector from 'i18next-browser-languagedetector';
-  const lngDetector = new LngDetector();
-  lngDetector.addDetector(myDetector);
+  import LanguageDetector from 'i18next-browser-languagedetector';
+  const languageDetector = new LanguageDetector();
+  languageDetector.addDetector(myDetector);
 
   i18next
-    .use(lngDetector)
+    .use(languageDetector)
     .init({
       detection: options
     });
