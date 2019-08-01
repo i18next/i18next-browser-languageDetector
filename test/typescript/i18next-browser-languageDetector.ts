@@ -1,6 +1,9 @@
-import LngDetector, { I18nextBrowserLanguageDetector } from "i18next-browser-languagedetector";
+import LngDetector, {
+  CustomDetector,
+  DetectorOptions
+} from "i18next-browser-languagedetector";
 
-const options: I18nextBrowserLanguageDetector.DetectorOptions = {
+const options: DetectorOptions = {
   // order and from where user language should be detected
   order: ["querystring", "cookie", "localStorage", "navigator", "htmlTag"],
 
@@ -21,25 +24,24 @@ const options: I18nextBrowserLanguageDetector.DetectorOptions = {
   htmlTag: document.documentElement
 };
 
-const customDetector: I18nextBrowserLanguageDetector.CustomDetector = {
+const customDetector: CustomDetector = {
   name: "myDetectorsName",
 
-  lookup(options: I18nextBrowserLanguageDetector.DetectorOptions) {
+  lookup(options: DetectorOptions) {
     // options -> are passed in options
     return "en";
   },
 
-  cacheUserLanguage(lng: string, options: I18nextBrowserLanguageDetector.DetectorOptions) {
+  cacheUserLanguage(lng: string, options: DetectorOptions) {
     // options -> are passed in options
     // lng -> current language, will be called after init and on changeLanguage
-
     // store it
   }
 };
 
-const customDetector2: I18nextBrowserLanguageDetector.CustomDetector = {
+const customDetector2: CustomDetector = {
   name: "myDetectorsName",
-  lookup(options: I18nextBrowserLanguageDetector.DetectorOptions) {
+  lookup(options: DetectorOptions) {
     return undefined;
   }
 };

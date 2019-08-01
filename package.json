@@ -27,6 +27,7 @@
     "dtslint": "^0.4.2",
     "eslint": "2.8.0",
     "eslint-config-airbnb": "7.0.0",
+    "i18next": "^17.0.7",
     "mkdirp": "0.5.1",
     "rimraf": "2.5.2",
     "rollup": "0.25.8",
