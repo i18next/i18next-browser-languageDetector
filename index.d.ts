@@ -1,61 +1,64 @@
-declare namespace I18nextBrowserLanguageDetector {
-  interface DetectorOptions {
-    /**
-     * order and from where user language should be detected
-     */
-    order?: Array<"querystring" | "cookie" | "localStorage" | "navigator" | "htmlTag" | string>;
+import * as i18next from "i18next";
 
-    /**
-     * keys or params to lookup language from
-     */
-    lookupQuerystring?: string;
-    lookupCookie?: string;
-    lookupLocalStorage?: string;
+interface DetectorOptions {
+  /**
+   * order and from where user language should be detected
+   */
+  order?: Array<
+    "querystring" | "cookie" | "localStorage" | "navigator" | "htmlTag" | string
+  >;
 
-    /**
-     * cache user language on
-     */
-    caches?: string[];
+  /**
+   * keys or params to lookup language from
+   */
+  lookupQuerystring?: string;
+  lookupCookie?: string;
+  lookupLocalStorage?: string;
 
-    /**
-     * languages to not persist (cookie, localStorage)
-     */
-    excludeCacheFor?: string[];
+  /**
+   * cache user language on
+   */
+  caches?: string[];
 
-    /**
-     * optional expire and domain for set cookie
-     * @default 10
-     */
-    cookieMinutes?: number;
-    cookieDomain?: string;
+  /**
+   * languages to not persist (cookie, localStorage)
+   */
+  excludeCacheFor?: string[];
 
-    /**
-     * optional htmlTag with lang attribute
-     * @default document.documentElement
-     */
-    htmlTag?: HTMLElement | null;
-  }
+  /**
+   * optional expire and domain for set cookie
+   * @default 10
+   */
+  cookieMinutes?: number;
+  cookieDomain?: string;
 
-  interface CustomDetector {
-    name: string;
-    cacheUserLanguage?(lng: string, options: DetectorOptions): void;
-    lookup(options: DetectorOptions): string | undefined;
-  }
+  /**
+   * optional htmlTag with lang attribute
+   * @default document.documentElement
+   */
+  htmlTag?: HTMLElement | null;
 }
 
-export default class I18nextBrowserLanguageDetector {
-  constructor(services?: any, options?: I18nextBrowserLanguageDetector.DetectorOptions);
+interface CustomDetector {
+  name: string;
+  cacheUserLanguage?(lng: string, options: DetectorOptions): void;
+  lookup(options: DetectorOptions): string | undefined;
+}
+
+export default class I18nextBrowserLanguageDetector
+  implements i18next.LanguageDetectorModule {
+  constructor(services?: any, options?: DetectorOptions);
   /**
    * Adds detector.
    */
-  addDetector(detector: I18nextBrowserLanguageDetector.CustomDetector): I18nextBrowserLanguageDetector;
+  addDetector(detector: CustomDetector): I18nextBrowserLanguageDetector;
 
   /**
    * Initializes detector.
    */
-  init(services?: any, options?: I18nextBrowserLanguageDetector.DetectorOptions): void;
+  init(services?: any, options?: DetectorOptions): void;
 
-  detect(detectionOrder?: I18nextBrowserLanguageDetector.DetectorOptions): string | undefined;
+  detect(detectionOrder?: DetectorOptions["order"]): string | undefined;
 
   cacheUserLanguage(lng: string, caches?: string[]): void;
 
