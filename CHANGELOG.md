@@ -1,3 +1,7 @@
+### v3.0.2
+
+- typescript: Fix types for `use()` module [180](https://github.com/i18next/i18next-browser-languageDetector/pull/180)
+
 ### v3.0.1
 
 - typescript: fix types [165](https://github.com/i18next/i18next-browser-languageDetector/pull/165)
