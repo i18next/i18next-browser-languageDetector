@@ -1,3 +1,7 @@
+### v3.0.3
+
+- Remove clutter from npm package [181](https://github.com/i18next/i18next-browser-languageDetector/pull/181)
+
 ### v3.0.2
 
 - typescript: Fix types for `use()` module [180](https://github.com/i18next/i18next-browser-languageDetector/pull/180)
