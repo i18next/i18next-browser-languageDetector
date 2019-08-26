@@ -305,6 +305,7 @@
 
         if (!caches) caches = this.options.caches;
         if (!caches) return;
+        if (this.options.languageOnly && lng.indexOf('-') > -1) lng = lng.split('-')[0];
         if (this.options.excludeCacheFor && this.options.excludeCacheFor.indexOf(lng) > -1) return;
         caches.forEach(function (cacheName) {
           if (_this2.detectors[cacheName]) _this2.detectors[cacheName].cacheUserLanguage(lng, _this2.options);
