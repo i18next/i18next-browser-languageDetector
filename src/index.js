@@ -89,6 +89,7 @@ class Browser {
   cacheUserLanguage(lng, caches) {
     if (!caches) caches = this.options.caches;
     if (!caches) return;
+    if (this.options.languageOnly && lng.indexOf('-') > -1) lng = lng.split('-')[0]
     if (this.options.excludeCacheFor && this.options.excludeCacheFor.indexOf(lng) > -1) return;
     caches.forEach(cacheName => {
       if (this.detectors[cacheName]) this.detectors[cacheName].cacheUserLanguage(lng, this.options);
