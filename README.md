@@ -6,13 +6,13 @@
 
 This is a i18next language detection plugin use to detect user language in the browser with support for:
 
-- cookie
-- localStorage
-- navigator
+- cookie (set cookie i18next=LANGUAGE)
+- localStorage (set key i18nextLng=LANGUAGE)
+- navigator (set browser language)
 - querystring (append `?lng=LANGUAGE` to URL)
-- htmlTag
-- path
-- subdomain
+- htmlTag (add html language tag <html lang="LANGUAGE" ...)
+- path (http://my.site.com/LANGUAGE/...)
+- subdomain (http://LANGUAGE.site.com/...)
 
 # Getting started
 
