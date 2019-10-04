@@ -1,3 +1,7 @@
+### v3.1.0
+
+- Added option to prevent checking whitelist for detected languages `checkWhitelist: true` [190](https://github.com/i18next/i18next-browser-languageDetector/pull/190)
+
 ### v3.0.3
 
 - Remove clutter from npm package [181](https://github.com/i18next/i18next-browser-languageDetector/pull/181)

@@ -281,7 +281,7 @@
         detected.forEach(function (lng) {
           if (found) return;
           var cleanedLng = _this.services.languageUtils.formatLanguageCode(lng);
-          if (_this.services.languageUtils.isWhitelisted(cleanedLng)) found = cleanedLng;
+          if (!_this.options.checkWhitelist || _this.services.languageUtils.isWhitelisted(cleanedLng)) found = cleanedLng;
         });
 
         if (!found) {
