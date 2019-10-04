@@ -68,7 +68,7 @@ class Browser {
     detected.forEach(lng => {
       if (found) return;
       let cleanedLng = this.services.languageUtils.formatLanguageCode(lng);
-      if (this.services.languageUtils.isWhitelisted(cleanedLng)) found = cleanedLng;
+      if (!this.options.checkWhitelist || this.services.languageUtils.isWhitelisted(cleanedLng)) found = cleanedLng;
     });
 
     if (!found) {
