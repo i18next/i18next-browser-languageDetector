@@ -64,7 +64,10 @@ As with all modules you can either pass the constructor function (class) to the 
   cookieDomain: 'myDomain',
 
   // optional htmlTag with lang attribute, the default is:
-  htmlTag: document.documentElement
+  htmlTag: document.documentElement,
+
+  // only detect languages that are in the whitelist
+  checkWhitelist: true
 }
 ```
 
