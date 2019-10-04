@@ -216,9 +216,10 @@
 
       // cache user language
       caches: ['localStorage'],
-      excludeCacheFor: ['cimode']
+      excludeCacheFor: ['cimode'],
       //cookieMinutes: 10,
       //cookieDomain: 'myDomain'
+      checkWhitelist: true
     };
   }
 
@@ -294,7 +295,7 @@
           } else {
             found = fallbacks[0] || fallbacks.default && fallbacks.default[0];
           }
-        };
+        }
 
         return found;
       }

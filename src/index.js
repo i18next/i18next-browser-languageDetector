@@ -16,9 +16,10 @@ function getDefaults() {
 
     // cache user language
     caches: ['localStorage'],
-    excludeCacheFor: ['cimode']
+    excludeCacheFor: ['cimode'],
     //cookieMinutes: 10,
     //cookieDomain: 'myDomain'
+    checkWhitelist: true,
   };
 }
 
@@ -35,7 +36,8 @@ class Browser {
     this.options = utils.defaults(options, this.options || {}, getDefaults());
 
     // backwards compatibility
-    if (this.options.lookupFromUrlIndex) this.options.lookupFromPathIndex = this.options.lookupFromUrlIndex;
+    if (this.options.lookupFromUrlIndex)
+      this.options.lookupFromPathIndex = this.options.lookupFromUrlIndex;
 
     this.i18nOptions = i18nOptions;
 
@@ -68,7 +70,8 @@ class Browser {
     detected.forEach(lng => {
       if (found) return;
       let cleanedLng = this.services.languageUtils.formatLanguageCode(lng);
-      if (!this.options.checkWhitelist || this.services.languageUtils.isWhitelisted(cleanedLng)) found = cleanedLng;
+      if (!this.options.checkWhitelist || this.services.languageUtils.isWhitelisted(cleanedLng))
+        found = cleanedLng;
     });
 
     if (!found) {
@@ -79,9 +82,9 @@ class Browser {
       if (Object.prototype.toString.apply(fallbacks) === '[object Array]') {
         found = fallbacks[0];
       } else {
-        found = fallbacks[0] || fallbacks.default && fallbacks.default[0];
+        found = fallbacks[0] || (fallbacks.default && fallbacks.default[0]);
       }
-    };
+    }
 
     return found;
   }

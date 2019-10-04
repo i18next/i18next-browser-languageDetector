@@ -1,3 +1,7 @@
+### v3.1.1
+
+- add default checkWhitelist: true
+
 ### v3.1.0
 
 - Added option to prevent checking whitelist for detected languages `checkWhitelist: true` [190](https://github.com/i18next/i18next-browser-languageDetector/pull/190)
