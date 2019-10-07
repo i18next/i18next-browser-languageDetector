@@ -1,31 +1,56 @@
 import babel from 'rollup-plugin-babel';
-import uglify from 'rollup-plugin-uglify';
 import nodeResolve from 'rollup-plugin-node-resolve';
-import { argv } from 'yargs';
+import { terser } from 'rollup-plugin-terser';
+import pkg from './package.json';
 
-const format = argv.format || argv.f || 'iife';
-const compress = argv.uglify;
-
-const babelOptions = {
-  exclude: 'node_modules/**',
-  presets: [['es2015', { modules: false }], 'stage-0'],
-  babelrc: false
-};
-
-const dest = {
-  amd: `dist/amd/i18nextBrowserLanguageDetector${compress ? '.min' : ''}.js`,
-  umd: `dist/umd/i18nextBrowserLanguageDetector${compress ? '.min' : ''}.js`,
-  iife: `dist/iife/i18nextBrowserLanguageDetector${compress ? '.min' : ''}.js`
-}[format];
-
-export default {
-  entry: 'src/index.js',
-  format,
+const getBabelOptions = ({ useESModules }) => ({
+  exclude: /node_modules/,
+  runtimeHelpers: true,
   plugins: [
-    babel(babelOptions),
-    nodeResolve({ jsnext: true })
-  ].concat(compress ? uglify() : []),
-  moduleName: 'i18nextBrowserLanguageDetector',
-  // moduleId: 'i18nextBrowserLanguageDetector',
-  dest
-};
+    ['@babel/transform-runtime', { useESModules }]
+  ]
+});
+
+
+const input = './src/index.js';
+const name = 'i18nextBrowserLanguageDetector'
+// check relative and absolute paths for windows and unix
+const external = id => !id.startsWith('.') && !id.startsWith('/') && !id.includes(':');
+
+export default [
+  {
+    input,
+    output: { format: 'cjs', file: pkg.main },
+    external,
+    plugins: [
+      babel(getBabelOptions({ useESModules: false }))
+    ]
+  },
+
+  {
+    input,
+    output: { format: 'esm', file: pkg.module },
+    external,
+    plugins: [
+      babel(getBabelOptions({ useESModules: true }))
+    ]
+  },
+
+  {
+    input,
+    output: { format: 'umd', name, file: `dist/umd/${name}.js` },
+    plugins: [
+      babel(getBabelOptions({ useESModules: true })),
+      nodeResolve()
+    ],
+  },
+  {
+    input,
+    output: { format: 'umd', name, file: `dist/umd/${name}.min.js` },
+    plugins: [
+      babel(getBabelOptions({ useESModules: true })),
+      nodeResolve(),
+      terser()
+    ],
+  }
+]
