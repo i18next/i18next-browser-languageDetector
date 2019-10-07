@@ -1,3 +1,10 @@
+### 4.0.0
+
+- removes deprecated jsnext:main from package.json
+- Bundle all entry points with rollup bringing it up to same standard as [xhr-backend](https://github.com/i18next/i18next-xhr-backend/pull/314)
+- **note:** dist/es -> dist/esm, dist/commonjs -> dist/cjs (individual files -> one bundled file)
+- removes bower finally
+
 ### v3.1.1
 
 - add default checkWhitelist: true
