@@ -1,3 +1,7 @@
+### 4.0.1
+
+- typescript: Use updated ts export default from i18next [194](https://github.com/i18next/i18next-browser-languageDetector/pull/194)
+
 ### 4.0.0
 
 - removes deprecated jsnext:main from package.json
