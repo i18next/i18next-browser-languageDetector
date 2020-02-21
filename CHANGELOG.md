@@ -1,3 +1,7 @@
+### 4.0.2
+
+- update index file to reflect build changes done in 4.0.0
+
 ### 4.0.1
 
 - typescript: Use updated ts export default from i18next [194](https://github.com/i18next/i18next-browser-languageDetector/pull/194)
