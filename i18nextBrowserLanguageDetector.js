@@ -42,16 +42,24 @@
 
   var cookie = {
     create: function create(name, value, minutes, domain) {
+      var cookieOptions = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : {
+        path: '/'
+      };
       var expires;
 
       if (minutes) {
         var date = new Date();
         date.setTime(date.getTime() + minutes * 60 * 1000);
-        expires = '; expires=' + date.toGMTString();
+        expires = '; expires=' + date.toUTCString();
       } else expires = '';
 
       domain = domain ? 'domain=' + domain + ';' : '';
-      document.cookie = name + '=' + value + expires + ';' + domain + 'path=/';
+      cookieOptions = Object.keys(cookieOptions).reduce(function (acc, key) {
+        return acc + ';' + key.replace(/([A-Z])/g, function ($1) {
+          return '-' + $1.toLowerCase();
+        }) + '=' + cookieOptions[key];
+      }, '');
+      document.cookie = name + '=' + encodeURIComponent(value) + expires + ';' + domain + cookieOptions;
     },
     read: function read(name) {
       var nameEQ = name + '=';

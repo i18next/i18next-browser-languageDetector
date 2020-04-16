@@ -1,3 +1,7 @@
+### 4.1.0
+
+- feat: add cookieOptions for setting cookies [203](https://github.com/i18next/i18next-browser-languageDetector/pull/203)
+
 ### 4.0.2
 
 - update index file to reflect build changes done in 4.0.0
