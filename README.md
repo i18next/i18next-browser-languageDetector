@@ -68,6 +68,8 @@ As with all modules you can either pass the constructor function (class) to the 
 
   // only detect languages that are in the whitelist
   checkWhitelist: true
+    // optional set cookie options, reference:[MDN Set-Cookie docs](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie)
+  cookieOptions: {path:'/'}
 }
 ```
 

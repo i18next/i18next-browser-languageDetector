@@ -1,14 +1,16 @@
 let cookie = {
-  create: function(name,value,minutes,domain) {
+  create: function(name,value,minutes,domain,cookieOptions = {path: '/'}) {
     let expires;
     if (minutes) {
       let date = new Date();
       date.setTime(date.getTime() + (minutes * 60 * 1000));
-      expires = '; expires=' + date.toGMTString();
-    }
+      expires = '; expires=' + date.toUTCString();
+    } 
     else expires = '';
     domain = domain ? 'domain=' + domain + ';' : '';
-    document.cookie = name + '=' + value + expires + ';' + domain + 'path=/';
+    cookieOptions = Object.keys(cookieOptions).reduce((acc, key) => acc + ';' + 
+    key.replace(/([A-Z])/g, ($1) => '-' + $1.toLowerCase()) + '=' + cookieOptions[key], '',);
+    document.cookie = name + '=' + encodeURIComponent(value) + expires + ';' + domain + cookieOptions;
   },
 
   read: function(name) {
