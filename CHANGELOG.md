@@ -1,3 +1,7 @@
+### 4.1.1
+
+- fix: pass cookieOptions with the cacheUserLang [205](https://github.com/i18next/i18next-browser-languageDetector/pull/205)
+
 ### 4.1.0
 
 - feat: add cookieOptions for setting cookies [203](https://github.com/i18next/i18next-browser-languageDetector/pull/203)

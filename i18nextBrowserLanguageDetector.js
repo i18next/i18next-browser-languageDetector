@@ -95,7 +95,7 @@
     },
     cacheUserLanguage: function cacheUserLanguage(lng, options) {
       if (options.lookupCookie && typeof document !== 'undefined') {
-        cookie.create(options.lookupCookie, lng, options.cookieMinutes, options.cookieDomain);
+        cookie.create(options.lookupCookie, lng, options.cookieMinutes, options.cookieDomain, options.cookieOptions);
       }
     }
   };
