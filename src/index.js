@@ -51,6 +51,10 @@ class Browser {
   }
 
   addDetector(detector) {
+    if (this.options.excludeLookupFor.includes(detector.name)) {
+      return delete this.detectors[detector.name];
+    }
+
     this.detectors[detector.name] = detector;
   }
 

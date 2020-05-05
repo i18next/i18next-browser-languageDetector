@@ -58,6 +58,7 @@ As with all modules you can either pass the constructor function (class) to the 
   // cache user language on
   caches: ['localStorage', 'cookie'],
   excludeCacheFor: ['cimode'], // languages to not persist (cookie, localStorage)
+  excludeLookupFor: ['navigator', 'htmlTag'], // you can exclude detectors to avoid lookup for them
 
   // optional expire and domain for set cookie
   cookieMinutes: 10,
