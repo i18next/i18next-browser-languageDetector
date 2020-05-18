@@ -253,7 +253,8 @@
       excludeCacheFor: ['cimode'],
       //cookieMinutes: 10,
       //cookieDomain: 'myDomain'
-      checkWhitelist: true
+      checkWhitelist: true,
+      checkForSimilarInWhitelist: false
     };
   }
 
@@ -276,7 +277,9 @@
         var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
         var i18nOptions = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
         this.services = services;
-        this.options = defaults(options, this.options || {}, getDefaults()); // backwards compatibility
+        this.options = defaults(options, this.options || {}, getDefaults()); // if checking for similar, user needs to check whitelist
+
+        if (this.options.checkForSimilarInWhitelist) this.options.checkWhitelist = true; // backwards compatibility
 
         if (this.options.lookupFromUrlIndex) this.options.lookupFromPathIndex = this.options.lookupFromUrlIndex;
         this.i18nOptions = i18nOptions;
@@ -315,6 +318,10 @@
           var cleanedLng = _this.services.languageUtils.formatLanguageCode(lng);
 
           if (!_this.options.checkWhitelist || _this.services.languageUtils.isWhitelisted(cleanedLng)) found = cleanedLng;
+
+          if (!found && _this.options.checkForSimilarInWhitelist) {
+            found = _this.getSimilarInWhitelist(cleanedLng);
+          }
         });
 
         if (!found) {
@@ -342,6 +349,30 @@
         caches.forEach(function (cacheName) {
           if (_this2.detectors[cacheName]) _this2.detectors[cacheName].cacheUserLanguage(lng, _this2.options);
         });
+      }
+    }, {
+      key: "getSimilarInWhitelist",
+      value: function getSimilarInWhitelist(cleanedLng) {
+        var _this3 = this;
+
+        if (!this.i18nOptions.whitelist) return;
+
+        if (cleanedLng.includes('-')) {
+          // i.e. es-MX should check if es is in whitelist
+          var prefix = cleanedLng.split('-')[0];
+          var cleanedPrefix = this.services.languageUtils.formatLanguageCode(prefix);
+          if (this.services.languageUtils.isWhitelisted(cleanedPrefix)) return cleanedPrefix; // if reached here, nothing found. continue to search for similar using only prefix
+
+          cleanedLng = cleanedPrefix;
+        } // i.e. 'pt' should return 'pt-BR'. If multiple in whitelist with 'pt-', then use first one in whitelist
+
+
+        var similar = this.i18nOptions.whitelist.find(function (whitelistLng) {
+          var cleanedWhitelistLng = _this3.services.languageUtils.formatLanguageCode(whitelistLng);
+
+          if (cleanedWhitelistLng.startsWith(cleanedLng)) return cleanedWhitelistLng;
+        });
+        if (similar) return similar;
       }
     }]);
 

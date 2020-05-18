@@ -68,7 +68,15 @@ As with all modules you can either pass the constructor function (class) to the 
 
   // only detect languages that are in the whitelist
   checkWhitelist: true,
-    // optional set cookie options, reference:[MDN Set-Cookie docs](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie)
+
+  // fallback to a similar whitelist language
+  // Example 1: Browser language is 'es'
+  // if 'es' is not found in whitelist, first fallback to any whitelist language that starts with 'es-', then fallback to fallbackLng ('es' -> 'es-*' -> fallbackLng)
+  // Example 2: Browser language is 'es-MX'
+  // if 'es-MX' is not found in whitelist, first fallback to 'es', then fallback to 'es-*', then fallback to fallbackLng ('es-MX' -> 'es' -> 'es-*' -> fallbackLng)
+  checkForSimilarInWhitelist: false,
+
+  // optional set cookie options, reference:[MDN Set-Cookie docs](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie)
   cookieOptions: {path:'/'}
 }
 ```

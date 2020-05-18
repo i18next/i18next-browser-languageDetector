@@ -20,6 +20,7 @@ function getDefaults() {
     //cookieMinutes: 10,
     //cookieDomain: 'myDomain'
     checkWhitelist: true,
+    checkForSimilarInWhitelist: false,
   };
 }
 
@@ -34,6 +35,9 @@ class Browser {
   init(services, options = {}, i18nOptions = {}) {
     this.services = services;
     this.options = utils.defaults(options, this.options || {}, getDefaults());
+
+    // if checking for similar, user needs to check whitelist
+    if (this.options.checkForSimilarInWhitelist) this.options.checkWhitelist = true;
 
     // backwards compatibility
     if (this.options.lookupFromUrlIndex)
@@ -72,6 +76,10 @@ class Browser {
       let cleanedLng = this.services.languageUtils.formatLanguageCode(lng);
       if (!this.options.checkWhitelist || this.services.languageUtils.isWhitelisted(cleanedLng))
         found = cleanedLng;
+
+      if (!found && this.options.checkForSimilarInWhitelist) {
+        found = this.getSimilarInWhitelist(cleanedLng);
+      }
     });
 
     if (!found) {
@@ -96,6 +104,30 @@ class Browser {
     caches.forEach(cacheName => {
       if (this.detectors[cacheName]) this.detectors[cacheName].cacheUserLanguage(lng, this.options);
     });
+  }
+
+  getSimilarInWhitelist(cleanedLng) {
+    if (!this.i18nOptions.whitelist) return;
+
+    if (cleanedLng.includes('-')) {
+      // i.e. es-MX should check if es is in whitelist
+      const prefix = cleanedLng.split('-')[0];
+
+      const cleanedPrefix = this.services.languageUtils.formatLanguageCode(prefix);
+
+      if (this.services.languageUtils.isWhitelisted(cleanedPrefix)) return cleanedPrefix;
+
+      // if reached here, nothing found. continue to search for similar using only prefix
+      cleanedLng = cleanedPrefix;
+    }
+
+    // i.e. 'pt' should return 'pt-BR'. If multiple in whitelist with 'pt-', then use first one in whitelist
+    const similar = this.i18nOptions.whitelist.find(whitelistLng => {
+      const cleanedWhitelistLng = this.services.languageUtils.formatLanguageCode(whitelistLng);
+      if (cleanedWhitelistLng.startsWith(cleanedLng)) return cleanedWhitelistLng;
+    });
+
+    if (similar) return similar;
   }
 }
 
