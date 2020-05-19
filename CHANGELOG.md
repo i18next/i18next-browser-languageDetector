@@ -1,3 +1,7 @@
+### 4.2.0
+
+- Add config option checkForSimilarInWhitelist [211](https://github.com/i18next/i18next-browser-languageDetector/pull/211)
+
 ### 4.1.1
 
 - fix: pass cookieOptions with the cacheUserLang [205](https://github.com/i18next/i18next-browser-languageDetector/pull/205)
