@@ -108,7 +108,7 @@ via calling init:
 ```js
   import LanguageDetector from 'i18next-browser-languagedetector';
   const languageDetector = new LanguageDetector();
-  lngDetector.init(options);
+  languageDetector.init(options);
 ```
 
 ## Adding own detection functionality
