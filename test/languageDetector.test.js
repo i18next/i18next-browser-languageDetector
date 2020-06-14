@@ -5,7 +5,7 @@ const LanguageDetector = require('../dist/cjs/i18nextBrowserLanguageDetector.js'
 i18next.init()
 
 describe('language detector', () => {
-  const ld = new LanguageDetector(i18next.services, { order: ['querystring', 'path', 'cookie', 'localStorage', 'navigator', 'htmlTag'] })
+  const ld = new LanguageDetector(i18next.services, { order: ['querystring', 'path', 'cookie', 'sessionStorage', 'localStorage', 'navigator', 'htmlTag'] })
 
   describe('cookie', () => {
     it('detect', () => {
