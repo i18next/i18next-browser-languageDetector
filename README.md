@@ -7,6 +7,7 @@
 This is a i18next language detection plugin use to detect user language in the browser with support for:
 
 - cookie (set cookie i18next=LANGUAGE)
+- sessionStorage (set key i18nextLng=LANGUAGE)
 - localStorage (set key i18nextLng=LANGUAGE)
 - navigator (set browser language)
 - querystring (append `?lng=LANGUAGE` to URL)
@@ -46,7 +47,7 @@ As with all modules you can either pass the constructor function (class) to the 
 ```js
 {
   // order and from where user language should be detected
-  order: ['querystring', 'cookie', 'localStorage', 'navigator', 'htmlTag', 'path', 'subdomain'],
+  order: ['querystring', 'cookie', 'sessionStorage','localStorage', 'navigator', 'htmlTag', 'path', 'subdomain'],
 
   // keys or params to lookup language from
   lookupQuerystring: 'lng',
