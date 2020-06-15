@@ -10,7 +10,7 @@ import subdomain from './browserLookups/subdomain.js';
 
 function getDefaults() {
   return {
-    order: ['querystring', 'cookie', 'sessionStorage','localStorage', 'navigator', 'htmlTag'],
+    order: ['querystring', 'cookie', 'localStorage', 'sessionStorage', 'navigator', 'htmlTag'],
     lookupQuerystring: 'lng',
     lookupCookie: 'i18next',
     lookupLocalStorage: 'i18nextLng',

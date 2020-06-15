@@ -1,3 +1,7 @@
+### 4.3.0
+
+- sessionStorage support [215](https://github.com/i18next/i18next-browser-languageDetector/pull/215)
+
 ### 4.2.0
 
 - Add config option checkForSimilarInWhitelist [211](https://github.com/i18next/i18next-browser-languageDetector/pull/211)
