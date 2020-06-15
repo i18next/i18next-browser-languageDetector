@@ -2,6 +2,7 @@ import * as utils from './utils.js';
 import cookie from './browserLookups/cookie.js';
 import querystring from './browserLookups/querystring.js';
 import localStorage from './browserLookups/localStorage.js';
+import sessionStorage from './browserLookups/sessionStorage.js';
 import navigator from './browserLookups/navigator.js';
 import htmlTag from './browserLookups/htmlTag.js';
 import path from './browserLookups/path.js';
@@ -9,7 +10,7 @@ import subdomain from './browserLookups/subdomain.js';
 
 function getDefaults() {
   return {
-    order: ['querystring', 'cookie', 'localStorage', 'navigator', 'htmlTag'],
+    order: ['querystring', 'cookie', 'sessionStorage','localStorage', 'navigator', 'htmlTag'],
     lookupQuerystring: 'lng',
     lookupCookie: 'i18next',
     lookupLocalStorage: 'i18nextLng',
@@ -48,6 +49,7 @@ class Browser {
     this.addDetector(cookie);
     this.addDetector(querystring);
     this.addDetector(localStorage);
+    this.addDetector(sessionStorage);
     this.addDetector(navigator);
     this.addDetector(htmlTag);
     this.addDetector(path);

@@ -5,7 +5,7 @@ interface DetectorOptions {
    * order and from where user language should be detected
    */
   order?: Array<
-    "querystring" | "cookie" | "localStorage" | "navigator" | "htmlTag" | string
+    "querystring" | "cookie" | "sessionStorage" | "localStorage" | "navigator" | "htmlTag" | string
   >;
 
   /**
