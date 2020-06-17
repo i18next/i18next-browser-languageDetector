@@ -160,3 +160,15 @@ Don't forget: You have to add the name of your detector (`myDetectorsName` in th
     <img src="https://raw.githubusercontent.com/i18next/i18next/master/assets/locize_sponsor_240.gif" width="240px">
   </a>
 </p>
+
+---
+
+**localization as a service - locize.com**
+
+Needing a translation management? Want to edit your translations with an InContext Editor? Use the orginal provided to you by the maintainers of i18next!
+
+![locize](https://locize.com/img/ads/github_locize.png)
+
+With using [locize](http://locize.com/?utm_source=react_i18next_readme&utm_medium=github) you directly support the future of i18next and react-i18next.
+
+---
