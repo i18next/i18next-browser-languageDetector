@@ -1,11 +1,27 @@
-import * as i18next from "i18next";
+import * as i18next from 'i18next';
 
 interface DetectorOptions {
+  /**
+   * only detect languages that are in the whitelist
+   * @default true
+   */
+  checkWhitelist?: boolean;
+
+  /**
+   * fallback to a similar whitelist language
+   * Example 1: Browser language is 'es'
+   * if 'es' is not found in whitelist, first fallback to any whitelist language that starts with 'es-', then fallback to fallbackLng ('es' -> 'es-*' -> fallbackLng)
+   * Example 2: Browser language is 'es-MX'
+   * if 'es-MX' is not found in whitelist, first fallback to 'es', then fallback to 'es-*', then fallback to fallbackLng ('es-MX' -> 'es' -> 'es-*' -> fallbackLng)
+   * @default false
+   */
+  checkForSimilarInWhitelist?: boolean;
+
   /**
    * order and from where user language should be detected
    */
   order?: Array<
-    "querystring" | "cookie" | "sessionStorage" | "localStorage" | "navigator" | "htmlTag" | string
+    'querystring' | 'cookie' | 'sessionStorage' | 'localStorage' | 'navigator' | 'htmlTag' | string
   >;
 
   /**
@@ -14,6 +30,8 @@ interface DetectorOptions {
   lookupQuerystring?: string;
   lookupCookie?: string;
   lookupLocalStorage?: string;
+  lookupFromPathIndex?: number;
+  lookupFromSubdomainIndex?: number;
 
   /**
    * cache user language on
@@ -45,8 +63,7 @@ interface CustomDetector {
   lookup(options: DetectorOptions): string | undefined;
 }
 
-export default class I18nextBrowserLanguageDetector
-  implements i18next.LanguageDetectorModule {
+export default class I18nextBrowserLanguageDetector implements i18next.LanguageDetectorModule {
   constructor(services?: any, options?: DetectorOptions);
   /**
    * Adds detector.
@@ -58,11 +75,11 @@ export default class I18nextBrowserLanguageDetector
    */
   init(services?: any, options?: DetectorOptions): void;
 
-  detect(detectionOrder?: DetectorOptions["order"]): string | undefined;
+  detect(detectionOrder?: DetectorOptions['order']): string | undefined;
 
   cacheUserLanguage(lng: string, caches?: string[]): void;
 
-  type: "languageDetector";
+  type: 'languageDetector';
   detectors: { [key: string]: any };
   services: any;
   i18nOptions: any;
