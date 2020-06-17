@@ -1,3 +1,7 @@
+### 4.3.1
+
+- typescript Updated typescript typings for DetectorOptions to align with current options [216](https://github.com/i18next/i18next-browser-languageDetector/pull/216)
+
 ### 4.3.0
 
 - sessionStorage support [215](https://github.com/i18next/i18next-browser-languageDetector/pull/215)
