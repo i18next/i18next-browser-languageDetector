@@ -13,7 +13,7 @@ describe('language detector', () => {
         cookie: 'i18next=de'
       }
       const lng = ld.detect()
-      expect(lng).to.eql('de')
+      expect(lng).to.contain('de')
     })
 
     it('cacheUserLanguage', () => {
@@ -36,7 +36,7 @@ describe('language detector', () => {
         }
       }
       const lng = ld.detect()
-      expect(lng).to.eql('fr')
+      expect(lng).to.contain('fr')
     })
   })
 
@@ -49,7 +49,7 @@ describe('language detector', () => {
         }
       }
       const lng = ld.detect()
-      expect(lng).to.eql('de')
+      expect(lng).to.contain('de')
     })
   })
 })
