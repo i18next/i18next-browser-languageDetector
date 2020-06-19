@@ -280,11 +280,9 @@
       lookupLocalStorage: 'i18nextLng',
       // cache user language
       caches: ['localStorage'],
-      excludeCacheFor: ['cimode'],
-      //cookieMinutes: 10,
+      excludeCacheFor: ['cimode'] //cookieMinutes: 10,
       //cookieDomain: 'myDomain'
-      checkWhitelist: true,
-      checkForSimilarInWhitelist: false
+
     };
   }
 
@@ -307,9 +305,7 @@
         var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
         var i18nOptions = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
         this.services = services;
-        this.options = defaults(options, this.options || {}, getDefaults()); // if checking for similar, user needs to check whitelist
-
-        if (this.options.checkForSimilarInWhitelist) this.options.checkWhitelist = true; // backwards compatibility
+        this.options = defaults(options, this.options || {}, getDefaults()); // backwards compatibility
 
         if (this.options.lookupFromUrlIndex) this.options.lookupFromPathIndex = this.options.lookupFromUrlIndex;
         this.i18nOptions = i18nOptions;
@@ -342,32 +338,9 @@
             if (lookup) detected = detected.concat(lookup);
           }
         });
-        var found;
-        detected.forEach(function (lng) {
-          if (found) return;
+        if (this.services.languageUtils.getBestMatchFromCodes) return detected; // new i18next v19.5.0
 
-          var cleanedLng = _this.services.languageUtils.formatLanguageCode(lng);
-
-          if (!_this.options.checkWhitelist || _this.services.languageUtils.isWhitelisted(cleanedLng)) found = cleanedLng;
-
-          if (!found && _this.options.checkForSimilarInWhitelist) {
-            found = _this.getSimilarInWhitelist(cleanedLng);
-          }
-        });
-
-        if (!found) {
-          var fallbacks = this.i18nOptions.fallbackLng;
-          if (typeof fallbacks === 'string') fallbacks = [fallbacks];
-          if (!fallbacks) fallbacks = [];
-
-          if (Object.prototype.toString.apply(fallbacks) === '[object Array]') {
-            found = fallbacks[0];
-          } else {
-            found = fallbacks[0] || fallbacks["default"] && fallbacks["default"][0];
-          }
-        }
-
-        return found;
+        return detected.length > 0 ? detected[0] : null; // a little backward compatibility
       }
     }, {
       key: "cacheUserLanguage",
@@ -380,30 +353,6 @@
         caches.forEach(function (cacheName) {
           if (_this2.detectors[cacheName]) _this2.detectors[cacheName].cacheUserLanguage(lng, _this2.options);
         });
-      }
-    }, {
-      key: "getSimilarInWhitelist",
-      value: function getSimilarInWhitelist(cleanedLng) {
-        var _this3 = this;
-
-        if (!this.i18nOptions.whitelist) return;
-
-        if (cleanedLng.includes('-')) {
-          // i.e. es-MX should check if es is in whitelist
-          var prefix = cleanedLng.split('-')[0];
-          var cleanedPrefix = this.services.languageUtils.formatLanguageCode(prefix);
-          if (this.services.languageUtils.isWhitelisted(cleanedPrefix)) return cleanedPrefix; // if reached here, nothing found. continue to search for similar using only prefix
-
-          cleanedLng = cleanedPrefix;
-        } // i.e. 'pt' should return 'pt-BR'. If multiple in whitelist with 'pt-', then use first one in whitelist
-
-
-        var similar = this.i18nOptions.whitelist.find(function (whitelistLng) {
-          var cleanedWhitelistLng = _this3.services.languageUtils.formatLanguageCode(whitelistLng);
-
-          if (cleanedWhitelistLng.startsWith(cleanedLng)) return cleanedWhitelistLng;
-        });
-        if (similar) return similar;
       }
     }]);
 

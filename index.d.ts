@@ -2,22 +2,6 @@ import * as i18next from 'i18next';
 
 interface DetectorOptions {
   /**
-   * only detect languages that are in the whitelist
-   * @default true
-   */
-  checkWhitelist?: boolean;
-
-  /**
-   * fallback to a similar whitelist language
-   * Example 1: Browser language is 'es'
-   * if 'es' is not found in whitelist, first fallback to any whitelist language that starts with 'es-', then fallback to fallbackLng ('es' -> 'es-*' -> fallbackLng)
-   * Example 2: Browser language is 'es-MX'
-   * if 'es-MX' is not found in whitelist, first fallback to 'es', then fallback to 'es-*', then fallback to fallbackLng ('es-MX' -> 'es' -> 'es-*' -> fallbackLng)
-   * @default false
-   */
-  checkForSimilarInWhitelist?: boolean;
-
-  /**
    * order and from where user language should be detected
    */
   order?: Array<

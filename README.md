@@ -35,9 +35,7 @@ Wiring up:
 import i18next from 'i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
 
-i18next
-  .use(LanguageDetector)
-  .init(i18nextOptions);
+i18next.use(LanguageDetector).init(i18nextOptions);
 ```
 
 As with all modules you can either pass the constructor function (class) to the i18next.use or a concrete instance.
@@ -67,16 +65,6 @@ As with all modules you can either pass the constructor function (class) to the 
   // optional htmlTag with lang attribute, the default is:
   htmlTag: document.documentElement,
 
-  // only detect languages that are in the whitelist
-  checkWhitelist: true,
-
-  // fallback to a similar whitelist language
-  // Example 1: Browser language is 'es'
-  // if 'es' is not found in whitelist, first fallback to any whitelist language that starts with 'es-', then fallback to fallbackLng ('es' -> 'es-*' -> fallbackLng)
-  // Example 2: Browser language is 'es-MX'
-  // if 'es-MX' is not found in whitelist, first fallback to 'es', then fallback to 'es-*', then fallback to fallbackLng ('es-MX' -> 'es' -> 'es-*' -> fallbackLng)
-  checkForSimilarInWhitelist: false,
-
   // optional set cookie options, reference:[MDN Set-Cookie docs](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie)
   cookieOptions: {path:'/'}
 }
@@ -90,26 +78,24 @@ Options can be passed in:
 import i18next from 'i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
 
-i18next
-  .use(LanguageDetector)
-  .init({
-    detection: options
-  });
+i18next.use(LanguageDetector).init({
+  detection: options,
+});
 ```
 
 on construction:
 
 ```js
-  import LanguageDetector from 'i18next-browser-languagedetector';
-  const languageDetector = new LanguageDetector(null, options);
+import LanguageDetector from 'i18next-browser-languagedetector';
+const languageDetector = new LanguageDetector(null, options);
 ```
 
 via calling init:
 
 ```js
-  import LanguageDetector from 'i18next-browser-languagedetector';
-  const languageDetector = new LanguageDetector();
-  languageDetector.init(options);
+import LanguageDetector from 'i18next-browser-languagedetector';
+const languageDetector = new LanguageDetector();
+languageDetector.init(options);
 ```
 
 ## Adding own detection functionality
@@ -128,30 +114,26 @@ export default {
   cacheUserLanguage(lng, options) {
     // options -> are passed in options
     // lng -> current language, will be called after init and on changeLanguage
-
     // store it
-  }
+  },
 };
 ```
-
 
 ### adding it
 
 ```js
-  import LanguageDetector from 'i18next-browser-languagedetector';
-  const languageDetector = new LanguageDetector();
-  languageDetector.addDetector(myDetector);
+import LanguageDetector from 'i18next-browser-languagedetector';
+const languageDetector = new LanguageDetector();
+languageDetector.addDetector(myDetector);
 
-  i18next
-    .use(languageDetector)
-    .init({
-      detection: options
-    });
+i18next.use(languageDetector).init({
+  detection: options,
+});
 ```
 
 Don't forget: You have to add the name of your detector (`myDetectorsName` in this case) to the `order` array in your `options` object. Without that, your detector won't be used. See the [Detector Options section for more](#detector-options).
 
---------------
+---
 
 <h3 align="center">Gold Sponsors</h3>
 

@@ -1,3 +1,8 @@
+### 5.0.0
+
+- **BREAKING** needs i18next >= 19.5.0
+- let i18next figure out which detected lng is best match
+
 ### 4.3.1
 
 - typescript Updated typescript typings for DetectorOptions to align with current options [216](https://github.com/i18next/i18next-browser-languageDetector/pull/216)

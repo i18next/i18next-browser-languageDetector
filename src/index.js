@@ -20,8 +20,6 @@ function getDefaults() {
     excludeCacheFor: ['cimode'],
     //cookieMinutes: 10,
     //cookieDomain: 'myDomain'
-    checkWhitelist: true,
-    checkForSimilarInWhitelist: false,
   };
 }
 
@@ -36,9 +34,6 @@ class Browser {
   init(services, options = {}, i18nOptions = {}) {
     this.services = services;
     this.options = utils.defaults(options, this.options || {}, getDefaults());
-
-    // if checking for similar, user needs to check whitelist
-    if (this.options.checkForSimilarInWhitelist) this.options.checkWhitelist = true;
 
     // backwards compatibility
     if (this.options.lookupFromUrlIndex)
@@ -64,7 +59,7 @@ class Browser {
     if (!detectionOrder) detectionOrder = this.options.order;
 
     let detected = [];
-    detectionOrder.forEach(detectorName => {
+    detectionOrder.forEach((detectorName) => {
       if (this.detectors[detectorName]) {
         let lookup = this.detectors[detectorName].lookup(this.options);
         if (lookup && typeof lookup === 'string') lookup = [lookup];
@@ -72,64 +67,17 @@ class Browser {
       }
     });
 
-    let found;
-    detected.forEach(lng => {
-      if (found) return;
-      let cleanedLng = this.services.languageUtils.formatLanguageCode(lng);
-      if (!this.options.checkWhitelist || this.services.languageUtils.isWhitelisted(cleanedLng))
-        found = cleanedLng;
-
-      if (!found && this.options.checkForSimilarInWhitelist) {
-        found = this.getSimilarInWhitelist(cleanedLng);
-      }
-    });
-
-    if (!found) {
-      let fallbacks = this.i18nOptions.fallbackLng;
-      if (typeof fallbacks === 'string') fallbacks = [fallbacks];
-      if (!fallbacks) fallbacks = [];
-
-      if (Object.prototype.toString.apply(fallbacks) === '[object Array]') {
-        found = fallbacks[0];
-      } else {
-        found = fallbacks[0] || (fallbacks.default && fallbacks.default[0]);
-      }
-    }
-
-    return found;
+    if (this.services.languageUtils.getBestMatchFromCodes) return detected; // new i18next v19.5.0
+    return detected.length > 0 ? detected[0] : null; // a little backward compatibility
   }
 
   cacheUserLanguage(lng, caches) {
     if (!caches) caches = this.options.caches;
     if (!caches) return;
     if (this.options.excludeCacheFor && this.options.excludeCacheFor.indexOf(lng) > -1) return;
-    caches.forEach(cacheName => {
+    caches.forEach((cacheName) => {
       if (this.detectors[cacheName]) this.detectors[cacheName].cacheUserLanguage(lng, this.options);
     });
-  }
-
-  getSimilarInWhitelist(cleanedLng) {
-    if (!this.i18nOptions.whitelist) return;
-
-    if (cleanedLng.includes('-')) {
-      // i.e. es-MX should check if es is in whitelist
-      const prefix = cleanedLng.split('-')[0];
-
-      const cleanedPrefix = this.services.languageUtils.formatLanguageCode(prefix);
-
-      if (this.services.languageUtils.isWhitelisted(cleanedPrefix)) return cleanedPrefix;
-
-      // if reached here, nothing found. continue to search for similar using only prefix
-      cleanedLng = cleanedPrefix;
-    }
-
-    // i.e. 'pt' should return 'pt-BR'. If multiple in whitelist with 'pt-', then use first one in whitelist
-    const similar = this.i18nOptions.whitelist.find(whitelistLng => {
-      const cleanedWhitelistLng = this.services.languageUtils.formatLanguageCode(whitelistLng);
-      if (cleanedWhitelistLng.startsWith(cleanedLng)) return cleanedWhitelistLng;
-    });
-
-    if (similar) return similar;
   }
 }
 
