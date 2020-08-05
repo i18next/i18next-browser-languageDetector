@@ -1,16 +1,66 @@
+// eslint-disable-next-line no-control-regex
+const fieldContentRegExp = /^[\u0009\u0020-\u007e\u0080-\u00ff]+$/
+
+const serializeCookie = (name, val, options) => {
+  const opt = options || {}
+  opt.path = opt.path || '/'
+  const value = encodeURIComponent(val)
+  let str = name + '=' + value
+  if (opt.maxAge > 0) {
+    const maxAge = opt.maxAge - 0
+    if (isNaN(maxAge)) throw new Error('maxAge should be a Number')
+    str += '; Max-Age=' + Math.floor(maxAge)
+  }
+  if (opt.domain) {
+    if (!fieldContentRegExp.test(opt.domain)) {
+      throw new TypeError('option domain is invalid')
+    }
+    str += '; Domain=' + opt.domain
+  }
+  if (opt.path) {
+    if (!fieldContentRegExp.test(opt.path)) {
+      throw new TypeError('option path is invalid')
+    }
+    str += '; Path=' + opt.path
+  }
+  if (opt.expires) {
+    if (typeof opt.expires.toUTCString !== 'function') {
+      throw new TypeError('option expires is invalid')
+    }
+    str += '; Expires=' + opt.expires.toUTCString()
+  }
+  if (opt.httpOnly) str += '; HttpOnly'
+  if (opt.secure) str += '; Secure'
+  if (opt.sameSite) {
+    const sameSite = typeof opt.sameSite === 'string' ? opt.sameSite.toLowerCase() : opt.sameSite
+    switch (sameSite) {
+      case true:
+        str += '; SameSite=Strict'
+        break
+      case 'lax':
+        str += '; SameSite=Lax'
+        break
+      case 'strict':
+        str += '; SameSite=Strict'
+        break
+      case 'none':
+        str += '; SameSite=None'
+        break
+      default:
+        throw new TypeError('option sameSite is invalid')
+    }
+  }
+  return str
+}
+
 let cookie = {
-  create: function(name,value,minutes,domain,cookieOptions = {path: '/'}) {
-    let expires;
+  create: function(name, value, minutes, domain, cookieOptions = { path: '/', sameSite: 'strict' }) {
     if (minutes) {
-      let date = new Date();
-      date.setTime(date.getTime() + (minutes * 60 * 1000));
-      expires = '; expires=' + date.toUTCString();
-    } 
-    else expires = '';
-    domain = domain ? 'domain=' + domain + ';' : '';
-    cookieOptions = Object.keys(cookieOptions).reduce((acc, key) => acc + ';' + 
-    key.replace(/([A-Z])/g, ($1) => '-' + $1.toLowerCase()) + '=' + cookieOptions[key], '',);
-    document.cookie = name + '=' + encodeURIComponent(value) + expires + ';' + domain + cookieOptions;
+      cookieOptions.expires = new Date();
+      cookieOptions.expires.setTime(cookieOptions.expires.getTime() + (minutes * 60 * 1000));
+    }
+    if (domain) cookieOptions.domain = domain;
+    document.cookie = serializeCookie(name, encodeURIComponent(value), cookieOptions);
   },
 
   read: function(name) {

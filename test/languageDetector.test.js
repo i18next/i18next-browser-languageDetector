@@ -22,7 +22,7 @@ describe('language detector', () => {
       }
       ld.cacheUserLanguage('it', ['cookie'])
       expect(global.document.cookie).to.match(/i18next=it/)
-      expect(global.document.cookie).to.match(/path=\//)
+      expect(global.document.cookie).to.match(/Path=\//)
       // expect(global.document.cookie).to.match(/my=cookie/)
     })
   })

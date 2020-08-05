@@ -1,3 +1,7 @@
+### 5.0.1
+
+- optimize cookie serialization and set sameSite to strict by default, to prepare for browser changes
+
 ### 5.0.0
 
 - **BREAKING** needs i18next >= 19.5.0
