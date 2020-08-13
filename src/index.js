@@ -14,6 +14,7 @@ function getDefaults() {
     lookupQuerystring: 'lng',
     lookupCookie: 'i18next',
     lookupLocalStorage: 'i18nextLng',
+    lookupSessionStorage: 'i18nextLng',
 
     // cache user language
     caches: ['localStorage'],

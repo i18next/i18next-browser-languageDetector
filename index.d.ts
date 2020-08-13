@@ -13,6 +13,7 @@ interface DetectorOptions {
    */
   lookupQuerystring?: string;
   lookupCookie?: string;
+  lookupSessionStorage?: string;
   lookupLocalStorage?: string;
   lookupFromPathIndex?: number;
   lookupFromSubdomainIndex?: number;
