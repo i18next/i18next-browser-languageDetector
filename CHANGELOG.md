@@ -1,3 +1,7 @@
+### 6.0.0
+
+- **BREAKING** rename lookupSessionStorage and add it to defaults [221](https://github.com/i18next/i18next-browser-languageDetector/pull/221)
+
 ### 5.0.1
 
 - optimize cookie serialization and set sameSite to strict by default, to prepare for browser changes
