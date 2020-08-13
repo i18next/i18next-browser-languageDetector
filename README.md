@@ -51,6 +51,7 @@ As with all modules you can either pass the constructor function (class) to the 
   lookupQuerystring: 'lng',
   lookupCookie: 'i18next',
   lookupLocalStorage: 'i18nextLng',
+  lookupSessionStorage: 'i18nextLng',
   lookupFromPathIndex: 0,
   lookupFromSubdomainIndex: 0,
 

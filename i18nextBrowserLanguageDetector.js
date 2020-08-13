@@ -236,16 +236,16 @@
     lookup: function lookup(options) {
       var found;
 
-      if (options.lookupsessionStorage && hasSessionStorageSupport) {
-        var lng = window.sessionStorage.getItem(options.lookupsessionStorage);
+      if (options.lookupSessionStorage && hasSessionStorageSupport) {
+        var lng = window.sessionStorage.getItem(options.lookupSessionStorage);
         if (lng) found = lng;
       }
 
       return found;
     },
     cacheUserLanguage: function cacheUserLanguage(lng, options) {
-      if (options.lookupsessionStorage && hasSessionStorageSupport) {
-        window.sessionStorage.setItem(options.lookupsessionStorage, lng);
+      if (options.lookupSessionStorage && hasSessionStorageSupport) {
+        window.sessionStorage.setItem(options.lookupSessionStorage, lng);
       }
     }
   };
@@ -342,6 +342,7 @@
       lookupQuerystring: 'lng',
       lookupCookie: 'i18next',
       lookupLocalStorage: 'i18nextLng',
+      lookupSessionStorage: 'i18nextLng',
       // cache user language
       caches: ['localStorage'],
       excludeCacheFor: ['cimode'] //cookieMinutes: 10,

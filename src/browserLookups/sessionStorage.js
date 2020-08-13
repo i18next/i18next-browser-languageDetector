@@ -14,8 +14,8 @@ export default {
   lookup(options) {
     let found;
 
-    if (options.lookupsessionStorage && hasSessionStorageSupport) {
-      const lng = window.sessionStorage.getItem(options.lookupsessionStorage);
+    if (options.lookupSessionStorage && hasSessionStorageSupport) {
+      const lng = window.sessionStorage.getItem(options.lookupSessionStorage);
       if (lng) found = lng;
     }
 
@@ -23,8 +23,8 @@ export default {
   },
 
   cacheUserLanguage(lng, options) {
-    if (options.lookupsessionStorage && hasSessionStorageSupport) {
-      window.sessionStorage.setItem(options.lookupsessionStorage, lng);
+    if (options.lookupSessionStorage && hasSessionStorageSupport) {
+      window.sessionStorage.setItem(options.lookupSessionStorage, lng);
     }
   }
 };
