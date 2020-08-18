@@ -190,23 +190,29 @@
     }
   };
 
-  var hasLocalStorageSupport;
+  var hasLocalStorageSupport = null;
 
-  try {
-    hasLocalStorageSupport = window !== 'undefined' && window.localStorage !== null;
-    var testKey = 'i18next.translate.boo';
-    window.localStorage.setItem(testKey, 'foo');
-    window.localStorage.removeItem(testKey);
-  } catch (e) {
-    hasLocalStorageSupport = false;
-  }
+  var localStorageAvailable = function localStorageAvailable() {
+    if (hasLocalStorageSupport !== null) return hasLocalStorageSupport;
+
+    try {
+      hasLocalStorageSupport = window !== 'undefined' && window.localStorage !== null;
+      var testKey = 'i18next.translate.boo';
+      window.localStorage.setItem(testKey, 'foo');
+      window.localStorage.removeItem(testKey);
+    } catch (e) {
+      hasLocalStorageSupport = false;
+    }
+
+    return hasLocalStorageSupport;
+  };
 
   var localStorage = {
     name: 'localStorage',
     lookup: function lookup(options) {
       var found;
 
-      if (options.lookupLocalStorage && hasLocalStorageSupport) {
+      if (options.lookupLocalStorage && localStorageAvailable()) {
         var lng = window.localStorage.getItem(options.lookupLocalStorage);
         if (lng) found = lng;
       }
@@ -214,29 +220,35 @@
       return found;
     },
     cacheUserLanguage: function cacheUserLanguage(lng, options) {
-      if (options.lookupLocalStorage && hasLocalStorageSupport) {
+      if (options.lookupLocalStorage && localStorageAvailable()) {
         window.localStorage.setItem(options.lookupLocalStorage, lng);
       }
     }
   };
 
-  var hasSessionStorageSupport;
+  var hasSessionStorageSupport = null;
 
-  try {
-    hasSessionStorageSupport = window !== 'undefined' && window.sessionStorage !== null;
-    var testKey$1 = 'i18next.translate.boo';
-    window.sessionStorage.setItem(testKey$1, 'foo');
-    window.sessionStorage.removeItem(testKey$1);
-  } catch (e) {
-    hasSessionStorageSupport = false;
-  }
+  var sessionStorageAvailable = function sessionStorageAvailable() {
+    if (hasSessionStorageSupport !== null) return hasSessionStorageSupport;
+
+    try {
+      hasSessionStorageSupport = window !== 'undefined' && window.sessionStorage !== null;
+      var testKey = 'i18next.translate.boo';
+      window.sessionStorage.setItem(testKey, 'foo');
+      window.sessionStorage.removeItem(testKey);
+    } catch (e) {
+      hasSessionStorageSupport = false;
+    }
+
+    return hasSessionStorageSupport;
+  };
 
   var sessionStorage = {
     name: 'sessionStorage',
     lookup: function lookup(options) {
       var found;
 
-      if (options.lookupSessionStorage && hasSessionStorageSupport) {
+      if (options.lookupSessionStorage && sessionStorageAvailable()) {
         var lng = window.sessionStorage.getItem(options.lookupSessionStorage);
         if (lng) found = lng;
       }
@@ -244,7 +256,7 @@
       return found;
     },
     cacheUserLanguage: function cacheUserLanguage(lng, options) {
-      if (options.lookupSessionStorage && hasSessionStorageSupport) {
+      if (options.lookupSessionStorage && sessionStorageAvailable()) {
         window.sessionStorage.setItem(options.lookupSessionStorage, lng);
       }
     }
