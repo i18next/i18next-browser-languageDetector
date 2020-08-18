@@ -1,5 +1,6 @@
+let hasSessionStorageSupport = null;
+
 const sessionStorageAvailable = () => {
-  let hasSessionStorageSupport;
   try {
     hasSessionStorageSupport = window !== 'undefined' && window.sessionStorage !== null;
     const testKey = 'i18next.translate.boo';
@@ -11,13 +12,18 @@ const sessionStorageAvailable = () => {
   return hasSessionStorageSupport;
 }
 
+const checkSessionStorage = () => {
+  if (hasSessionStorageSupport === null) hasSessionStorageSupport = sessionStorageAvailable();
+}
+
 export default {
   name: 'sessionStorage',
 
   lookup(options) {
     let found;
+    checkSessionStorage();
 
-    if (options.lookupSessionStorage && sessionStorageAvailable()) {
+    if (options.lookupSessionStorage && hasSessionStorageSupport) {
       const lng = window.sessionStorage.getItem(options.lookupSessionStorage);
       if (lng) found = lng;
     }
@@ -26,7 +32,9 @@ export default {
   },
 
   cacheUserLanguage(lng, options) {
-    if (options.lookupSessionStorage && sessionStorageAvailable()) {
+    checkSessionStorage();
+    
+    if (options.lookupSessionStorage && hasSessionStorageSupport) {
       window.sessionStorage.setItem(options.lookupSessionStorage, lng);
     }
   }
