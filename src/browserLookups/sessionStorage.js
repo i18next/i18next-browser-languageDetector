@@ -1,11 +1,17 @@
-let hasSessionStorageSupport;
-try {
-  hasSessionStorageSupport = window !== 'undefined' && window.sessionStorage !== null;
-  const testKey = 'i18next.translate.boo';
-  window.sessionStorage.setItem(testKey, 'foo');
-  window.sessionStorage.removeItem(testKey);
-} catch (e) {
-  hasSessionStorageSupport = false;
+let hasSessionStorageSupport = null;
+
+const sessionStorageAvailable = () => {
+  if (hasSessionStorageSupport !== null) return hasSessionStorageSupport;
+
+  try {
+    hasSessionStorageSupport = window !== 'undefined' && window.sessionStorage !== null;
+    const testKey = 'i18next.translate.boo';
+    window.sessionStorage.setItem(testKey, 'foo');
+    window.sessionStorage.removeItem(testKey);
+  } catch (e) {
+    hasSessionStorageSupport = false;
+  }
+  return hasSessionStorageSupport;
 }
 
 export default {
@@ -14,7 +20,7 @@ export default {
   lookup(options) {
     let found;
 
-    if (options.lookupSessionStorage && hasSessionStorageSupport) {
+    if (options.lookupSessionStorage && sessionStorageAvailable()) {
       const lng = window.sessionStorage.getItem(options.lookupSessionStorage);
       if (lng) found = lng;
     }
@@ -23,7 +29,7 @@ export default {
   },
 
   cacheUserLanguage(lng, options) {
-    if (options.lookupSessionStorage && hasSessionStorageSupport) {
+    if (options.lookupSessionStorage && sessionStorageAvailable()) {
       window.sessionStorage.setItem(options.lookupSessionStorage, lng);
     }
   }
