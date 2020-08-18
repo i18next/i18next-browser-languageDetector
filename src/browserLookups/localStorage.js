@@ -1,6 +1,8 @@
 let hasLocalStorageSupport = null;
 
 const localStorageAvailable = () => {
+  if (hasLocalStorageSupport !== null) return hasLocalStorageSupport;
+
   try {
     hasLocalStorageSupport = window !== 'undefined' && window.localStorage !== null;
     const testKey = 'i18next.translate.boo';
@@ -12,18 +14,13 @@ const localStorageAvailable = () => {
   return hasLocalStorageSupport;
 }
 
-const checkLocalStorage = () => {
-  if (hasLocalStorageSupport === null) hasLocalStorageSupport = localStorageAvailable();
-}
-
 export default {
   name: 'localStorage',
 
   lookup(options) {
     let found;
-    checkLocalStorage();
 
-    if (options.lookupLocalStorage && hasLocalStorageSupport) {
+    if (options.lookupLocalStorage && localStorageAvailable()) {
       const lng = window.localStorage.getItem(options.lookupLocalStorage);
       if (lng) found = lng;
     }
@@ -32,9 +29,7 @@ export default {
   },
 
   cacheUserLanguage(lng, options) {
-    checkLocalStorage();
-
-    if (options.lookupLocalStorage && hasLocalStorageSupport) {
+    if (options.lookupLocalStorage && localStorageAvailable()) {
       window.localStorage.setItem(options.lookupLocalStorage, lng);
     }
   }
