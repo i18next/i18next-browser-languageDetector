@@ -42,10 +42,10 @@ interface DetectorOptions {
   htmlTag?: HTMLElement | null;
 }
 
-interface CustomDetector {
+export interface CustomDetector {
   name: string;
   cacheUserLanguage?(lng: string, options: DetectorOptions): void;
-  lookup(options: DetectorOptions): string | undefined;
+  lookup(options: DetectorOptions): string | string[] | undefined;
 }
 
 export default class I18nextBrowserLanguageDetector implements i18next.LanguageDetectorModule {
