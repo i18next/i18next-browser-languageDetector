@@ -41,6 +41,7 @@ i18next.use(LanguageDetector).init(i18nextOptions);
 As with all modules you can either pass the constructor function (class) to the i18next.use or a concrete instance.
 
 ## Detector Options
+*The default options can be found [here](https://github.com/i18next/i18next-browser-languageDetector/blob/9efebe6ca0271c3797bc09b84babf1ba2d9b4dbb/src/index.js#L11).*
 
 ```js
 {
