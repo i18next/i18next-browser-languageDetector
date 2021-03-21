@@ -69,3 +69,9 @@ export default class I18nextBrowserLanguageDetector implements i18next.LanguageD
   services: any;
   i18nOptions: any;
 }
+
+declare module 'i18next' {
+  interface PluginOptions {
+    detection?: DetectorOptions;
+  }
+}
