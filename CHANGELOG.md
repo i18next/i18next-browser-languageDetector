@@ -1,3 +1,8 @@
+### 6.1.0
+
+- Type PluginOptions properly [235](https://github.com/i18next/i18next-browser-languageDetector/pull/235)
+
+
 ### 6.0.1
 
 - optimize check for local storage and session storage [222](https://github.com/i18next/i18next-browser-languageDetector/pull/222)
