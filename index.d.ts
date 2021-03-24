@@ -1,6 +1,6 @@
 import * as i18next from 'i18next';
 
-interface DetectorOptions {
+export type interface DetectorOptions {
   /**
    * order and from where user language should be detected
    */
@@ -42,7 +42,7 @@ interface DetectorOptions {
   htmlTag?: HTMLElement | null;
 }
 
-interface CustomDetector {
+export type interface CustomDetector {
   name: string;
   cacheUserLanguage?(lng: string, options: DetectorOptions): void;
   lookup(options: DetectorOptions): string | undefined;
