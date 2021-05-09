@@ -1,5 +1,15 @@
 import * as i18next from 'i18next';
 
+interface CookieOptions {
+  maxAge?: number;
+  expires?: Date;
+  httpOnly?: boolean;
+  path?: string;
+  domain?: string;
+  secure?: boolean;
+  sameSite?: boolean | 'lax' | 'strict' | 'none';
+}
+
 interface DetectorOptions {
   /**
    * order and from where user language should be detected
@@ -29,11 +39,20 @@ interface DetectorOptions {
   excludeCacheFor?: string[];
 
   /**
-   * optional expire and domain for set cookie
+   * optional expire for set cookie
    * @default 10
    */
   cookieMinutes?: number;
+
+  /**
+   * optional domain for set cookie
+   */
   cookieDomain?: string;
+
+  /**
+   * optional cookie options
+   */
+  cookieOptions?: CookieOptions
 
   /**
    * optional htmlTag with lang attribute
