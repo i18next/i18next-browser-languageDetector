@@ -1,3 +1,8 @@
+### 6.1.1
+
+- cookieOptions types [239](https://github.com/i18next/i18next-browser-languageDetector/pull/239)
+
+
 ### 6.1.0
 
 - Type PluginOptions properly [235](https://github.com/i18next/i18next-browser-languageDetector/pull/235)
