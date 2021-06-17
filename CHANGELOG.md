@@ -1,3 +1,8 @@
+### 6.1.2
+
+- fox lookup return types [245](https://github.com/i18next/i18next-browser-languageDetector/issues/245)
+
+
 ### 6.1.1
 
 - cookieOptions types [239](https://github.com/i18next/i18next-browser-languageDetector/pull/239)

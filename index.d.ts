@@ -64,7 +64,7 @@ interface DetectorOptions {
 interface CustomDetector {
   name: string;
   cacheUserLanguage?(lng: string, options: DetectorOptions): void;
-  lookup(options: DetectorOptions): string | undefined;
+  lookup(options: DetectorOptions): string | string[] | undefined;
 }
 
 export default class I18nextBrowserLanguageDetector implements i18next.LanguageDetectorModule {
@@ -79,7 +79,7 @@ export default class I18nextBrowserLanguageDetector implements i18next.LanguageD
    */
   init(services?: any, options?: DetectorOptions): void;
 
-  detect(detectionOrder?: DetectorOptions['order']): string | undefined;
+  detect(detectionOrder?: DetectorOptions['order']): string | string[] | undefined;
 
   cacheUserLanguage(lng: string, caches?: string[]): void;
 

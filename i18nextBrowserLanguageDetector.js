@@ -363,9 +363,7 @@
     };
   }
 
-  var Browser =
-  /*#__PURE__*/
-  function () {
+  var Browser = /*#__PURE__*/function () {
     function Browser(services) {
       var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
