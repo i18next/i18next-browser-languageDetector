@@ -61,7 +61,7 @@ interface DetectorOptions {
   htmlTag?: HTMLElement | null;
 }
 
-interface CustomDetector {
+export interface CustomDetector {
   name: string;
   cacheUserLanguage?(lng: string, options: DetectorOptions): void;
   lookup(options: DetectorOptions): string | string[] | undefined;
