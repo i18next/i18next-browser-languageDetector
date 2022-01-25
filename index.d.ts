@@ -10,7 +10,7 @@ interface CookieOptions {
   sameSite?: boolean | 'lax' | 'strict' | 'none';
 }
 
-interface DetectorOptions {
+export interface DetectorOptions {
   /**
    * order and from where user language should be detected
    */
@@ -61,7 +61,7 @@ interface DetectorOptions {
   htmlTag?: HTMLElement | null;
 }
 
-interface CustomDetector {
+export interface CustomDetector {
   name: string;
   cacheUserLanguage?(lng: string, options: DetectorOptions): void;
   lookup(options: DetectorOptions): string | string[] | undefined;

@@ -1,3 +1,8 @@
+### 6.1.3
+
+- export DecetorOptions and CustomDetector types
+
+
 ### 6.1.2
 
 - fix lookup return types [245](https://github.com/i18next/i18next-browser-languageDetector/issues/245)
