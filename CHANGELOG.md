@@ -1,3 +1,7 @@
+### 6.1.4
+
+- fix querystring lookup if happening after # [256](https://github.com/i18next/i18next-browser-languageDetector/issues/256)
+
 ### 6.1.3
 
 - export DecetorOptions and CustomDetector types

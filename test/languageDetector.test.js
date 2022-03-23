@@ -52,4 +52,18 @@ describe('language detector', () => {
       expect(lng).to.contain('de')
     })
   })
+
+  describe('querystring (fragment)', () => {
+    it('detect', () => {
+      global.window = {
+        location: {
+          pathname: '/fr/some/route',
+          hash: '#/something?lng=de',
+          search: ''
+        }
+      }
+      const lng = ld.detect()
+      expect(lng).to.contain('de')
+    })
+  })
 })

@@ -173,7 +173,13 @@
       var found;
 
       if (typeof window !== 'undefined') {
-        var query = window.location.search.substring(1);
+        var search = window.location.search;
+
+        if (!window.location.search && window.location.hash && window.location.hash.indexOf('?') > -1) {
+          search = window.location.hash.substring(window.location.hash.indexOf('?'));
+        }
+
+        var query = search.substring(1);
         var params = query.split('&');
 
         for (var i = 0; i < params.length; i++) {
