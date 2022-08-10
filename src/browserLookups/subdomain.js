@@ -2,17 +2,22 @@ export default {
   name: 'subdomain',
 
   lookup(options) {
-    let found;
-    if (typeof window !== 'undefined') {
-      const language = window.location.href.match(/(?:http[s]*\:\/\/)*(.*?)\.(?=[^\/]*\..{2,5})/gi);
-      if (language instanceof Array) {
-        if (typeof options.lookupFromSubdomainIndex === 'number') {
-          found = language[options.lookupFromSubdomainIndex].replace('http://', '').replace('https://', '').replace('.', '');
-        } else {
-          found = language[0].replace('http://', '').replace('https://', '').replace('.', '');
-        }
-      }
-    }
-    return found;
-  }
+    // If given get the subdomain index else 1
+    const lookupFromSubdomainIndex =
+      typeof options.lookupFromSubdomainIndex === 'number'
+        ? options.lookupFromSubdomainIndex + 1
+        : 1;
+    // get all matches if window.location. is existing
+    // first item of match is the match itself and the second is the first group macht which sould be the first subdomain match
+    // is the hostname no public domain get the or option of localhost
+    const language =
+      !!window &&
+      window.location &&
+      window.location.hostname &&
+      window.location.hostname.match(/^(\w{2,5})\.((\w+\.\w{2,})|localhost)/i);
+    // if there is no match (null) return undefined
+    if (!language) return undefined;
+    // return the given group match
+    return language[lookupFromSubdomainIndex];
+  },
 };
