@@ -12,7 +12,7 @@ const localStorageAvailable = () => {
     hasLocalStorageSupport = false;
   }
   return hasLocalStorageSupport;
-}
+};
 
 export default {
   name: 'localStorage',

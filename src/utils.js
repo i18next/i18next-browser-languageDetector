@@ -1,11 +1,11 @@
-let arr = [];
-let each = arr.forEach;
-let slice = arr.slice;
+const arr = [];
+const each = arr.forEach;
+const { slice } = arr;
 
 export function defaults(obj) {
-  each.call(slice.call(arguments, 1), function(source) {
+  each.call(slice.call(arguments, 1), (source) => {
     if (source) {
-      for (var prop in source) {
+      for (const prop in source) {
         if (obj[prop] === undefined) obj[prop] = source[prop];
       }
     }
@@ -14,9 +14,9 @@ export function defaults(obj) {
 }
 
 export function extend(obj) {
-  each.call(slice.call(arguments, 1), function(source) {
+  each.call(slice.call(arguments, 1), (source) => {
     if (source) {
-      for (var prop in source) {
+      for (const prop in source) {
         obj[prop] = source[prop];
       }
     }

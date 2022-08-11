@@ -12,7 +12,7 @@ const sessionStorageAvailable = () => {
     hasSessionStorageSupport = false;
   }
   return hasSessionStorageSupport;
-}
+};
 
 export default {
   name: 'sessionStorage',

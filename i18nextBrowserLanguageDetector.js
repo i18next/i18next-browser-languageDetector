@@ -50,12 +50,12 @@
     var opt = options || {};
     opt.path = opt.path || '/';
     var value = encodeURIComponent(val);
-    var str = name + '=' + value;
+    var str = "".concat(name, "=").concat(value);
 
     if (opt.maxAge > 0) {
       var maxAge = opt.maxAge - 0;
-      if (isNaN(maxAge)) throw new Error('maxAge should be a Number');
-      str += '; Max-Age=' + Math.floor(maxAge);
+      if (Number.isNaN(maxAge)) throw new Error('maxAge should be a Number');
+      str += "; Max-Age=".concat(Math.floor(maxAge));
     }
 
     if (opt.domain) {
@@ -63,7 +63,7 @@
         throw new TypeError('option domain is invalid');
       }
 
-      str += '; Domain=' + opt.domain;
+      str += "; Domain=".concat(opt.domain);
     }
 
     if (opt.path) {
@@ -71,7 +71,7 @@
         throw new TypeError('option path is invalid');
       }
 
-      str += '; Path=' + opt.path;
+      str += "; Path=".concat(opt.path);
     }
 
     if (opt.expires) {
@@ -79,7 +79,7 @@
         throw new TypeError('option expires is invalid');
       }
 
-      str += '; Expires=' + opt.expires.toUTCString();
+      str += "; Expires=".concat(opt.expires.toUTCString());
     }
 
     if (opt.httpOnly) str += '; HttpOnly';
@@ -129,7 +129,7 @@
       document.cookie = serializeCookie(name, encodeURIComponent(value), cookieOptions);
     },
     read: function read(name) {
-      var nameEQ = name + '=';
+      var nameEQ = "".concat(name, "=");
       var ca = document.cookie.split(';');
 
       for (var i = 0; i < ca.length; i++) {
@@ -361,8 +361,8 @@
       lookupSessionStorage: 'i18nextLng',
       // cache user language
       caches: ['localStorage'],
-      excludeCacheFor: ['cimode'] //cookieMinutes: 10,
-      //cookieDomain: 'myDomain'
+      excludeCacheFor: ['cimode'] // cookieMinutes: 10,
+      // cookieDomain: 'myDomain'
 
     };
   }

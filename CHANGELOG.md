@@ -1,3 +1,7 @@
+### 6.1.5
+
+- lookup subdomain with localhost option [264](https://github.com/i18next/i18next-browser-languageDetector/pull/264)
+
 ### 6.1.4
 
 - fix querystring lookup if happening after # [256](https://github.com/i18next/i18next-browser-languageDetector/issues/256)

@@ -1,4 +1,4 @@
-parser: babel-eslint
+parser: "@babel/eslint-parser"
 extends: airbnb
 
 rules:
@@ -8,6 +8,12 @@ rules:
   comma-dangle: [2, "never"]
   padded-blocks: [0, "never"]
   no-unused-vars: [2, {vars: all, args: none}]
+  no-param-reassign: 0
+  guard-for-in: 0
+  no-restricted-syntax: 0
+  prefer-rest-params: 0
+  import/extensions: 0
+  no-plusplus: 0
   react/prop-types:
     - 0
     - ignore: #coming from hoc
@@ -17,3 +23,6 @@ rules:
 
 globals:
   expect: false
+  window: false
+  navigator: false
+  document: false

@@ -18,9 +18,9 @@ function getDefaults() {
 
     // cache user language
     caches: ['localStorage'],
-    excludeCacheFor: ['cimode'],
-    //cookieMinutes: 10,
-    //cookieDomain: 'myDomain'
+    excludeCacheFor: ['cimode']
+    // cookieMinutes: 10,
+    // cookieDomain: 'myDomain'
   };
 }
 
@@ -37,8 +37,7 @@ class Browser {
     this.options = utils.defaults(options, this.options || {}, getDefaults());
 
     // backwards compatibility
-    if (this.options.lookupFromUrlIndex)
-      this.options.lookupFromPathIndex = this.options.lookupFromUrlIndex;
+    if (this.options.lookupFromUrlIndex) this.options.lookupFromPathIndex = this.options.lookupFromUrlIndex;
 
     this.i18nOptions = i18nOptions;
 
