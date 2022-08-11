@@ -1,8 +1,6 @@
 # Introduction
 
 [![npm version](https://img.shields.io/npm/v/i18next-browser-languagedetector.svg?style=flat-square)](https://www.npmjs.com/package/i18next-browser-languagedetector)
-[![Bower](https://img.shields.io/bower/v/i18next-browser-languagedetector.svg)]()
-[![David](https://img.shields.io/david/i18next/i18next-browser-languagedetector.svg?style=flat-square)](https://david-dm.org/i18next/i18next-browser-languagedetector)
 
 This is a i18next language detection plugin use to detect user language in the browser with support for:
 
