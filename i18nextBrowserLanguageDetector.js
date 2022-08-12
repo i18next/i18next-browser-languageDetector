@@ -339,14 +339,14 @@
   var subdomain = {
     name: 'subdomain',
     lookup: function lookup(options) {
-      // If given get the subdomain index else 1
-      var lookupFromSubdomainIndex = typeof options.lookupFromSubdomainIndex === 'number' ? options.lookupFromSubdomainIndex + 1 : 1; // get all matches if window.location. is existing
-      // first item of match is the match itself and the second is the first group macht which sould be the first subdomain match
-      // is the hostname no public domain get the or option of localhost
+      // If the user wants a specific subdomain index within the domain
+      // Otherwise the index 0 is set as given
+      var lookupFromSubdomainIndex = typeof options.lookupFromSubdomainIndex === 'number' ? options.lookupFromSubdomainIndex : 0; // Try to reach the domain from the browser location object  -> property hostname
+      // split the domain to an array on the dot separator
 
-      var language = typeof window !== 'undefined' && window.location && window.location.hostname && window.location.hostname.match(/^(\w{2,5})\.(([a-z0-9-]{1,63}\.[a-z]{2,6})|localhost)/i); // if there is no match (null) return undefined
+      var language = typeof window !== 'undefined' && window.location && window.location.hostname && window.location.hostname.split('.'); // if there is no dot return undefined
 
-      if (!language) return undefined; // return the given group match
+      if (!language || language.length === 1) return undefined; // return the given index match
 
       return language[lookupFromSubdomainIndex];
     }
