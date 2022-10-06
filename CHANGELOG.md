@@ -1,3 +1,7 @@
+### 6.1.6
+
+- define module exports in package.json
+
 ### 6.1.5
 
 - lookup subdomain with localhost option [264](https://github.com/i18next/i18next-browser-languageDetector/pull/264)
