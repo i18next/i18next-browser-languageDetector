@@ -1,3 +1,7 @@
+### 6.1.8
+
+- fix export order for typescript [267](https://github.com/i18next/i18next-browser-languageDetector/issues/267)
+
 ### 6.1.7
 
 - Types entries missing in package exports (Needed for Typescript >= 4.7 and moduleResolution="Node16"/"Nodenext") [266](https://github.com/i18next/i18next-browser-languageDetector/issues/266)

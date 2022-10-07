@@ -8,17 +8,17 @@
   "exports": {
     "./package.json": "./package.json",
     ".": {
+      "types": "./index.d.ts",
       "require": "./dist/cjs/i18nextBrowserLanguageDetector.js",
-      "default": "./dist/esm/i18nextBrowserLanguageDetector.js",
-      "types": "./index.d.ts"
+      "default": "./dist/esm/i18nextBrowserLanguageDetector.js"
     },
     "./cjs": {
-      "default": "./dist/cjs/i18nextBrowserLanguageDetector.js",
-      "types": "./index.d.ts"
+      "types": "./index.d.ts",
+      "default": "./dist/cjs/i18nextBrowserLanguageDetector.js"
     },
     "./esm": {
-      "default": "./dist/esm/i18nextBrowserLanguageDetector.js",
-      "types": "./index.d.ts"
+      "types": "./index.d.ts",
+      "default": "./dist/esm/i18nextBrowserLanguageDetector.js"
     }
   },
   "keywords": [
