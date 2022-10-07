@@ -1,3 +1,7 @@
+### 6.1.7
+
+- Types entries missing in package exports (Needed for Typescript >= 4.7 and moduleResolution="Node16"/"Nodenext") [266](https://github.com/i18next/i18next-browser-languageDetector/issues/266)
+
 ### 6.1.6
 
 - define module exports in package.json

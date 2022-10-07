@@ -9,13 +9,16 @@
     "./package.json": "./package.json",
     ".": {
       "require": "./dist/cjs/i18nextBrowserLanguageDetector.js",
-      "default": "./dist/esm/i18nextBrowserLanguageDetector.js"
+      "default": "./dist/esm/i18nextBrowserLanguageDetector.js",
+      "types": "./index.d.ts"
     },
     "./cjs": {
-      "default": "./dist/cjs/i18nextBrowserLanguageDetector.js"
+      "default": "./dist/cjs/i18nextBrowserLanguageDetector.js",
+      "types": "./index.d.ts"
     },
     "./esm": {
-      "default": "./dist/esm/i18nextBrowserLanguageDetector.js"
+      "default": "./dist/esm/i18nextBrowserLanguageDetector.js",
+      "types": "./index.d.ts"
     }
   },
   "keywords": [
