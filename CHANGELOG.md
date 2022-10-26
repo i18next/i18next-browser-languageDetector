@@ -1,3 +1,7 @@
+### 7.0.0
+
+- typescript fix for i18next v22
+
 ### 6.1.8
 
 - fix export order for typescript [267](https://github.com/i18next/i18next-browser-languageDetector/issues/267)

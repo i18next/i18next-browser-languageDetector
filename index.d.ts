@@ -90,7 +90,7 @@ export default class I18nextBrowserLanguageDetector implements i18next.LanguageD
 }
 
 declare module 'i18next' {
-  interface PluginOptions {
+  interface CustomPluginOptions {
     detection?: DetectorOptions;
   }
 }

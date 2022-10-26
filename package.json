@@ -32,12 +32,12 @@
     "url": "https://github.com/i18next/i18next-browser-languageDetector.git"
   },
   "dependencies": {
-    "@babel/runtime": "^7.19.0"
+    "@babel/runtime": "^7.19.4"
   },
   "devDependencies": {
-    "@babel/core": "^7.19.3",
-    "@babel/plugin-transform-runtime": "^7.19.1",
-    "@babel/preset-env": "^7.19.3",
+    "@babel/core": "^7.19.6",
+    "@babel/plugin-transform-runtime": "^7.19.6",
+    "@babel/preset-env": "^7.19.4",
     "@babel/eslint-parser": "^7.19.1",
     "babel-polyfill": "^6.26.0",
     "babelify": "^10.0.0",
@@ -47,18 +47,19 @@
     "coveralls": "3.1.1",
     "cpy-cli": "^4.2.0",
     "dtslint": "^4.2.1",
-    "eslint": "8.24.0",
+    "eslint": "8.26.0",
     "eslint-config-airbnb": "19.0.4",
     "expect.js": "0.3.1",
-    "i18next": "21.10.0",
+    "i18next": "22.0.2",
     "mkdirp": "1.0.4",
-    "mocha": "10.0.0",
+    "mocha": "10.1.0",
     "rimraf": "3.0.2",
     "rollup": "^2.79.1",
     "@rollup/plugin-babel": "^5.3.1",
     "@rollup/plugin-node-resolve": "^14.1.0",
     "rollup-plugin-terser": "^7.0.2",
     "tslint": "^5.20.1",
+    "tsd": "0.24.1",
     "typescript": "^4.8.4",
     "yargs": "17.6.0"
   },
@@ -66,11 +67,14 @@
     "lint": "eslint src",
     "pretest": "npm run lint && npm run test:typescript && npm run test:typescript:noninterop",
     "test": "npm run build && mocha test -R spec --exit",
-    "test:typescript": "tslint --project tsconfig.json",
+    "test:typescript": "tslint --project tsconfig.json && tsd",
     "test:typescript:noninterop": "tslint --project tsconfig.nonEsModuleInterop.json",
     "build": "rimraf dist && rollup -c && cpy \"./dist/umd/*.js\" ./",
     "preversion": "npm run build && git push",
     "postversion": "git push && git push --tags"
+  },
+  "tsd": {
+    "directory": "test/typescript"
   },
   "author": "Jan Mühlemann <jan.muehlemann@gmail.com> (https://github.com/jamuhl)",
   "license": "MIT"
