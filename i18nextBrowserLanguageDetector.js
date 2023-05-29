@@ -325,7 +325,9 @@
       value: function init(services) {
         var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
         var i18nOptions = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
-        this.services = services;
+        this.services = services || {
+          languageUtils: {}
+        }; // this way the language detector can be used without i18next
         this.options = defaults(options, this.options || {}, getDefaults());
 
         // backwards compatibility

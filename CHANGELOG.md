@@ -1,3 +1,7 @@
+### 7.0.2
+
+- simplify usage without i18next
+
 ### 7.0.1
 
 - try to force esm moduel type for esm build [269](https://github.com/i18next/i18next-browser-languageDetector/issues/269)

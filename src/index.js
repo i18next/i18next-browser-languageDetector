@@ -33,7 +33,7 @@ class Browser {
   }
 
   init(services, options = {}, i18nOptions = {}) {
-    this.services = services;
+    this.services = services || { languageUtils: {} }; // this way the language detector can be used without i18next
     this.options = utils.defaults(options, this.options || {}, getDefaults());
 
     // backwards compatibility
