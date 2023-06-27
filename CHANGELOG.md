@@ -1,4 +1,4 @@
-### 7.0.3
+### 7.1.0
 
 - introduce convertDetectedLanguage option
 
