@@ -10,13 +10,39 @@
     }
   }
 
+  function _typeof(obj) {
+    "@babel/helpers - typeof";
+
+    return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) {
+      return typeof obj;
+    } : function (obj) {
+      return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+    }, _typeof(obj);
+  }
+
+  function _toPrimitive(input, hint) {
+    if (_typeof(input) !== "object" || input === null) return input;
+    var prim = input[Symbol.toPrimitive];
+    if (prim !== undefined) {
+      var res = prim.call(input, hint || "default");
+      if (_typeof(res) !== "object") return res;
+      throw new TypeError("@@toPrimitive must return a primitive value.");
+    }
+    return (hint === "string" ? String : Number)(input);
+  }
+
+  function _toPropertyKey(arg) {
+    var key = _toPrimitive(arg, "string");
+    return _typeof(key) === "symbol" ? key : String(key);
+  }
+
   function _defineProperties(target, props) {
     for (var i = 0; i < props.length; i++) {
       var descriptor = props[i];
       descriptor.enumerable = descriptor.enumerable || false;
       descriptor.configurable = true;
       if ("value" in descriptor) descriptor.writable = true;
-      Object.defineProperty(target, descriptor.key, descriptor);
+      Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor);
     }
   }
   function _createClass(Constructor, protoProps, staticProps) {
@@ -307,9 +333,13 @@
       lookupSessionStorage: 'i18nextLng',
       // cache user language
       caches: ['localStorage'],
-      excludeCacheFor: ['cimode']
+      excludeCacheFor: ['cimode'],
       // cookieMinutes: 10,
       // cookieDomain: 'myDomain'
+
+      convertDetectedLanguage: function convertDetectedLanguage(l) {
+        return l;
+      }
     };
   }
   var Browser = /*#__PURE__*/function () {
@@ -329,6 +359,11 @@
           languageUtils: {}
         }; // this way the language detector can be used without i18next
         this.options = defaults(options, this.options || {}, getDefaults());
+        if (typeof this.options.convertDetectedLanguage === 'string' && this.options.convertDetectedLanguage.indexOf('15897') > -1) {
+          this.options.convertDetectedLanguage = function (l) {
+            return l.replace('-', '_');
+          };
+        }
 
         // backwards compatibility
         if (this.options.lookupFromUrlIndex) this.options.lookupFromPathIndex = this.options.lookupFromUrlIndex;
@@ -359,6 +394,9 @@
             if (lookup && typeof lookup === 'string') lookup = [lookup];
             if (lookup) detected = detected.concat(lookup);
           }
+        });
+        detected = detected.map(function (d) {
+          return _this.options.convertDetectedLanguage(d);
         });
         if (this.services.languageUtils.getBestMatchFromCodes) return detected; // new i18next v19.5.0
         return detected.length > 0 ? detected[0] : null; // a little backward compatibility

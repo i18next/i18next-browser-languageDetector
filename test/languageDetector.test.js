@@ -14,14 +14,14 @@ describe('language detector', () => {
       'sessionStorage',
       'localStorage',
       'navigator',
-      'htmlTag',
-    ],
+      'htmlTag'
+    ]
   });
 
   describe('cookie', () => {
     it('detect', () => {
       global.document = {
-        cookie: 'i18next=de',
+        cookie: 'i18next=de'
       };
       const lng = ld.detect();
       expect(lng).to.contain('de');
@@ -29,7 +29,7 @@ describe('language detector', () => {
 
     it('cacheUserLanguage', () => {
       global.document = {
-        cookie: 'my=cookie',
+        cookie: 'my=cookie'
       };
       ld.cacheUserLanguage('it', ['cookie']);
       expect(global.document.cookie).to.match(/i18next=it/);
@@ -43,8 +43,8 @@ describe('language detector', () => {
       global.window = {
         location: {
           pathname: '/fr/some/route',
-          search: '',
-        },
+          search: ''
+        }
       };
       const lng = ld.detect();
       expect(lng).to.contain('fr');
@@ -56,8 +56,8 @@ describe('language detector', () => {
       global.window = {
         location: {
           pathname: '/fr/some/route',
-          search: '?lng=de',
-        },
+          search: '?lng=de'
+        }
       };
       const lng = ld.detect();
       expect(lng).to.contain('de');
@@ -70,8 +70,8 @@ describe('language detector', () => {
         location: {
           pathname: '/fr/some/route',
           hash: '#/something?lng=de',
-          search: '',
-        },
+          search: ''
+        }
       };
       const lng = ld.detect();
       expect(lng).to.contain('de');
@@ -86,11 +86,87 @@ describe('language detector', () => {
           href: 'http://es.foot-print-on-the-moon-1968.org/fr/some/route',
           pathname: '/fr/some/route',
           hash: '#/something?lng=de',
-          search: '?lng=de',
-        },
+          search: '?lng=de'
+        }
       };
       const lng = ld.detect();
       expect(lng).to.contain('es');
+    });
+  });
+});
+
+describe('language detector (ISO 15897 locales)', () => {
+  const ld = new LanguageDetector(i18next.services, {
+    order: [
+      'subdomain',
+      'querystring',
+      'path',
+      'cookie',
+      'sessionStorage',
+      'localStorage',
+      'navigator',
+      'htmlTag'
+    ],
+    convertDetectedLanguage: 'Iso15897'
+  });
+
+  describe('cookie', () => {
+    it('detect', () => {
+      global.document = {
+        cookie: 'i18next=de-CH'
+      };
+      const lng = ld.detect();
+      expect(lng).to.contain('de_CH');
+    });
+
+    it('cacheUserLanguage', () => {
+      global.document = {
+        cookie: 'my=cookie'
+      };
+      ld.cacheUserLanguage('it_IT', ['cookie']);
+      expect(global.document.cookie).to.match(/i18next=it_IT/);
+      expect(global.document.cookie).to.match(/Path=\//);
+      // expect(global.document.cookie).to.match(/my=cookie/)
+    });
+  });
+
+  describe('path', () => {
+    it('detect', () => {
+      global.window = {
+        location: {
+          pathname: '/fr-FR/some/route',
+          search: ''
+        }
+      };
+      const lng = ld.detect();
+      expect(lng).to.contain('fr_FR');
+    });
+  });
+
+  describe('querystring', () => {
+    it('detect', () => {
+      global.window = {
+        location: {
+          pathname: '/fr-FR/some/route',
+          search: '?lng=de-CH'
+        }
+      };
+      const lng = ld.detect();
+      expect(lng).to.contain('de_CH');
+    });
+  });
+
+  describe('querystring (fragment)', () => {
+    it('detect', () => {
+      global.window = {
+        location: {
+          pathname: '/fr-FR/some/route',
+          hash: '#/something?lng=de-CH',
+          search: ''
+        }
+      };
+      const lng = ld.detect();
+      expect(lng).to.contain('de_CH');
     });
   });
 });

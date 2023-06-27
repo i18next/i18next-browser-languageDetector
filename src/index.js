@@ -18,9 +18,11 @@ function getDefaults() {
 
     // cache user language
     caches: ['localStorage'],
-    excludeCacheFor: ['cimode']
+    excludeCacheFor: ['cimode'],
     // cookieMinutes: 10,
     // cookieDomain: 'myDomain'
+
+    convertDetectedLanguage: (l) => l
   };
 }
 
@@ -35,6 +37,9 @@ class Browser {
   init(services, options = {}, i18nOptions = {}) {
     this.services = services || { languageUtils: {} }; // this way the language detector can be used without i18next
     this.options = utils.defaults(options, this.options || {}, getDefaults());
+    if (typeof this.options.convertDetectedLanguage === 'string' && this.options.convertDetectedLanguage.indexOf('15897') > -1) {
+      this.options.convertDetectedLanguage = (l) => l.replace('-', '_');
+    }
 
     // backwards compatibility
     if (this.options.lookupFromUrlIndex) this.options.lookupFromPathIndex = this.options.lookupFromUrlIndex;
@@ -66,6 +71,8 @@ class Browser {
         if (lookup) detected = detected.concat(lookup);
       }
     });
+
+    detected = detected.map((d) => this.options.convertDetectedLanguage(d));
 
     if (this.services.languageUtils.getBestMatchFromCodes) return detected; // new i18next v19.5.0
     return detected.length > 0 ? detected[0] : null; // a little backward compatibility

@@ -1,3 +1,7 @@
+### 7.0.3
+
+- introduce convertDetectedLanguage option
+
 ### 7.0.2
 
 - simplify usage without i18next

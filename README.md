@@ -66,7 +66,11 @@ As with all modules you can either pass the constructor function (class) to the 
   htmlTag: document.documentElement,
 
   // optional set cookie options, reference:[MDN Set-Cookie docs](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie)
-  cookieOptions: { path: '/', sameSite: 'strict' }
+  cookieOptions: { path: '/', sameSite: 'strict' },
+
+  // optional conversion function to use to modify the detected language code
+  convertDetectedLanguage: 'Iso15897',
+  convertDetectedLanguage: (lng) => lng.replace('-', '_')
 }
 ```
 

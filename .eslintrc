@@ -26,3 +26,5 @@ globals:
   window: false
   navigator: false
   document: false
+  describe: false
+  it: false

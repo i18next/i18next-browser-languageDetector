@@ -59,6 +59,11 @@ export interface DetectorOptions {
    * @default document.documentElement
    */
   htmlTag?: HTMLElement | null;
+
+  /**
+   * optional conversion function to use to modify the detected language code
+   */
+  convertDetectedLanguage?: 'Iso15897' | ((lng: string) => string);
 }
 
 export interface CustomDetector {
