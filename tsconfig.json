@@ -13,8 +13,8 @@
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
 
-    "paths": { "i18next-browser-languagedetector": ["./index.d.ts"] }
+    "paths": { "i18next-browser-languagedetector": ["./index.d.mts"] }
   },
-  "include": ["./indext.d.ts", "./test/**/*.ts*"],
+  "include": ["./indext.d.mts", "./test/**/*.ts*"],
   "exclude": ["test/typescript/nonEsModuleInterop/**/*.ts"]
 }

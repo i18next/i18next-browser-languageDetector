@@ -1,3 +1,7 @@
+### 7.2.0
+
+- fix: separate cjs and mjs typings
+
 ### 7.1.0
 
 - introduce convertDetectedLanguage option
