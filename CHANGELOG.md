@@ -1,3 +1,7 @@
+### 7.2.1
+
+- fix: align addDetector impementation to type definition [282](https://github.com/i18next/i18next-browser-languageDetector/issues/282)
+
 ### 7.2.0
 
 - fix: separate cjs and mjs typings

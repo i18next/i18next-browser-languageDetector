@@ -58,6 +58,7 @@ class Browser {
 
   addDetector(detector) {
     this.detectors[detector.name] = detector;
+    return this;
   }
 
   detect(detectionOrder) {

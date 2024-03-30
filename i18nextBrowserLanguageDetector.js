@@ -379,6 +379,7 @@
       key: "addDetector",
       value: function addDetector(detector) {
         this.detectors[detector.name] = detector;
+        return this;
       }
     }, {
       key: "detect",
