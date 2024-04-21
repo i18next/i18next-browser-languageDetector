@@ -33,10 +33,15 @@ Wiring up:
 import i18next from 'i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
 
-i18next.use(LanguageDetector).init(i18nextOptions);
+i18next.use(LanguageDetector).init({
+  supportedLngs: ['de', 'en', 'fr'],
+  ...i18nextOptions
+});
 ```
 
 As with all modules you can either pass the constructor function (class) to the i18next.use or a concrete instance.
+
+[`supportedLngs`](https://www.i18next.com/overview/configuration-options#languages-namespaces-resources) is optional, but allows i18next to pick the best match from the list of detected languages. If it's not set then [`language`](https://www.i18next.com/overview/api#language) will be set to the first detected language, regardless of whether your application has translations for that language or not.   
 
 ## Detector Options
 *The default options can be found [here](https://github.com/i18next/i18next-browser-languageDetector/blob/9efebe6ca0271c3797bc09b84babf1ba2d9b4dbb/src/index.js#L11).*
