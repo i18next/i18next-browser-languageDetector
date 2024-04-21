@@ -2,7 +2,7 @@
 
 [![npm version](https://img.shields.io/npm/v/i18next-browser-languagedetector.svg?style=flat-square)](https://www.npmjs.com/package/i18next-browser-languagedetector)
 
-This is a i18next language detection plugin use to detect user language in the browser with support for:
+This is an i18next language detection plugin used to detect user language in the browser, with support for:
 
 - cookie (set cookie i18next=LANGUAGE)
 - sessionStorage (set key i18nextLng=LANGUAGE)
@@ -36,7 +36,7 @@ import LanguageDetector from 'i18next-browser-languagedetector';
 i18next.use(LanguageDetector).init(i18nextOptions);
 ```
 
-As with all modules you can either pass the constructor function (class) to the i18next.use or a concrete instance.
+As with all modules you can either pass the constructor function (class) to the `i18next.use` or to a concrete instance.
 
 ## Detector Options
 *The default options can be found [here](https://github.com/i18next/i18next-browser-languageDetector/blob/9efebe6ca0271c3797bc09b84babf1ba2d9b4dbb/src/index.js#L11).*
@@ -58,7 +58,7 @@ As with all modules you can either pass the constructor function (class) to the 
   caches: ['localStorage', 'cookie'],
   excludeCacheFor: ['cimode'], // languages to not persist (cookie, localStorage)
 
-  // optional expire and domain for set cookie
+  // optional expiry and domain for set cookie
   cookieMinutes: 10,
   cookieDomain: 'myDomain',
 
@@ -68,7 +68,7 @@ As with all modules you can either pass the constructor function (class) to the 
   // optional set cookie options, reference:[MDN Set-Cookie docs](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie)
   cookieOptions: { path: '/', sameSite: 'strict' },
 
-  // optional conversion function to use to modify the detected language code
+  // optional conversion function used to modify the detected language code
   convertDetectedLanguage: 'Iso15897',
   convertDetectedLanguage: (lng) => lng.replace('-', '_')
 }
