@@ -17,20 +17,16 @@ const sessionStorageAvailable = () => {
 export default {
   name: 'sessionStorage',
 
-  lookup(options) {
-    let found;
-
-    if (options.lookupSessionStorage && sessionStorageAvailable()) {
-      const lng = window.sessionStorage.getItem(options.lookupSessionStorage);
-      if (lng) found = lng;
+  lookup({ lookupSessionStorage }) {
+    if (lookupSessionStorage && sessionStorageAvailable()) {
+      return window.sessionStorage.getItem(lookupSessionStorage) || undefined;
     }
-
-    return found;
+    return undefined;
   },
 
-  cacheUserLanguage(lng, options) {
-    if (options.lookupSessionStorage && sessionStorageAvailable()) {
-      window.sessionStorage.setItem(options.lookupSessionStorage, lng);
+  cacheUserLanguage(lng, { lookupSessionStorage }) {
+    if (lookupSessionStorage && sessionStorageAvailable()) {
+      window.sessionStorage.setItem(lookupSessionStorage, lng);
     }
   }
 };

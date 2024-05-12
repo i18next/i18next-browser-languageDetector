@@ -5,16 +5,18 @@ export default {
     const found = [];
 
     if (typeof navigator !== 'undefined') {
-      if (navigator.languages) { // chrome only; not an array, so can't use .push.apply instead of iterating
-        for (let i = 0; i < navigator.languages.length; i++) {
-          found.push(navigator.languages[i]);
+      const { languages, userLanguage, language } = navigator;
+      if (languages) {
+        // chrome only; not an array, so can't use .push.apply instead of iterating
+        for (let i = 0; i < languages.length; i++) {
+          found.push(languages[i]);
         }
       }
-      if (navigator.userLanguage) {
-        found.push(navigator.userLanguage);
+      if (userLanguage) {
+        found.push(userLanguage);
       }
-      if (navigator.language) {
-        found.push(navigator.language);
+      if (language) {
+        found.push(language);
       }
     }
 
