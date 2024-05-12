@@ -1,7 +1,7 @@
-### next (not yet released)
+### 8.0.0
 
 - chore: set browsers target to defaults [286](https://github.com/i18next/i18next-browser-languageDetector/pull/286)
-- 
+- perf: use object deconstruction, optional chaining and hot path optimisations [287](https://github.com/i18next/i18next-browser-languageDetector/pull/287)
 
 ### 7.2.1
 
