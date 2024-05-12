@@ -1,3 +1,8 @@
+### next (not yet released)
+
+- chore: set browsers target to defaults [286](https://github.com/i18next/i18next-browser-languageDetector/pull/286)
+- 
+
 ### 7.2.1
 
 - fix: align addDetector impementation to type definition [282](https://github.com/i18next/i18next-browser-languageDetector/issues/282)
