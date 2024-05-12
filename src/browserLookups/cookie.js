@@ -82,20 +82,21 @@ const cookie = {
 export default {
   name: 'cookie',
 
-  lookup(options) {
-    let found;
-
-    if (options.lookupCookie && typeof document !== 'undefined') {
-      const c = cookie.read(options.lookupCookie);
-      if (c) found = c;
+  // Deconstruct the options object and extract the lookupCookie property
+  lookup({ lookupCookie }) {
+    if (lookupCookie && typeof document !== 'undefined') {
+      return cookie.read(lookupCookie) || undefined;
     }
 
-    return found;
+    return undefined;
   },
 
-  cacheUserLanguage(lng, options) {
-    if (options.lookupCookie && typeof document !== 'undefined') {
-      cookie.create(options.lookupCookie, lng, options.cookieMinutes, options.cookieDomain, options.cookieOptions);
+  // Deconstruct the options object and extract the lookupCookie, cookieMinutes, cookieDomain, and cookieOptions properties
+  cacheUserLanguage(lng, {
+    lookupCookie, cookieMinutes, cookieDomain, cookieOptions
+  }) {
+    if (lookupCookie && typeof document !== 'undefined') {
+      cookie.create(lookupCookie, lng, cookieMinutes, cookieDomain, cookieOptions);
     }
   }
 };

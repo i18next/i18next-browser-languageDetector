@@ -1,9 +1,7 @@
-const arr = [];
-const each = arr.forEach;
-const { slice } = arr;
+const { slice, forEach } = [];
 
 export function defaults(obj) {
-  each.call(slice.call(arguments, 1), (source) => {
+  forEach.call(slice.call(arguments, 1), (source) => {
     if (source) {
       for (const prop in source) {
         if (obj[prop] === undefined) obj[prop] = source[prop];
@@ -14,7 +12,7 @@ export function defaults(obj) {
 }
 
 export function extend(obj) {
-  each.call(slice.call(arguments, 1), (source) => {
+  forEach.call(slice.call(arguments, 1), (source) => {
     if (source) {
       for (const prop in source) {
         obj[prop] = source[prop];

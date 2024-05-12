@@ -17,20 +17,18 @@ const localStorageAvailable = () => {
 export default {
   name: 'localStorage',
 
-  lookup(options) {
-    let found;
-
-    if (options.lookupLocalStorage && localStorageAvailable()) {
-      const lng = window.localStorage.getItem(options.lookupLocalStorage);
-      if (lng) found = lng;
+  // Deconstruct the options object and extract the lookupLocalStorage property
+  lookup({ lookupLocalStorage }) {
+    if (lookupLocalStorage && localStorageAvailable()) {
+      return window.localStorage.getItem(lookupLocalStorage) || undefined; // Undefined ensures type consistency with the previous version of this function
     }
-
-    return found;
+    return undefined;
   },
 
-  cacheUserLanguage(lng, options) {
-    if (options.lookupLocalStorage && localStorageAvailable()) {
-      window.localStorage.setItem(options.lookupLocalStorage, lng);
+  // Deconstruct the options object and extract the lookupLocalStorage property
+  cacheUserLanguage(lng, { lookupLocalStorage }) {
+    if (lookupLocalStorage && localStorageAvailable()) {
+      window.localStorage.setItem(lookupLocalStorage, lng);
     }
   }
 };

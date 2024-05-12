@@ -1,12 +1,13 @@
 export default {
   name: 'htmlTag',
 
-  lookup(options) {
+  // Deconstruct the options object and extract the htmlTag property
+  lookup({ htmlTag }) {
     let found;
-    const htmlTag = options.htmlTag || (typeof document !== 'undefined' ? document.documentElement : null);
+    const internalHtmlTag = htmlTag || (typeof document !== 'undefined' ? document.documentElement : null);
 
-    if (htmlTag && typeof htmlTag.getAttribute === 'function') {
-      found = htmlTag.getAttribute('lang');
+    if (internalHtmlTag && typeof internalHtmlTag.getAttribute === 'function') {
+      found = internalHtmlTag.getAttribute('lang');
     }
 
     return found;
