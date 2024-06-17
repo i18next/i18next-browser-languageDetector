@@ -1,9 +1,8 @@
 // eslint-disable-next-line no-control-regex
 const fieldContentRegExp = /^[\u0009\u0020-\u007e\u0080-\u00ff]+$/;
 
-const serializeCookie = (name, val, options) => {
-  const opt = options || {};
-  opt.path = opt.path || '/';
+const serializeCookie = (name, val, options = { path: '/' }) => {
+  const opt = options;
   const value = encodeURIComponent(val);
   let str = `${name}=${value}`;
   if (opt.maxAge > 0) {
