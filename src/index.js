@@ -34,8 +34,8 @@ class Browser {
     this.init(services, options);
   }
 
-  init(services, options = {}, i18nOptions = {}) {
-    this.services = services || { languageUtils: {} }; // this way the language detector can be used without i18next
+  init(services = { languageUtils: {} }, options = {}, i18nOptions = {}) {
+    this.services = services;
     this.options = utils.defaults(options, this.options || {}, getDefaults());
     if (typeof this.options.convertDetectedLanguage === 'string' && this.options.convertDetectedLanguage.indexOf('15897') > -1) {
       this.options.convertDetectedLanguage = (l) => l.replace('-', '_');
@@ -61,9 +61,7 @@ class Browser {
     return this;
   }
 
-  detect(detectionOrder) {
-    if (!detectionOrder) detectionOrder = this.options.order;
-
+  detect(detectionOrder = this.options.order) {
     let detected = [];
     detectionOrder.forEach((detectorName) => {
       if (this.detectors[detectorName]) {
@@ -79,8 +77,7 @@ class Browser {
     return detected.length > 0 ? detected[0] : null; // a little backward compatibility
   }
 
-  cacheUserLanguage(lng, caches) {
-    if (!caches) caches = this.options.caches;
+  cacheUserLanguage(lng, caches = this.options.caches) {
     if (!caches) return;
     if (this.options.excludeCacheFor && this.options.excludeCacheFor.indexOf(lng) > -1) return;
     caches.forEach((cacheName) => {
