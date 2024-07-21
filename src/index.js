@@ -8,23 +8,21 @@ import htmlTag from './browserLookups/htmlTag.js';
 import path from './browserLookups/path.js';
 import subdomain from './browserLookups/subdomain.js';
 
-function getDefaults() {
-  return {
-    order: ['querystring', 'cookie', 'localStorage', 'sessionStorage', 'navigator', 'htmlTag'],
-    lookupQuerystring: 'lng',
-    lookupCookie: 'i18next',
-    lookupLocalStorage: 'i18nextLng',
-    lookupSessionStorage: 'i18nextLng',
+const getDefaults = () => ({
+  order: ['querystring', 'cookie', 'localStorage', 'sessionStorage', 'navigator', 'htmlTag'],
+  lookupQuerystring: 'lng',
+  lookupCookie: 'i18next',
+  lookupLocalStorage: 'i18nextLng',
+  lookupSessionStorage: 'i18nextLng',
 
-    // cache user language
-    caches: ['localStorage'],
-    excludeCacheFor: ['cimode'],
-    // cookieMinutes: 10,
-    // cookieDomain: 'myDomain'
+  // cache user language
+  caches: ['localStorage'],
+  excludeCacheFor: ['cimode'],
+  // cookieMinutes: 10,
+  // cookieDomain: 'myDomain'
 
-    convertDetectedLanguage: (l) => l
-  };
-}
+  convertDetectedLanguage: (l) => l
+});
 
 class Browser {
   constructor(services, options = {}) {
