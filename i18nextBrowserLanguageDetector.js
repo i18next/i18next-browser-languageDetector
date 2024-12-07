@@ -21,9 +21,11 @@
 
   // eslint-disable-next-line no-control-regex
   const fieldContentRegExp = /^[\u0009\u0020-\u007e\u0080-\u00ff]+$/;
-  const serializeCookie = (name, val, options) => {
-    const opt = options || {};
-    opt.path = opt.path || '/';
+  const serializeCookie = function (name, val) {
+    let options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {
+      path: '/'
+    };
+    const opt = options;
     const value = encodeURIComponent(val);
     let str = `${name}=${value}`;
     if (opt.maxAge > 0) {
@@ -179,7 +181,6 @@
       if (lookupLocalStorage && localStorageAvailable()) {
         return window.localStorage.getItem(lookupLocalStorage) || undefined; // Undefined ensures type consistency with the previous version of this function
       }
-
       return undefined;
     },
     // Deconstruct the options object and extract the lookupLocalStorage property
@@ -305,22 +306,29 @@
     }
   };
 
-  function getDefaults() {
-    return {
-      order: ['querystring', 'cookie', 'localStorage', 'sessionStorage', 'navigator', 'htmlTag'],
-      lookupQuerystring: 'lng',
-      lookupCookie: 'i18next',
-      lookupLocalStorage: 'i18nextLng',
-      lookupSessionStorage: 'i18nextLng',
-      // cache user language
-      caches: ['localStorage'],
-      excludeCacheFor: ['cimode'],
-      // cookieMinutes: 10,
-      // cookieDomain: 'myDomain'
+  let canCookies = false;
+  try {
+    // eslint-disable-next-line no-unused-expressions
+    document.cookie;
+    canCookies = true;
+    // eslint-disable-next-line no-empty
+  } catch (e) {}
+  const order = ['querystring', 'cookie', 'localStorage', 'sessionStorage', 'navigator', 'htmlTag'];
+  if (!canCookies) order.splice(1, 1);
+  const getDefaults = () => ({
+    order,
+    lookupQuerystring: 'lng',
+    lookupCookie: 'i18next',
+    lookupLocalStorage: 'i18nextLng',
+    lookupSessionStorage: 'i18nextLng',
+    // cache user language
+    caches: ['localStorage'],
+    excludeCacheFor: ['cimode'],
+    // cookieMinutes: 10,
+    // cookieDomain: 'myDomain'
 
-      convertDetectedLanguage: l => l
-    };
-  }
+    convertDetectedLanguage: l => l
+  });
   class Browser {
     constructor(services) {
       let options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
@@ -328,12 +336,13 @@
       this.detectors = {};
       this.init(services, options);
     }
-    init(services) {
+    init() {
+      let services = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {
+        languageUtils: {}
+      };
       let options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
       let i18nOptions = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
-      this.services = services || {
-        languageUtils: {}
-      }; // this way the language detector can be used without i18next
+      this.services = services;
       this.options = defaults(options, this.options || {}, getDefaults());
       if (typeof this.options.convertDetectedLanguage === 'string' && this.options.convertDetectedLanguage.indexOf('15897') > -1) {
         this.options.convertDetectedLanguage = l => l.replace('-', '_');
@@ -355,8 +364,8 @@
       this.detectors[detector.name] = detector;
       return this;
     }
-    detect(detectionOrder) {
-      if (!detectionOrder) detectionOrder = this.options.order;
+    detect() {
+      let detectionOrder = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.options.order;
       let detected = [];
       detectionOrder.forEach(detectorName => {
         if (this.detectors[detectorName]) {
@@ -369,9 +378,8 @@
       if (this.services.languageUtils.getBestMatchFromCodes) return detected; // new i18next v19.5.0
       return detected.length > 0 ? detected[0] : null; // a little backward compatibility
     }
-
-    cacheUserLanguage(lng, caches) {
-      if (!caches) caches = this.options.caches;
+    cacheUserLanguage(lng) {
+      let caches = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : this.options.caches;
       if (!caches) return;
       if (this.options.excludeCacheFor && this.options.excludeCacheFor.indexOf(lng) > -1) return;
       caches.forEach(cacheName => {

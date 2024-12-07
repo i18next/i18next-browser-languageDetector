@@ -1,3 +1,7 @@
+### 8.0.1
+
+- some environments, throws when accessing document.cookie
+
 ### 8.0.0
 
 - chore: set browsers target to defaults [286](https://github.com/i18next/i18next-browser-languageDetector/pull/286)

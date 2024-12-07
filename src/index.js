@@ -8,8 +8,18 @@ import htmlTag from './browserLookups/htmlTag.js';
 import path from './browserLookups/path.js';
 import subdomain from './browserLookups/subdomain.js';
 
+// some environments, throws when accessing document.cookie
+let canCookies = false;
+try {
+  // eslint-disable-next-line no-unused-expressions
+  document.cookie;
+  canCookies = true;
+// eslint-disable-next-line no-empty
+} catch (e) {}
+const order = ['querystring', 'cookie', 'localStorage', 'sessionStorage', 'navigator', 'htmlTag'];
+if (!canCookies) order.splice(1, 1);
 const getDefaults = () => ({
-  order: ['querystring', 'cookie', 'localStorage', 'sessionStorage', 'navigator', 'htmlTag'],
+  order,
   lookupQuerystring: 'lng',
   lookupCookie: 'i18next',
   lookupLocalStorage: 'i18nextLng',
