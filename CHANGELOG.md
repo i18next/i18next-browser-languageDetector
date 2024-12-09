@@ -1,3 +1,7 @@
+### 8.0.2
+
+- fix for when passed services are null, should address [296](https://github.com/i18next/i18next-browser-languageDetector/issues/296)
+
 ### 8.0.1
 
 - some environments, throws when accessing document.cookie

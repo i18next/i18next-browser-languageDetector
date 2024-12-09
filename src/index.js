@@ -81,7 +81,7 @@ class Browser {
 
     detected = detected.map((d) => this.options.convertDetectedLanguage(d));
 
-    if (this.services.languageUtils.getBestMatchFromCodes) return detected; // new i18next v19.5.0
+    if (this.services && this.services.languageUtils && this.services.languageUtils.getBestMatchFromCodes) return detected; // new i18next v19.5.0
     return detected.length > 0 ? detected[0] : null; // a little backward compatibility
   }
 
