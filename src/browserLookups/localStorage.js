@@ -19,7 +19,7 @@ export default {
 
   // Deconstruct the options object and extract the lookupLocalStorage property
   lookup({ lookupLocalStorage }) {
-    if (lookupLocalStorage && localStorageAvailable()) {
+    if (localStorageAvailable() && lookupLocalStorage) {
       return window.localStorage.getItem(lookupLocalStorage) || undefined; // Undefined ensures type consistency with the previous version of this function
     }
     return undefined;
@@ -27,7 +27,7 @@ export default {
 
   // Deconstruct the options object and extract the lookupLocalStorage property
   cacheUserLanguage(lng, { lookupLocalStorage }) {
-    if (lookupLocalStorage && localStorageAvailable()) {
+    if (localStorageAvailable() && lookupLocalStorage) {
       window.localStorage.setItem(lookupLocalStorage, lng);
     }
   }

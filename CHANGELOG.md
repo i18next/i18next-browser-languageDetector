@@ -1,3 +1,7 @@
+### 8.0.3
+
+- change localstorage check to try to address [297](https://github.com/i18next/i18next-browser-languageDetector/issues/297)
+
 ### 8.0.2
 
 - fix for when passed services are null, should address [296](https://github.com/i18next/i18next-browser-languageDetector/issues/296)
