@@ -184,7 +184,6 @@
       if (lookupLocalStorage && localStorageAvailable()) {
         return window.localStorage.getItem(lookupLocalStorage) || undefined; // Undefined ensures type consistency with the previous version of this function
       }
-
       return undefined;
     },
     // Deconstruct the options object and extract the lookupLocalStorage property
@@ -386,7 +385,6 @@
       if (this.services && this.services.languageUtils && this.services.languageUtils.getBestMatchFromCodes) return detected; // new i18next v19.5.0
       return detected.length > 0 ? detected[0] : null; // a little backward compatibility
     }
-
     cacheUserLanguage(lng) {
       let caches = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : this.options.caches;
       if (!caches) return;

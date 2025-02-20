@@ -1,3 +1,7 @@
+### 8.0.4
+
+- fix localstorage check to try to address [297](https://github.com/i18next/i18next-browser-languageDetector/issues/297) [300](https://github.com/i18next/i18next-browser-languageDetector/pull/300)
+
 ### 8.0.3
 
 - change localstorage check to try to address [297](https://github.com/i18next/i18next-browser-languageDetector/issues/297)
