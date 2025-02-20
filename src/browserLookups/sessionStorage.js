@@ -4,7 +4,8 @@ const sessionStorageAvailable = () => {
   if (hasSessionStorageSupport !== null) return hasSessionStorageSupport;
 
   try {
-    hasSessionStorageSupport = window !== 'undefined' && window.sessionStorage !== null;
+    hasSessionStorageSupport = typeof window !== 'undefined' && window.sessionStorage !== null;
+    if (!hasSessionStorageSupport) { return false; }
     const testKey = 'i18next.translate.boo';
     window.sessionStorage.setItem(testKey, 'foo');
     window.sessionStorage.removeItem(testKey);
