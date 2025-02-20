@@ -4,7 +4,8 @@ const localStorageAvailable = () => {
   if (hasLocalStorageSupport !== null) return hasLocalStorageSupport;
 
   try {
-    hasLocalStorageSupport = window !== 'undefined' && window.localStorage !== null;
+    hasLocalStorageSupport = typeof window !== 'undefined' && window.localStorage !== null;
+    if (!hasLocalStorageSupport) { return false; }
     const testKey = 'i18next.translate.boo';
     window.localStorage.setItem(testKey, 'foo');
     window.localStorage.removeItem(testKey);

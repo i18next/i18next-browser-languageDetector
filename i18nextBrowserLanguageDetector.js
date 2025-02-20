@@ -162,7 +162,10 @@
   const localStorageAvailable = () => {
     if (hasLocalStorageSupport !== null) return hasLocalStorageSupport;
     try {
-      hasLocalStorageSupport = window !== 'undefined' && window.localStorage !== null;
+      hasLocalStorageSupport = typeof window !== 'undefined' && window.localStorage !== null;
+      if (!hasLocalStorageSupport) {
+        return false;
+      }
       const testKey = 'i18next.translate.boo';
       window.localStorage.setItem(testKey, 'foo');
       window.localStorage.removeItem(testKey);
@@ -181,6 +184,7 @@
       if (localStorageAvailable() && lookupLocalStorage) {
         return window.localStorage.getItem(lookupLocalStorage) || undefined; // Undefined ensures type consistency with the previous version of this function
       }
+
       return undefined;
     },
     // Deconstruct the options object and extract the lookupLocalStorage property
@@ -198,7 +202,10 @@
   const sessionStorageAvailable = () => {
     if (hasSessionStorageSupport !== null) return hasSessionStorageSupport;
     try {
-      hasSessionStorageSupport = window !== 'undefined' && window.sessionStorage !== null;
+      hasSessionStorageSupport = typeof window !== 'undefined' && window.sessionStorage !== null;
+      if (!hasSessionStorageSupport) {
+        return false;
+      }
       const testKey = 'i18next.translate.boo';
       window.sessionStorage.setItem(testKey, 'foo');
       window.sessionStorage.removeItem(testKey);
@@ -379,6 +386,7 @@
       if (this.services && this.services.languageUtils && this.services.languageUtils.getBestMatchFromCodes) return detected; // new i18next v19.5.0
       return detected.length > 0 ? detected[0] : null; // a little backward compatibility
     }
+
     cacheUserLanguage(lng) {
       let caches = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : this.options.caches;
       if (!caches) return;
