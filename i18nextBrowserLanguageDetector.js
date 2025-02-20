@@ -181,7 +181,7 @@
       let {
         lookupLocalStorage
       } = _ref;
-      if (localStorageAvailable() && lookupLocalStorage) {
+      if (lookupLocalStorage && localStorageAvailable()) {
         return window.localStorage.getItem(lookupLocalStorage) || undefined; // Undefined ensures type consistency with the previous version of this function
       }
 
@@ -192,7 +192,7 @@
       let {
         lookupLocalStorage
       } = _ref2;
-      if (localStorageAvailable() && lookupLocalStorage) {
+      if (lookupLocalStorage && localStorageAvailable()) {
         window.localStorage.setItem(lookupLocalStorage, lng);
       }
     }
