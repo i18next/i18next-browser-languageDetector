@@ -57,7 +57,7 @@
     "expect.js": "0.3.1",
     "i18next": "23.7.1",
     "mkdirp": "3.0.1",
-    "mocha": "10.2.0",
+    "mocha": "10.8.2",
     "rimraf": "5.0.5",
     "rollup": "^2.79.1",
     "@rollup/plugin-babel": "^5.3.1",
