@@ -170,3 +170,26 @@ describe('language detector (ISO 15897 locales)', () => {
     });
   });
 });
+
+describe('language detector (with xss filter)', () => {
+  const ld = new LanguageDetector(i18next.services, {
+    order: [
+      'cookie',
+      'path'
+    ]
+  });
+
+  it('detect', () => {
+    global.document = {
+      cookie: 'i18next=de-"><script>alert(\'xss\')</script>'
+    };
+    global.window = {
+      location: {
+        pathname: '/fr-CH/some/route',
+        search: ''
+      }
+    };
+    const lngs = ld.detect();
+    expect(lngs).to.eql(['fr-CH']);
+  });
+});
