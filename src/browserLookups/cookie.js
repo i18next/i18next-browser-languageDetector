@@ -49,6 +49,7 @@ const serializeCookie = (name, val, options = { path: '/' }) => {
         throw new TypeError('option sameSite is invalid');
     }
   }
+  if (opt.partitioned) str += '; Partitioned';
   return str;
 };
 
