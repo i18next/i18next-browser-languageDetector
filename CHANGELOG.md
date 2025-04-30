@@ -1,3 +1,7 @@
+### 8.1.0
+
+- feat: add support for Partitioned cookies [303](https://github.com/i18next/i18next-browser-languageDetector/pull/303)
+
 ### 8.0.5
 
 - check for common xss attack patterns on detected language
