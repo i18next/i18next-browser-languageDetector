@@ -60,7 +60,7 @@ const cookie = {
       cookieOptions.expires.setTime(cookieOptions.expires.getTime() + (minutes * 60 * 1000));
     }
     if (domain) cookieOptions.domain = domain;
-    document.cookie = serializeCookie(name, encodeURIComponent(value), cookieOptions);
+    document.cookie = serializeCookie(name, value, cookieOptions);
   },
 
   read(name) {
