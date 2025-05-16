@@ -74,8 +74,8 @@ const cookie = {
     return null;
   },
 
-  remove(name) {
-    this.create(name, '', -1);
+  remove(name, domain) {
+    this.create(name, '', -1, domain);
   }
 };
 
