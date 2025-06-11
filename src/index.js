@@ -1,6 +1,7 @@
 import * as utils from './utils.js';
 import cookie from './browserLookups/cookie.js';
 import querystring from './browserLookups/querystring.js';
+import hash from './browserLookups/hash.js';
 import localStorage from './browserLookups/localStorage.js';
 import sessionStorage from './browserLookups/sessionStorage.js';
 import navigator from './browserLookups/navigator.js';
@@ -62,6 +63,7 @@ class Browser {
     this.addDetector(htmlTag);
     this.addDetector(path);
     this.addDetector(subdomain);
+    this.addDetector(hash);
   }
 
   addDetector(detector) {

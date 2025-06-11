@@ -78,6 +78,36 @@ describe('language detector', () => {
     });
   });
 
+  describe('hash', () => {
+    const ldH = new LanguageDetector(i18next.services, {
+      order: [
+        'hash'
+      ],
+      lookupHash: 'lng',
+      lookupFromHashIndex: 0
+    });
+    it('detect via lookupHash', () => {
+      global.window = {
+        location: {
+          pathname: '/fr/some/route',
+          hash: '#lng=pt'
+        }
+      };
+      const lng = ldH.detect();
+      expect(lng).to.contain('pt');
+    });
+    it('detect via lookupFromHashIndex', () => {
+      global.window = {
+        location: {
+          pathname: '/fr/some/route',
+          hash: '#/es'
+        }
+      };
+      const lng = ldH.detect();
+      expect(lng).to.contain('es');
+    });
+  });
+
   describe('subdomain', () => {
     it('detect', () => {
       global.window = {

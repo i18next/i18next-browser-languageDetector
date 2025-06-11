@@ -1,3 +1,7 @@
+### 8.2.0
+
+- feat: add support for hash detector [304](https://github.com/i18next/i18next-browser-languageDetector/issues/304)
+
 ### 8.1.0
 
 - feat: add support for Partitioned cookies [303](https://github.com/i18next/i18next-browser-languageDetector/pull/303)

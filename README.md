@@ -49,7 +49,7 @@ As with all modules you can either pass the constructor function (class) to the 
 ```js
 {
   // order and from where user language should be detected
-  order: ['querystring', 'cookie', 'localStorage', 'sessionStorage', 'navigator', 'htmlTag', 'path', 'subdomain'],
+  order: ['querystring', 'hash', 'cookie', 'localStorage', 'sessionStorage', 'navigator', 'htmlTag', 'path', 'subdomain'],
 
   // keys or params to lookup language from
   lookupQuerystring: 'lng',
@@ -58,6 +58,8 @@ As with all modules you can either pass the constructor function (class) to the 
   lookupSessionStorage: 'i18nextLng',
   lookupFromPathIndex: 0,
   lookupFromSubdomainIndex: 0,
+  lookupHash: 'lng', // #lng=pt or #something&lng=en
+  lookupFromHashIndex: 0, // #/de
 
   // cache user language on
   caches: ['localStorage', 'cookie'],
