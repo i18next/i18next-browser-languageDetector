@@ -12,6 +12,7 @@ This is an i18next language detection plugin used to detect user language in the
 - htmlTag (add html language tag <html lang="LANGUAGE" ...)
 - path (http://my.site.com/LANGUAGE/...)
 - subdomain (http://LANGUAGE.site.com/...)
+- hash (append `#lng=LANGUAGE` or `#/LANGUAGE` to URL)
 
 # Getting started
 
