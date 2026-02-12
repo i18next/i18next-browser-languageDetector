@@ -7,12 +7,14 @@ import i18next from 'i18next';
 
 const options: DetectorOptions = {
   // order and from where user language should be detected
-  order: ['querystring', 'cookie', 'localStorage', 'navigator', 'htmlTag'],
+  order: ['querystring', 'hash', 'cookie', 'localStorage', 'navigator', 'htmlTag'],
 
   // keys or params to lookup language from
   lookupQuerystring: 'lng',
   lookupCookie: 'i18next',
   lookupLocalStorage: 'i18nextLng',
+  lookupHash: 'lng',
+  lookupFromHashIndex: 0,
 
   // cache user language on
   caches: ['localStorage', 'cookie'],
