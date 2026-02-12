@@ -15,7 +15,7 @@ export interface DetectorOptions {
    * order and from where user language should be detected
    */
   order?: Array<
-    'querystring' | 'cookie' | 'sessionStorage' | 'localStorage' | 'navigator' | 'htmlTag' | string
+    'querystring' | 'hash' | 'cookie' | 'sessionStorage' | 'localStorage' | 'navigator' | 'htmlTag' | string
   >;
 
   /**
@@ -27,6 +27,8 @@ export interface DetectorOptions {
   lookupLocalStorage?: string;
   lookupFromPathIndex?: number;
   lookupFromSubdomainIndex?: number;
+  lookupHash?: string;
+  lookupFromHashIndex?: number;
 
   /**
    * cache user language on
