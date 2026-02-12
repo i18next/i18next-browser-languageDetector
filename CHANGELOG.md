@@ -1,3 +1,7 @@
+### 8.2.1
+
+- Add missing typescript definition for hash options [33154](https://github.com/i18next/i18next-browser-languageDetector/pull/315)
+
 ### 8.2.0
 
 - feat: add support for hash detector [304](https://github.com/i18next/i18next-browser-languageDetector/issues/304)
