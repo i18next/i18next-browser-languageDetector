@@ -17,3 +17,10 @@ node_modules
 node_modules/**/*
 coverage/**/*
 dist/**/*
+
+# Secrets & credentials
+.env
+.env.*
+!.env.example
+*.pem
+*.key
