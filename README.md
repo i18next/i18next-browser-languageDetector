@@ -18,6 +18,8 @@ This is an i18next language detection plugin used to detect user language in the
 
 If you don't like to manage your translation files manually or are simply looking for a [better management solution](https://www.locize.com?utm_source=i18next_browser_languagedetector_readme&utm_medium=github&utm_campaign=readme), take a look at [i18next-locize-backend](https://github.com/locize/i18next-locize-backend) — pair this language detector with the Locize backend for an end-to-end i18next setup. The i18next [backend plugin](https://www.i18next.com/overview/plugins-and-utils#backends) for 🌐 [Locize](https://www.locize.com?utm_source=i18next_browser_languagedetector_readme&utm_medium=github&utm_campaign=readme) ☁️.
 
+Starting from an app with hardcoded strings? Run `npx i18next-cli localize` — one command that wraps strings in `t()`, extracts keys, connects to [Locize](https://www.locize.com?from=i18next-browser-languagedetector_readme__localize) and AI-translates your app. See the [launch post](https://www.locize.com/blog/i18next-cli-localize?from=i18next-browser-languagedetector_readme__localize).
+
 # Getting started
 
 Source can be loaded via [npm](https://www.npmjs.com/package/i18next-browser-languagedetector), bower or [downloaded](https://github.com/i18next/i18next-browser-languagedetector/blob/master/i18nextBrowserLanguageDetector.min.js) from this repo.
