@@ -10,5 +10,14 @@ bower.json
 gulpfile.js
 karma.conf.js
 rollup.config.js
-tsconfig.json
+tsconfig*.json
 tslint.json
+.github
+.prettierrc
+# npm ignores .gitignore once .npmignore exists, so local/secret files are mirrored here
+.claude
+.vscode
+.idea
+.env*
+*.pem
+*.key
