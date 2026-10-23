@@ -28,10 +28,9 @@
 
   // eslint-disable-next-line no-control-regex
   const fieldContentRegExp = /^[\u0009\u0020-\u007e\u0080-\u00ff]+$/;
-  const serializeCookie = function (name, val) {
-    let options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {
-      path: '/'
-    };
+  const serializeCookie = (name, val, options = {
+    path: '/'
+  }) => {
     const opt = options;
     const value = encodeURIComponent(val);
     let str = `${name}=${value}`;
@@ -83,11 +82,10 @@
     return str;
   };
   const cookie = {
-    create(name, value, minutes, domain) {
-      let cookieOptions = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : {
-        path: '/',
-        sameSite: 'strict'
-      };
+    create(name, value, minutes, domain, cookieOptions = {
+      path: '/',
+      sameSite: 'strict'
+    }) {
       if (minutes) {
         cookieOptions.expires = new Date();
         cookieOptions.expires.setTime(cookieOptions.expires.getTime() + minutes * 60 * 1000);
@@ -112,23 +110,21 @@
   var cookie$1 = {
     name: 'cookie',
     // Deconstruct the options object and extract the lookupCookie property
-    lookup(_ref) {
-      let {
-        lookupCookie
-      } = _ref;
+    lookup({
+      lookupCookie
+    }) {
       if (lookupCookie && typeof document !== 'undefined') {
         return cookie.read(lookupCookie) || undefined;
       }
       return undefined;
     },
     // Deconstruct the options object and extract the lookupCookie, cookieMinutes, cookieDomain, and cookieOptions properties
-    cacheUserLanguage(lng, _ref2) {
-      let {
-        lookupCookie,
-        cookieMinutes,
-        cookieDomain,
-        cookieOptions
-      } = _ref2;
+    cacheUserLanguage(lng, {
+      lookupCookie,
+      cookieMinutes,
+      cookieDomain,
+      cookieOptions
+    }) {
       if (lookupCookie && typeof document !== 'undefined') {
         cookie.create(lookupCookie, lng, cookieMinutes, cookieDomain, cookieOptions);
       }
@@ -138,10 +134,9 @@
   var querystring = {
     name: 'querystring',
     // Deconstruct the options object and extract the lookupQuerystring property
-    lookup(_ref) {
-      let {
-        lookupQuerystring
-      } = _ref;
+    lookup({
+      lookupQuerystring
+    }) {
       let found;
       if (typeof window !== 'undefined') {
         let {
@@ -169,11 +164,10 @@
   var hash = {
     name: 'hash',
     // Deconstruct the options object and extract the lookupHash property and the lookupFromHashIndex property
-    lookup(_ref) {
-      let {
-        lookupHash,
-        lookupFromHashIndex
-      } = _ref;
+    lookup({
+      lookupHash,
+      lookupFromHashIndex
+    }) {
       let found;
       if (typeof window !== 'undefined') {
         const {
@@ -195,7 +189,7 @@
           }
           if (found) return found;
           if (!found && lookupFromHashIndex > -1) {
-            const language = hash.match(/\/([a-zA-Z-]*)/g);
+            const language = hash.match(/\/([a-zA-Z][a-zA-Z0-9-]*)?/g);
             if (!Array.isArray(language)) return undefined;
             const index = typeof lookupFromHashIndex === 'number' ? lookupFromHashIndex : 0;
             return language[index]?.replace('/', '');
@@ -225,20 +219,18 @@
   var localStorage = {
     name: 'localStorage',
     // Deconstruct the options object and extract the lookupLocalStorage property
-    lookup(_ref) {
-      let {
-        lookupLocalStorage
-      } = _ref;
+    lookup({
+      lookupLocalStorage
+    }) {
       if (lookupLocalStorage && localStorageAvailable()) {
         return window.localStorage.getItem(lookupLocalStorage) || undefined; // Undefined ensures type consistency with the previous version of this function
       }
       return undefined;
     },
     // Deconstruct the options object and extract the lookupLocalStorage property
-    cacheUserLanguage(lng, _ref2) {
-      let {
-        lookupLocalStorage
-      } = _ref2;
+    cacheUserLanguage(lng, {
+      lookupLocalStorage
+    }) {
       if (lookupLocalStorage && localStorageAvailable()) {
         window.localStorage.setItem(lookupLocalStorage, lng);
       }
@@ -263,19 +255,17 @@
   };
   var sessionStorage = {
     name: 'sessionStorage',
-    lookup(_ref) {
-      let {
-        lookupSessionStorage
-      } = _ref;
+    lookup({
+      lookupSessionStorage
+    }) {
       if (lookupSessionStorage && sessionStorageAvailable()) {
         return window.sessionStorage.getItem(lookupSessionStorage) || undefined;
       }
       return undefined;
     },
-    cacheUserLanguage(lng, _ref2) {
-      let {
-        lookupSessionStorage
-      } = _ref2;
+    cacheUserLanguage(lng, {
+      lookupSessionStorage
+    }) {
       if (lookupSessionStorage && sessionStorageAvailable()) {
         window.sessionStorage.setItem(lookupSessionStorage, lng);
       }
@@ -312,10 +302,9 @@
   var htmlTag = {
     name: 'htmlTag',
     // Deconstruct the options object and extract the htmlTag property
-    lookup(_ref) {
-      let {
-        htmlTag
-      } = _ref;
+    lookup({
+      htmlTag
+    }) {
       let found;
       const internalHtmlTag = htmlTag || (typeof document !== 'undefined' ? document.documentElement : null);
       if (internalHtmlTag && typeof internalHtmlTag.getAttribute === 'function') {
@@ -328,12 +317,11 @@
   var path = {
     name: 'path',
     // Deconstruct the options object and extract the lookupFromPathIndex property
-    lookup(_ref) {
-      let {
-        lookupFromPathIndex
-      } = _ref;
+    lookup({
+      lookupFromPathIndex
+    }) {
       if (typeof window === 'undefined') return undefined;
-      const language = window.location.pathname.match(/\/([a-zA-Z-]*)/g);
+      const language = window.location.pathname.match(/\/([a-zA-Z][a-zA-Z0-9-]*)?/g);
       if (!Array.isArray(language)) return undefined;
       const index = typeof lookupFromPathIndex === 'number' ? lookupFromPathIndex : 0;
       return language[index]?.replace('/', '');
@@ -342,10 +330,9 @@
 
   var subdomain = {
     name: 'subdomain',
-    lookup(_ref) {
-      let {
-        lookupFromSubdomainIndex
-      } = _ref;
+    lookup({
+      lookupFromSubdomainIndex
+    }) {
       // If given get the subdomain index else 1
       const internalLookupFromSubdomainIndex = typeof lookupFromSubdomainIndex === 'number' ? lookupFromSubdomainIndex + 1 : 1;
       // get all matches if window.location. is existing
@@ -385,18 +372,14 @@
     convertDetectedLanguage: l => l
   });
   class Browser {
-    constructor(services) {
-      let options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+    constructor(services, options = {}) {
       this.type = 'languageDetector';
       this.detectors = {};
       this.init(services, options);
     }
-    init() {
-      let services = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {
-        languageUtils: {}
-      };
-      let options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-      let i18nOptions = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+    init(services = {
+      languageUtils: {}
+    }, options = {}, i18nOptions = {}) {
       this.services = services;
       this.options = defaults(options, this.options || {}, getDefaults());
       if (typeof this.options.convertDetectedLanguage === 'string' && this.options.convertDetectedLanguage.indexOf('15897') > -1) {
@@ -420,8 +403,7 @@
       this.detectors[detector.name] = detector;
       return this;
     }
-    detect() {
-      let detectionOrder = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.options.order;
+    detect(detectionOrder = this.options.order) {
       let detected = [];
       detectionOrder.forEach(detectorName => {
         if (this.detectors[detectorName]) {
@@ -434,8 +416,7 @@
       if (this.services && this.services.languageUtils && this.services.languageUtils.getBestMatchFromCodes) return detected; // new i18next v19.5.0
       return detected.length > 0 ? detected[0] : null; // a little backward compatibility
     }
-    cacheUserLanguage(lng) {
-      let caches = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : this.options.caches;
+    cacheUserLanguage(lng, caches = this.options.caches) {
       if (!caches) return;
       if (this.options.excludeCacheFor && this.options.excludeCacheFor.indexOf(lng) > -1) return;
       caches.forEach(cacheName => {

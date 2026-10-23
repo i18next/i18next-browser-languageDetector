@@ -1,3 +1,7 @@
+### 8.2.2
+
+- fix: the path and hash detectors keep digits in a language segment, so `/es-419/` and `#/es-419` are detected as `es-419` instead of `es-` (which i18next resolved to `es`). Segments that start with a digit (`/2024/`) still yield no language, and `lookupFromPathIndex` / `lookupFromHashIndex` point at the same segments as before. Thanks @nk-batman21 [327](https://github.com/i18next/i18next-browser-languageDetector/pull/327)
+
 ### 8.2.1
 
 - Add missing typescript definition for hash options [33154](https://github.com/i18next/i18next-browser-languageDetector/pull/315)
