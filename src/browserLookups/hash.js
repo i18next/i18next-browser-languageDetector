@@ -25,7 +25,7 @@ export default {
         if (found) return found;
 
         if (!found && lookupFromHashIndex > -1) {
-          const language = hash.match(/\/([a-zA-Z-]*)/g);
+          const language = hash.match(/\/([a-zA-Z][a-zA-Z0-9-]*)?/g);
           if (!Array.isArray(language)) return undefined;
           const index = typeof lookupFromHashIndex === 'number' ? lookupFromHashIndex : 0;
           return language[index]?.replace('/', '');
