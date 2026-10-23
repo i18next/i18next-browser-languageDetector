@@ -6,7 +6,7 @@ export default {
 
     if (typeof window === 'undefined') return undefined;
 
-    const language = window.location.pathname.match(/\/([a-zA-Z-]*)/g);
+    const language = window.location.pathname.match(/\/([a-zA-Z][a-zA-Z0-9-]*)?/g);
     if (!Array.isArray(language)) return undefined;
 
     const index = typeof lookupFromPathIndex === 'number' ? lookupFromPathIndex : 0;

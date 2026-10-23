@@ -49,6 +49,17 @@ describe('language detector', () => {
       const lng = ld.detect();
       expect(lng).to.contain('fr');
     });
+
+    it('detect region with digits', () => {
+      global.window = {
+        location: {
+          pathname: '/es-419/some/route',
+          search: ''
+        }
+      };
+      const lng = ld.detect();
+      expect(lng).to.contain('es-419');
+    });
   });
 
   describe('querystring', () => {
@@ -105,6 +116,16 @@ describe('language detector', () => {
       };
       const lng = ldH.detect();
       expect(lng).to.contain('es');
+    });
+    it('detect region with digits via lookupFromHashIndex', () => {
+      global.window = {
+        location: {
+          pathname: '/fr/some/route',
+          hash: '#/es-419'
+        }
+      };
+      const lng = ldH.detect();
+      expect(lng).to.contain('es-419');
     });
   });
 
