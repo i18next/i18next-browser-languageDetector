@@ -1,3 +1,7 @@
+### 8.2.3
+
+- fix: the subdomain detector now detects language tags with script and region subtags, so `pt-BR.site.com`, `zh-Hans-CN.site.com`, `es-419.site.com` and `sr-Latn.site.com` are detected as `pt-BR`, `zh-Hans-CN`, `es-419` and `sr-Latn`. The pattern only accepted 2 to 5 word characters, without hyphens. Other subdomains like `staging` or preview deployment labels (`myapp-git-branch-team.vercel.app`) are still not taken for a language, and everything detected before is still detected. Thanks @lprnmns [328](https://github.com/i18next/i18next-browser-languageDetector/pull/328)
+
 ### 8.2.2
 
 - fix: the path and hash detectors keep digits in a language segment, so `/es-419/` and `#/es-419` are detected as `es-419` instead of `es-` (which i18next resolved to `es`). Segments that start with a digit (`/2024/`) still yield no language, and `lookupFromPathIndex` / `lookupFromHashIndex` point at the same segments as before. Thanks @nk-batman21 [327](https://github.com/i18next/i18next-browser-languageDetector/pull/327)
