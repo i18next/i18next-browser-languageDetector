@@ -7,7 +7,9 @@ export default {
     // get all matches if window.location. is existing
     // first item of match is the match itself and the second is the first group match which should be the first subdomain match
     // is the hostname no public domain get the or option of localhost
-    const language = typeof window !== 'undefined' && window.location?.hostname?.match(/^([\w-]{2,63})\.(([a-z0-9-]{1,63}\.[a-z]{2,6})|localhost)/i);
+    // the language may carry script (Hans) and region (BR, 419) subtags, so labels like `staging` or
+    // `myapp-git-branch-team` (preview deployments) are not taken for a language
+    const language = typeof window !== 'undefined' && window.location?.hostname?.match(/^(\w{2,5}(?:-(?:[a-z]{4}|[a-z]{2}|\d{3}))*)\.(([a-z0-9-]{1,63}\.[a-z]{2,6})|localhost)/i);
 
     // if there is no match (null) return undefined
     if (!language) return undefined;

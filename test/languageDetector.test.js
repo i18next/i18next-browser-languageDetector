@@ -131,7 +131,7 @@ describe('language detector', () => {
 
   describe('subdomain', () => {
     it('detects hyphenated language tags', () => {
-      for (const tag of ['pt-BR', 'zh-Hans-CN']) {
+      for (const tag of ['pt-BR', 'zh-Hans-CN', 'es-419', 'sr-Latn']) {
         global.window = {
           location: {
             hostname: `${tag}.example.com`,
@@ -140,6 +140,19 @@ describe('language detector', () => {
           }
         };
         expect(ld.detect()).to.contain(tag);
+      }
+    });
+
+    it('does not take other subdomains for a language', () => {
+      for (const label of ['staging', 'preview-123', 'myapp-git-feature-team']) {
+        global.window = {
+          location: {
+            hostname: `${label}.example.com`,
+            pathname: '/',
+            search: ''
+          }
+        };
+        expect(ld.detect()).not.to.contain(label);
       }
     });
 
