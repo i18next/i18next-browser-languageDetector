@@ -130,6 +130,19 @@ describe('language detector', () => {
   });
 
   describe('subdomain', () => {
+    it('detects hyphenated language tags', () => {
+      for (const tag of ['pt-BR', 'zh-Hans-CN']) {
+        global.window = {
+          location: {
+            hostname: `${tag}.example.com`,
+            pathname: '/',
+            search: ''
+          }
+        };
+        expect(ld.detect()).to.contain(tag);
+      }
+    });
+
     it('detect', () => {
       global.window = {
         location: {
