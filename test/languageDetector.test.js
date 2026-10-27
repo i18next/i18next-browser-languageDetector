@@ -130,6 +130,17 @@ describe('language detector', () => {
   });
 
   describe('subdomain', () => {
+    it('detects the configured subdomain index', () => {
+      const indexedDetector = new LanguageDetector(i18next.services, {
+        order: ['subdomain'],
+        lookupFromSubdomainIndex: 1
+      });
+      global.window = {
+        location: { hostname: 'dev.en.example.com' }
+      };
+      expect(indexedDetector.detect()).to.contain('en');
+    });
+
     it('detects hyphenated language tags', () => {
       for (const tag of ['pt-BR', 'zh-Hans-CN', 'es-419', 'sr-Latn']) {
         global.window = {
