@@ -1,3 +1,7 @@
+### Unreleased
+
+- fix: `lookupFromSubdomainIndex` counts hostname labels again, so with `1`, `dev.en.example.com` is detected as `en`. Since 6.1.5 the index picked a regex group instead, and any index other than `0` returned a part of the domain (`en.exampl`, `example.com`). Index `0` (the default) works as before. Thanks @lprnmns [329](https://github.com/i18next/i18next-browser-languageDetector/pull/329)
+
 ### 8.2.3
 
 - fix: the subdomain detector now detects language tags with script and region subtags, so `pt-BR.site.com`, `zh-Hans-CN.site.com`, `es-419.site.com` and `sr-Latn.site.com` are detected as `pt-BR`, `zh-Hans-CN`, `es-419` and `sr-Latn`. The pattern only accepted 2 to 5 word characters, without hyphens. Other subdomains like `staging` or preview deployment labels (`myapp-git-branch-team.vercel.app`) are still not taken for a language, and everything detected before is still detected. Thanks @lprnmns [328](https://github.com/i18next/i18next-browser-languageDetector/pull/328)
