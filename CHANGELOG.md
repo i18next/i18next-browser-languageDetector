@@ -1,4 +1,4 @@
-### Unreleased
+### 8.2.4
 
 - fix: `lookupFromSubdomainIndex` counts hostname labels again, so with `1`, `dev.en.example.com` is detected as `en`. Since 6.1.5 the index picked a regex group instead, and any index other than `0` returned a part of the domain (`en.exampl`, `example.com`). Index `0` (the default) works as before. Thanks @lprnmns [329](https://github.com/i18next/i18next-browser-languageDetector/pull/329)
 

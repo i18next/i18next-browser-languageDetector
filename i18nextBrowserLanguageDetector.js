@@ -333,19 +333,16 @@
     lookup({
       lookupFromSubdomainIndex
     }) {
-      // If given get the subdomain index else 1
-      const internalLookupFromSubdomainIndex = typeof lookupFromSubdomainIndex === 'number' ? lookupFromSubdomainIndex + 1 : 1;
-      // get all matches if window.location. is existing
-      // first item of match is the match itself and the second is the first group match which should be the first subdomain match
+      const index = typeof lookupFromSubdomainIndex === 'number' ? lookupFromSubdomainIndex : 0;
+      const hostname = typeof window !== 'undefined' && window.location?.hostname?.split('.').slice(index).join('.');
       // is the hostname no public domain get the or option of localhost
       // the language may carry script (Hans) and region (BR, 419) subtags, so labels like `staging` or
       // `myapp-git-branch-team` (preview deployments) are not taken for a language
-      const language = typeof window !== 'undefined' && window.location?.hostname?.match(/^(\w{2,5}(?:-(?:[a-z]{4}|[a-z]{2}|\d{3}))*)\.(([a-z0-9-]{1,63}\.[a-z]{2,6})|localhost)/i);
+      const language = hostname && hostname.match(/^(\w{2,5}(?:-(?:[a-z]{4}|[a-z]{2}|\d{3}))*)\.(([a-z0-9-]{1,63}\.[a-z]{2,6})|localhost)/i);
 
       // if there is no match (null) return undefined
       if (!language) return undefined;
-      // return the given group match
-      return language[internalLookupFromSubdomainIndex];
+      return language[1];
     }
   };
 
