@@ -22,25 +22,16 @@ export function extend(obj) {
   return obj;
 }
 
-export function hasXSS(input) {
-  if (typeof input !== 'string') return false;
-
-  // Common XSS attack patterns
-  const xssPatterns = [
-    /<\s*script.*?>/i,
-    /<\s*\/\s*script\s*>/i,
-    /<\s*img.*?on\w+\s*=/i,
-    /<\s*\w+\s*on\w+\s*=.*?>/i,
-    /javascript\s*:/i,
-    /vbscript\s*:/i,
-    /expression\s*\(/i,
-    /eval\s*\(/i,
-    /alert\s*\(/i,
-    /document\.cookie/i,
-    /document\.write\s*\(/i,
-    /window\.location/i,
-    /innerHTML/i
-  ];
-
-  return xssPatterns.some((pattern) => pattern.test(input));
+// The shape of a language code that i18next accepts from outside since 26.7 (the rule of its exported
+// isSafeLanguageCode): letters, digits, `-`, `_`, `@` and `.` (no `..`), at most 128 characters, not a
+// prototype key. It is not a BCP 47 check, so `en_US` and `sr@latin` pass. Markup, quotes, spaces,
+// slashes and `=` do not, so a detected language cannot break out of `<html lang="...">`; the XSS
+// patterns this replaces missed values like `<b>x</b>` or `" onmouseover="x()`.
+export function isSafeLanguageCode(code) {
+  return (
+    typeof code === 'string'
+    && /^[A-Za-z0-9_@.-]{1,128}$/.test(code)
+    && code.indexOf('..') < 0
+    && ['__proto__', 'constructor', 'prototype'].indexOf(code) < 0
+  );
 }

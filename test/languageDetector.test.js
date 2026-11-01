@@ -281,3 +281,25 @@ describe('language detector (with xss filter)', () => {
     expect(lngs).to.eql(['fr-CH']);
   });
 });
+
+describe('language detector (language code shape)', () => {
+  const ld = new LanguageDetector(i18next.services, {
+    order: ['querystring', 'cookie']
+  });
+
+  // values the XSS patterns let through: they are not language codes, and an app may put the
+  // detected language into `<html lang="...">`
+  ['<b>x</b>', '" onmouseover="x()', 'en US', '../de', '__proto__'].forEach((value) => {
+    it(`skips ${JSON.stringify(value)} and uses the next detector`, () => {
+      global.window = { location: { search: `?lng=${encodeURIComponent(value)}`, hash: '' } };
+      global.document = { cookie: 'i18next=de' };
+      expect(ld.detect()).to.eql(['de']);
+    });
+  });
+
+  it('keeps codes in any common format', () => {
+    global.window = { location: { search: '?lng=sr@latin', hash: '' } };
+    global.document = { cookie: 'i18next=en_US' };
+    expect(ld.detect()).to.eql(['sr@latin', 'en_US']);
+  });
+});
