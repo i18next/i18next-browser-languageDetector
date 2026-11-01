@@ -1,3 +1,7 @@
+### 8.3.0
+
+- security: a detected language must now have the shape i18next 26.7 accepts for a language code from outside (its `isSafeLanguageCode`): letters, digits, `-`, `_`, `@` and `.` (no `..`), at most 128 characters. It replaces the list of XSS patterns, which missed values like `<b>x</b>` or `" onmouseover="x()` from the query string, a cookie or storage, which then became the language; apps put it into `<html lang="...">`. Compatibility note: a value with other characters (spaces, slashes, quotes) is now skipped and the next detector is used; codes like `en_US`, `zh_Hant_TW` or `sr@latin` still pass, and i18next 27 refuses such codes from outside as well.
+
 ### 8.2.4
 
 - fix: `lookupFromSubdomainIndex` counts hostname labels again, so with `1`, `dev.en.example.com` is detected as `en`. Since 6.1.5 the index picked a regex group instead, and any index other than `0` returned a part of the domain (`en.exampl`, `example.com`). Index `0` (the default) works as before. Thanks @lprnmns [329](https://github.com/i18next/i18next-browser-languageDetector/pull/329)
