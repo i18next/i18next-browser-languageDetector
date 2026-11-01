@@ -18,12 +18,14 @@
     });
     return obj;
   }
-  function hasXSS(input) {
-    if (typeof input !== 'string') return false;
 
-    // Common XSS attack patterns
-    const xssPatterns = [/<\s*script.*?>/i, /<\s*\/\s*script\s*>/i, /<\s*img.*?on\w+\s*=/i, /<\s*\w+\s*on\w+\s*=.*?>/i, /javascript\s*:/i, /vbscript\s*:/i, /expression\s*\(/i, /eval\s*\(/i, /alert\s*\(/i, /document\.cookie/i, /document\.write\s*\(/i, /window\.location/i, /innerHTML/i];
-    return xssPatterns.some(pattern => pattern.test(input));
+  // The shape of a language code that i18next accepts from outside since 26.7 (the rule of its exported
+  // isSafeLanguageCode): letters, digits, `-`, `_`, `@` and `.` (no `..`), at most 128 characters, not a
+  // prototype key. It is not a BCP 47 check, so `en_US` and `sr@latin` pass. Markup, quotes, spaces,
+  // slashes and `=` do not, so a detected language cannot break out of `<html lang="...">`; the XSS
+  // patterns this replaces missed values like `<b>x</b>` or `" onmouseover="x()`.
+  function isSafeLanguageCode(code) {
+    return typeof code === 'string' && /^[A-Za-z0-9_@.-]{1,128}$/.test(code) && code.indexOf('..') < 0 && ['__proto__', 'constructor', 'prototype'].indexOf(code) < 0;
   }
 
   // eslint-disable-next-line no-control-regex
@@ -411,7 +413,7 @@
           if (lookup) detected = detected.concat(lookup);
         }
       });
-      detected = detected.filter(d => d !== undefined && d !== null && !hasXSS(d)).map(d => this.options.convertDetectedLanguage(d));
+      detected = detected.filter(d => isSafeLanguageCode(d)).map(d => this.options.convertDetectedLanguage(d));
       if (this.services && this.services.languageUtils && this.services.languageUtils.getBestMatchFromCodes) return detected; // new i18next v19.5.0
       return detected.length > 0 ? detected[0] : null; // a little backward compatibility
     }
