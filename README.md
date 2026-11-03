@@ -169,8 +169,6 @@ Don't forget: You have to add the name of your detector (`myDetectorsName` in th
 
 Needing a translation management? Want to edit your translations with an InContext Editor? Use the orginal provided to you by the maintainers of i18next!
 
-![locize](https://www.locize.com/img/ads/github_locize.png)
-
 With using [locize](https://www.locize.com/?utm_source=i18next_browser_languagedetector_readme&utm_medium=github&utm_campaign=readme) you directly support the future of i18next and react-i18next.
 
 ---
