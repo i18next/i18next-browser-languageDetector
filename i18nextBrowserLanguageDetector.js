@@ -19,6 +19,16 @@
     return obj;
   }
 
+  // A value from the URL or a cookie as written by `encodeURIComponent` or `URLSearchParams`
+  // (`sr%40latin` → `sr@latin`); a value that is not valid percent-encoding stays as it is.
+  function decode(value) {
+    try {
+      return decodeURIComponent(value);
+    } catch (e) {
+      return value;
+    }
+  }
+
   // The shape of a language code that i18next accepts from outside since 26.7 (the rule of its exported
   // isSafeLanguageCode): letters, digits, `-`, `_`, `@` and `.` (no `..`), at most 128 characters, not a
   // prototype key. It is not a BCP 47 check, so `en_US` and `sr@latin` pass. Markup, quotes, spaces,
@@ -101,7 +111,7 @@
       for (let i = 0; i < ca.length; i++) {
         let c = ca[i];
         while (c.charAt(0) === ' ') c = c.substring(1, c.length);
-        if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+        if (c.indexOf(nameEQ) === 0) return decode(c.substring(nameEQ.length, c.length));
       }
       return null;
     },
@@ -154,7 +164,7 @@
           if (pos > 0) {
             const key = params[i].substring(0, pos);
             if (key === lookupQuerystring) {
-              found = params[i].substring(pos + 1);
+              found = decode(params[i].substring(pos + 1));
             }
           }
         }
@@ -184,7 +194,7 @@
               if (pos > 0) {
                 const key = params[i].substring(0, pos);
                 if (key === lookupHash) {
-                  found = params[i].substring(pos + 1);
+                  found = decode(params[i].substring(pos + 1));
                 }
               }
             }
