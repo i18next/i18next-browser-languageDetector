@@ -1,3 +1,8 @@
+### 8.3.1
+
+- fix: the cookie detector decodes the value it reads, so a language cached with an `@` (like `sr@latin`, stored as `sr%40latin`) is detected again on the next load instead of being dropped by the language code check. Thanks @SudeepGowda55 [330](https://github.com/i18next/i18next-browser-languageDetector/pull/330)
+- fix: the `querystring` and `hash` detectors decode the value too, so `?lng=sr%40latin` (what `URLSearchParams` and `encodeURIComponent` write) is detected as `sr@latin`. A value that is not valid percent-encoding is still skipped.
+
 ### 8.3.0
 
 - security: a detected language must now have the shape i18next 26.7 accepts for a language code from outside (its `isSafeLanguageCode`): letters, digits, `-`, `_`, `@` and `.` (no `..`), at most 128 characters. It replaces the list of XSS patterns, which missed values like `<b>x</b>` or `" onmouseover="x()` from the query string, a cookie or storage, which then became the language; apps put it into `<html lang="...">`. Compatibility note: a value with other characters (spaces, slashes, quotes) is now skipped and the next detector is used; codes like `en_US`, `zh_Hant_TW` or `sr@latin` still pass, and i18next 27 refuses such codes from outside as well.
