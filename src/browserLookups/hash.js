@@ -1,3 +1,5 @@
+import { decode } from '../utils.js';
+
 export default {
   name: 'hash',
 
@@ -16,7 +18,7 @@ export default {
             if (pos > 0) {
               const key = params[i].substring(0, pos);
               if (key === lookupHash) {
-                found = params[i].substring(pos + 1);
+                found = decode(params[i].substring(pos + 1));
               }
             }
           }

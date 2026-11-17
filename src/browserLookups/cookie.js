@@ -1,3 +1,5 @@
+import { decode } from '../utils.js';
+
 // eslint-disable-next-line no-control-regex
 const fieldContentRegExp = /^[\u0009\u0020-\u007e\u0080-\u00ff]+$/;
 
@@ -69,14 +71,7 @@ const cookie = {
     for (let i = 0; i < ca.length; i++) {
       let c = ca[i];
       while (c.charAt(0) === ' ') c = c.substring(1, c.length);
-      if (c.indexOf(nameEQ) === 0) {
-        const value = c.substring(nameEQ.length, c.length);
-        try {
-          return decodeURIComponent(value);
-        } catch (e) {
-          return value;
-        }
-      }
+      if (c.indexOf(nameEQ) === 0) return decode(c.substring(nameEQ.length, c.length));
     }
     return null;
   },

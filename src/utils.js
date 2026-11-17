@@ -22,6 +22,16 @@ export function extend(obj) {
   return obj;
 }
 
+// A value from the URL or a cookie as written by `encodeURIComponent` or `URLSearchParams`
+// (`sr%40latin` → `sr@latin`); a value that is not valid percent-encoding stays as it is.
+export function decode(value) {
+  try {
+    return decodeURIComponent(value);
+  } catch (e) {
+    return value;
+  }
+}
+
 // The shape of a language code that i18next accepts from outside since 26.7 (the rule of its exported
 // isSafeLanguageCode): letters, digits, `-`, `_`, `@` and `.` (no `..`), at most 128 characters, not a
 // prototype key. It is not a BCP 47 check, so `en_US` and `sr@latin` pass. Markup, quotes, spaces,

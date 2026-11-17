@@ -310,4 +310,22 @@ describe('language detector (language code shape)', () => {
     global.document = { cookie: global.document.cookie.split(';')[0] };
     expect(ld.detect()).to.eql(['sr@latin']);
   });
+
+  // `URLSearchParams` and `encodeURIComponent` write `@` as `%40`
+  it('decodes the language in the query string, the fragment and the hash', () => {
+    const ldHash = new LanguageDetector(i18next.services, { order: ['hash'], lookupHash: 'lng' });
+    global.document = { cookie: '' };
+    global.window = { location: { search: '?lng=sr%40latin', hash: '' } };
+    expect(ld.detect()).to.eql(['sr@latin']);
+    global.window = { location: { search: '', hash: '#/x?lng=ca%40valencia' } };
+    expect(ld.detect()).to.eql(['ca@valencia']);
+    global.window = { location: { search: '', hash: '#lng=sr%40latin' } };
+    expect(ldHash.detect()).to.eql(['sr@latin']);
+  });
+
+  it('skips a value that is not valid percent-encoding', () => {
+    global.window = { location: { search: '?lng=%E0%A4%A', hash: '' } };
+    global.document = { cookie: 'i18next=de' };
+    expect(ld.detect()).to.eql(['de']);
+  });
 });

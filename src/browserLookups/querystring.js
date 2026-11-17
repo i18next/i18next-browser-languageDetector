@@ -1,3 +1,5 @@
+import { decode } from '../utils.js';
+
 export default {
   name: 'querystring',
 
@@ -17,7 +19,7 @@ export default {
         if (pos > 0) {
           const key = params[i].substring(0, pos);
           if (key === lookupQuerystring) {
-            found = params[i].substring(pos + 1);
+            found = decode(params[i].substring(pos + 1));
           }
         }
       }
