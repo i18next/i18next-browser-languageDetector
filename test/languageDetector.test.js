@@ -302,4 +302,12 @@ describe('language detector (language code shape)', () => {
     global.document = { cookie: 'i18next=en_US' };
     expect(ld.detect()).to.eql(['sr@latin', 'en_US']);
   });
+
+  it('reads back a language it cached in a cookie', () => {
+    global.window = { location: { search: '', hash: '' } };
+    global.document = {};
+    ld.cacheUserLanguage('sr@latin', ['cookie']);
+    global.document = { cookie: global.document.cookie.split(';')[0] };
+    expect(ld.detect()).to.eql(['sr@latin']);
+  });
 });
