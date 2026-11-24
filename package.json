@@ -52,7 +52,7 @@
     "eslint": "8.53.0",
     "eslint-config-airbnb": "19.0.4",
     "expect.js": "0.3.1",
-    "i18next": "26.0.6",
+    "i18next": "26.3.4",
     "mkdirp": "3.0.1",
     "mocha": "12.0.3",
     "rimraf": "5.0.5",
